@@ -1,0 +1,5 @@
+# Copy to worker/.dev.vars for local `wrangler dev` (never commit real values)
+
+RESEND_API_KEY=
+TURNSTILE_SECRET_KEY=
+CONTACT_EMAIL=info@duurzaammetaalrecycling.nl

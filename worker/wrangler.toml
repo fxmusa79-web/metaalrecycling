@@ -1,0 +1,15 @@
+name = "duurzaammetaalrecycling-api"
+main = "src/index.js"
+compatibility_date = "2025-09-01"
+
+# Deploy separately from Cloudflare Pages (frontend).
+# Bind this Worker to routes such as:
+#   duurzaammetaalrecycling.nl/api/*
+#   www.duurzaammetaalrecycling.nl/api/*
+
+[vars]
+CONTACT_EMAIL = "info@duurzaammetaalrecycling.nl"
+
+# Secrets (set via `wrangler secret put`, never commit):
+# RESEND_API_KEY
+# TURNSTILE_SECRET_KEY
