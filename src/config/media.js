@@ -25,10 +25,9 @@ export const homepageHeroMobile = {
 /** @deprecated use homepageHeroDesktop / homepageHeroMobile */
 export const homepageHero = homepageHeroDesktop
 
-
 /**
- * Subpage photo heroes — real project photos (not AI).
- * Contact / FAQ / werkgebied stay text-oriented.
+ * Subpage photo heroes — real project / facility photos (not AI).
+ * Same PageHero system on every public subpage with a photo top.
  */
 export const subpageHeroes = {
   'metaal-inkoop': {
@@ -47,9 +46,24 @@ export const subpageHeroes = {
     positionMobile: '38% 28%',
   },
   materialen: {
-    src: '/images/transformator-2.jpg',
-    position: '48% 30%',
-    positionMobile: '50% 28%',
+    src: '/images/non-ferro.jpg',
+    position: '42% 48%',
+    positionMobile: '40% 45%',
+  },
+  werkgebied: {
+    src: '/images/hero-nieuw.jpg',
+    position: '62% 42%',
+    positionMobile: '58% 40%',
+  },
+  'over-ons': {
+    src: '/images/snij-branden.jpg',
+    position: '32% 28%',
+    positionMobile: '34% 30%',
+  },
+  contact: {
+    src: '/images/transformator.jpg',
+    position: '58% 42%',
+    positionMobile: '55% 40%',
   },
 }
 
@@ -106,12 +120,66 @@ export const workImages = {
     alt: 'Industriële demontage van een groot metalen component met materiaalscheiding',
     width: 1280,
     height: 1260,
-    /** Focal point: circular ring + copper windings */
     position: '42% 48%',
     positionMobile: '40% 46%',
     orientation: 'square',
     cardAspect: '4 / 5',
     featureAspect: '4 / 3',
+  },
+  ferro: {
+    src: '/images/ferro.jpg',
+    alt: 'Ferro metalen en staal voor recycling',
+    width: 1144,
+    height: 863,
+    position: '48% 42%',
+    positionMobile: '50% 40%',
+    orientation: 'landscape',
+    cardAspect: '5 / 4',
+    featureAspect: '5 / 4',
+  },
+  nonFerro: {
+    src: '/images/non-ferro.jpg',
+    alt: 'Non-ferro metalen voor recycling',
+    width: 1120,
+    height: 553,
+    position: '38% 55%',
+    positionMobile: '35% 52%',
+    orientation: 'landscape',
+    cardAspect: '16 / 9',
+    featureAspect: '16 / 10',
+  },
+  kabels: {
+    src: '/images/kabels.jpg',
+    alt: 'Kabelpartijen met metaalhoudende leidingen',
+    width: 591,
+    height: 1280,
+    position: 'center 42%',
+    positionMobile: 'center 40%',
+    orientation: 'portrait',
+    cardAspect: '4 / 5',
+    featureAspect: '3 / 4',
+  },
+  motoren: {
+    src: '/images/motoren.jpg',
+    alt: 'Elektromotoren en metalen onderdelen',
+    width: 720,
+    height: 1280,
+    position: 'center 38%',
+    positionMobile: 'center 36%',
+    orientation: 'portrait',
+    cardAspect: '4 / 5',
+    featureAspect: '3 / 4',
+  },
+  machines: {
+    src: '/images/machines.jpg',
+    alt: 'Industriële machines en metalen onderdelen',
+    width: 1080,
+    height: 651,
+    position: '58% 48%',
+    positionMobile: '55% 45%',
+    orientation: 'landscape',
+    cardAspect: '5 / 3',
+    featureAspect: '16 / 10',
   },
 }
 

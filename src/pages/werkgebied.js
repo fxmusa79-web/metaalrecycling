@@ -3,6 +3,9 @@ import { mountPage } from '../js/page.js'
 import { site, mapsHref, phoneHref } from '../config/site.js'
 import { icons } from '../components/icons.js'
 import { PageHero, BandCta } from '../components/page-sections.js'
+import { subpageHeroes } from '../config/media.js'
+
+const heroBg = subpageHeroes.werkgebied
 
 const highlights = [
   { title: 'Heel Groningen', text: 'Particulier en zakelijk in de provincie.' },
@@ -19,11 +22,14 @@ mountPage({
   content: `
     ${PageHero({
       label: 'Werkgebied',
-      title: 'Werkgebied Groningen en daarbuiten',
-      text: 'Vanuit Foxhol werken we in heel Groningen voor particulieren en bedrijven. Ook opdrachten buiten Groningen zijn mogelijk. Afhankelijk van de locatie en werkzaamheden kunnen voorrijkosten gelden. Deze bespreken we vooraf.',
+      title: 'Heel Groningen — en daarbuiten',
+      text: 'Wij werken in heel Groningen voor particulieren en bedrijven. Ook buiten Groningen kunnen wij werkzaamheden uitvoeren, afhankelijk van locatie en opdracht. Voor opdrachten buiten Groningen kunnen voorrijkosten gelden. Deze bespreken we vooraf.',
+      backgroundImage: heroBg.src,
+      backgroundPosition: heroBg.position,
+      backgroundPositionMobile: heroBg.positionMobile,
       primaryCta: {
         href: '#locatie-checker',
-        label: 'Locatie meesturen',
+        label: 'Locatie bespreken',
       },
       secondaryCta: {
         href: phoneHref(),

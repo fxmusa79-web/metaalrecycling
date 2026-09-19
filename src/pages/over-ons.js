@@ -5,6 +5,9 @@ import { icons } from '../components/icons.js'
 import { PageHero, ProcessLine, BandCta } from '../components/page-sections.js'
 import { WorkPhoto } from '../components/media.js'
 import { RecycleMotif } from '../components/recycle-motif.js'
+import { subpageHeroes } from '../config/media.js'
+
+const heroBg = subpageHeroes['over-ons']
 
 const values = [
   {
@@ -71,10 +74,13 @@ mountPage({
     ${PageHero({
       label: 'Over ons',
       title: 'Praktisch in metaal recycling',
-      text: 'Vanuit Foxhol verzorgen we metaal inkoop, recycling, demontage en het scheiden van materialen — voor particulieren en bedrijven in Groningen en daarbuiten.',
+      text: 'Vanuit Foxhol verzorgen we metaal inkoop, recycling, demontage en materiaalscheiding voor particulieren en bedrijven.',
+      backgroundImage: heroBg.src,
+      backgroundPosition: heroBg.position,
+      backgroundPositionMobile: heroBg.positionMobile,
       primaryCta: {
         href: '/contact.html',
-        label: 'Bespreek uw aanvraag',
+        label: 'Contact',
       },
       secondaryCta: {
         href: '/#aanvraag',

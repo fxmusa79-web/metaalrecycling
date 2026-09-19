@@ -4,6 +4,9 @@ import { phoneHref } from '../config/site.js'
 import { ContactInfo, ContactForm } from '../components/contact.js'
 import { initContactForm } from '../js/contact-form.js'
 import { PageHero } from '../components/page-sections.js'
+import { subpageHeroes } from '../config/media.js'
+
+const heroBg = subpageHeroes.contact
 
 mountPage({
   pageId: 'contact',
@@ -14,7 +17,10 @@ mountPage({
     ${PageHero({
       label: 'Contact',
       title: 'Neem contact op',
-      text: 'Bel, mail of stuur een verzoek met foto’s. Ook andere recycling- en demontageverzoeken beoordelen wij.',
+      text: 'Bel, mail of stuur een aanvraag met foto’s. Ook recycling-, demontage- en materiaalverzoeken beoordelen we graag.',
+      backgroundImage: heroBg.src,
+      backgroundPosition: heroBg.position,
+      backgroundPositionMobile: heroBg.positionMobile,
       primaryCta: {
         href: '#contact-form',
         label: 'Stuur aanvraag',

@@ -7,43 +7,46 @@ import { subpageHeroes } from '../config/media.js'
 
 const heroBg = subpageHeroes['metaal-inkoop']
 
-const categories = [
-  {
-    id: 'nonferro',
-    title: 'Non-ferro',
-    size: 'large',
-    items: ['Koper', 'Aluminium', 'RVS', 'Messing', 'Lood', 'Zink'],
-  },
+const offerCategories = [
   {
     id: 'ferro',
-    title: 'Ferro',
-    size: 'medium',
+    imageKey: 'ferro',
+    title: 'Ferro metalen',
+    text: 'Staal, ijzer en constructiemateriaal uit onder andere frames, machines en installaties.',
     items: ['Staal', 'IJzer', 'Constructiestaal', 'Gemengd ferro'],
+    aspect: '5 / 4',
+  },
+  {
+    id: 'nonferro',
+    imageKey: 'nonFerro',
+    title: 'Non-ferro metalen',
+    text: 'Koper, aluminium, RVS, messing, lood en zink worden beoordeeld op soort en kwaliteit.',
+    items: ['Koper', 'Aluminium', 'RVS', 'Messing', 'Lood', 'Zink'],
+    aspect: '16 / 10',
   },
   {
     id: 'kabels',
+    imageKey: 'kabels',
     title: 'Kabels',
-    size: 'medium',
-    items: ['Koperkabel', 'Aluminiumkabel', 'Kabelpartijen'],
-    image: 'kabel',
+    text: 'Kabelpartijen en elektrische leidingen met terugwinbare metalen.',
+    items: ['Koperkabel', 'Aluminiumkabel', 'Gemengde kabelpartijen'],
+    aspect: '4 / 5',
+  },
+  {
+    id: 'motoren',
+    imageKey: 'motoren',
+    title: 'Elektromotoren',
+    text: 'Elektromotoren en elektrische onderdelen met metaalhoudende componenten.',
+    items: ['Elektromotoren', 'Motoronderdelen', 'Elektrische componenten'],
+    aspect: '4 / 5',
   },
   {
     id: 'machines',
-    title: 'Machines',
-    size: 'medium',
-    items: ['Industriële machines', 'Machineonderdelen', 'Frames'],
-  },
-  {
-    id: 'trafos',
-    title: 'Transformatoren',
-    size: 'medium',
-    items: ['Transformatoren', 'Trafo-onderdelen', 'Aansluitmateriaal'],
-  },
-  {
-    id: 'gemengd',
-    title: 'Gemengde partijen',
-    size: 'large',
-    items: ['Gemengd metaal', 'Productieresten', 'Speciale objecten'],
+    imageKey: 'machines',
+    title: 'Machines &amp; installaties',
+    text: 'Complete machines of onderdelen die kunnen worden gedemonteerd en gescheiden.',
+    items: ['Industriële machines', 'Machineonderdelen', 'Frames', 'Installaties'],
+    aspect: '16 / 10',
   },
 ]
 
@@ -51,12 +54,12 @@ mountPage({
   pageId: 'metaal-inkoop',
   title: 'Metaal Verkopen & Metaal Inkoop Groningen | Duurzaam Metaal Recycling',
   description:
-    'Metaal verkopen als particulier of bedrijf? Ferro- en non-ferro, kabels, machines en transformatoren. Foto’s helpen bij de eerste beoordeling.',
+    'Metaal verkopen als particulier of bedrijf? Ferro- en non-ferro, kabels, motoren en machines. Foto’s helpen bij de eerste beoordeling.',
   content: `
     ${PageHero({
       label: 'Metaal inkoop',
       title: 'Metaal verkopen',
-      text: 'Particulieren en bedrijven kunnen ferro- en non-ferrometalen, kabels, machines en transformatoren aanbieden. Niet alles wordt automatisch aangenomen — stuur foto’s mee voor een eerste beoordeling.',
+      text: 'Particulieren en bedrijven kunnen ferro- en non-ferrometalen, kabels, motoren en machines aanbieden. Niet alles wordt automatisch aangenomen — stuur foto’s mee voor een eerste beoordeling.',
       backgroundImage: heroBg.src,
       backgroundPosition: heroBg.position,
       backgroundPositionMobile: heroBg.positionMobile,
@@ -73,30 +76,32 @@ mountPage({
     <section class="section inkoop-cats" id="metalen">
       <div class="container">
         <div class="inkoop-cats__intro">
-          <h2>Welke metalen kopen wij in?</h2>
+          <h2>Wat kunt u aanbieden?</h2>
           <p>
             Voorbeelden ter illustratie — geen volledige lijst.
             Andere partijen? Neem contact op.
           </p>
         </div>
 
-        <div class="inkoop-matrix">
-          ${categories
+        <div class="inkoop-visual">
+          ${offerCategories
             .map(
-              (cat) => `
-            <article class="inkoop-block inkoop-block--${cat.size} inkoop-block--${cat.id}">
-              ${
-                cat.image
-                  ? `<div class="inkoop-block__media">${WorkPhoto({
-                      imageKey: cat.image,
-                      sizes: '(max-width: 900px) 100vw, 40vw',
-                      aspect: '4 / 5',
-                    })}</div>`
-                  : ''
-              }
-              <div class="inkoop-block__body">
+              (cat, index) => `
+            <article
+              class="inkoop-offer inkoop-offer--${cat.id}${index % 2 === 1 ? ' inkoop-offer--reverse' : ''}"
+              id="inkoop-${cat.id}"
+            >
+              <div class="inkoop-offer__media">
+                ${WorkPhoto({
+                  imageKey: cat.imageKey,
+                  aspect: cat.aspect,
+                  sizes: '(max-width: 899px) 100vw, 44vw',
+                })}
+              </div>
+              <div class="inkoop-offer__body">
                 <h3>${cat.title}</h3>
-                <ul>
+                <p>${cat.text}</p>
+                <ul class="inkoop-offer__items">
                   ${cat.items.map((item) => `<li>${item}</li>`).join('')}
                 </ul>
               </div>
@@ -148,7 +153,7 @@ mountPage({
     </section>
 
     ${BandCta({
-      title: 'Partij Metaal verkopen?',
+      title: 'Partij metaal verkopen?',
       text: 'Stuur een korte omschrijving en eventueel foto’s.',
       primaryCta: {
         href: '/contact.html?type=Metaal%20verkopen',
