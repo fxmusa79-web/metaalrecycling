@@ -10,6 +10,7 @@ import { WorkPractice } from './components/work-practice.js'
 import { RecyclingTimeline } from './components/timeline.js'
 import { Audiences } from './components/audiences.js'
 import { WorkArea } from './components/work-area.js'
+import { GoogleTrust } from './components/google-trust.js'
 import { FaqPreview } from './components/faq.js'
 import { RequestSelector } from './components/request-selector.js'
 import { CTASection } from './components/contact.js'
@@ -48,6 +49,7 @@ document.querySelector('#app').innerHTML = `
     ${RecyclingTimeline()}
     ${Audiences()}
     ${WorkArea()}
+    ${GoogleTrust()}
     ${FaqPreview()}
     ${RequestSelector()}
     ${CTASection()}
@@ -79,6 +81,7 @@ schema.textContent = JSON.stringify({
     name: 'Groningen',
   },
   description: site.description,
+  sameAs: [site.googleProfileUrl],
 })
 document.head.appendChild(schema)
 

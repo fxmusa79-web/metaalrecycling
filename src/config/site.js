@@ -38,6 +38,10 @@ export const site = {
   },
 
   whatsappUrl: 'https://wa.me/message/WXTFMZ757WGGH1',
+
+  /** Google Business Profile — use exact URLs only; never invent ratings or quotes */
+  googleProfileUrl: 'https://share.google/uJ9ih4xQdVyijOdJL',
+  googleReviewUrl: 'https://g.page/r/CeXJsD5B9lRnEBM/review',
 }
 
 /**

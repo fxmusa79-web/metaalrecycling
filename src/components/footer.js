@@ -7,6 +7,7 @@ import {
   mapsHref,
 } from '../config/site.js'
 import { icons } from './icons.js'
+import { FooterGoogleLinks } from './google-trust.js'
 
 export function Footer() {
   const year = new Date().getFullYear()
@@ -75,6 +76,7 @@ export function Footer() {
                 <a href="${emailHref()}">${icons.mail}<span>${emailLabel()}</span></a>
               </li>
             </ul>
+            ${FooterGoogleLinks()}
           </div>
         </div>
       </div>
