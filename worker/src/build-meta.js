@@ -3,6 +3,6 @@
  * Overwritten by scripts/write-build-meta.mjs
  */
 export const BUILD = {
-  commit: "c4205e5",
-  builtAt: "2026-09-19T21:25:27.165Z",
+  commit: "2c7202e",
+  builtAt: "2026-09-19T21:25:40.299Z",
 }
