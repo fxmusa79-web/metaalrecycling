@@ -187,14 +187,23 @@ export default {
   async fetch(request, env) {
     const url = new URL(request.url)
 
+    // Non-API traffic should be served by Workers Static Assets.
+    // Defensive fallback if this Worker is invoked outside /api/*.
+    if (!url.pathname.startsWith('/api/')) {
+      if (env.ASSETS) {
+        return env.ASSETS.fetch(request)
+      }
+      return json({ ok: false, error: 'Not found' }, 404)
+    }
+
     if (request.method === 'OPTIONS') {
       return new Response(null, { status: 204, headers: CORS_HEADERS })
     }
 
-    if (request.method === 'GET' && (url.pathname === '/' || url.pathname === '/api/health')) {
+    if (request.method === 'GET' && url.pathname === '/api/health') {
       return json({
         ok: true,
-        service: 'duurzaammetaalrecycling-api',
+        service: 'duurzaammetaalrecycling',
         routes: ['POST /api/contact', 'POST /api/request'],
       })
     }

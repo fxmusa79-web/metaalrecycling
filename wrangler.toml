@@ -1,0 +1,34 @@
+# Production Worker: static site (dist) + API under /api/*
+# Domain must be in the same Cloudflare account used for deploy.
+
+name = "metaalrecycling"
+main = "worker/src/index.js"
+compatibility_date = "2025-09-01"
+workers_dev = true
+
+[[routes]]
+pattern = "duurzaammetaalrecycling.nl"
+custom_domain = true
+
+[[routes]]
+pattern = "www.duurzaammetaalrecycling.nl"
+custom_domain = true
+
+[assets]
+directory = "./dist"
+binding = "ASSETS"
+# Multi-page Vite site — do NOT use SPA fallback
+not_found_handling = "none"
+# Default html_handling serves / → index.html and clean paths for *.html
+# Only invoke the Worker for API routes; everything else is static assets
+run_worker_first = ["/api/*"]
+
+[vars]
+CONTACT_EMAIL = "info@duurzaammetaalrecycling.nl"
+
+# Secrets (set via `npx wrangler secret put`, never commit):
+# RESEND_API_KEY
+# TURNSTILE_SECRET_KEY
+
+[observability]
+enabled = true

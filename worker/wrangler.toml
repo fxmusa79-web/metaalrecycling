@@ -1,11 +1,9 @@
+# API-only config kept for local `cd worker && wrangler dev`.
+# Production deploy uses the root wrangler.toml (static assets + /api/*).
+
 name = "duurzaammetaalrecycling-api"
 main = "src/index.js"
 compatibility_date = "2025-09-01"
-
-# Deploy separately from Cloudflare Pages (frontend).
-# Bind this Worker to routes such as:
-#   duurzaammetaalrecycling.nl/api/*
-#   www.duurzaammetaalrecycling.nl/api/*
 
 [vars]
 CONTACT_EMAIL = "info@duurzaammetaalrecycling.nl"
