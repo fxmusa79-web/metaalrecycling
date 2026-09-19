@@ -24,6 +24,11 @@ import { initProcessCycle } from './js/process-cycle.js'
 import { initConsentApi } from './js/consent.js'
 import { site, applyHeaderLogoVariant } from './config/site.js'
 
+if (import.meta.env.PROD) {
+  // Lightweight deploy fingerprint — not shown in UI
+  console.info('[DMR]', typeof __DMR_BUILD__ !== 'undefined' ? __DMR_BUILD__ : {})
+}
+
 document.title =
   'Metaal Inkoop, Recycling & Demontage Groningen | Duurzaam Metaal Recycling'
 

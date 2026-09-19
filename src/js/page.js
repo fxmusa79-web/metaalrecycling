@@ -9,6 +9,10 @@ import { initAnimations } from './animations.js'
 import { initConsentApi } from './consent.js'
 import { initWorkArea } from './work-area.js'
 
+if (import.meta.env.PROD) {
+  console.info('[DMR]', typeof __DMR_BUILD__ !== 'undefined' ? __DMR_BUILD__ : {})
+}
+
 export function mountPage({ pageId, title, description, content }) {
   document.title = title
   document.body.classList.add('page-sub', `page-${pageId}`)

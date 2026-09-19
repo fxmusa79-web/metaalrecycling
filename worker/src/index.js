@@ -5,6 +5,8 @@
  * Secrets (wrangler secret put): RESEND_API_KEY, TURNSTILE_SECRET_KEY
  */
 
+import { BUILD } from './build-meta.js'
+
 const CORS_HEADERS = {
   'Access-Control-Allow-Origin': 'https://duurzaammetaalrecycling.nl',
   'Access-Control-Allow-Methods': 'POST, OPTIONS',
@@ -231,6 +233,63 @@ async function handleContact(request, env) {
   return json({ ok: true, message: 'Aanvraag ontvangen.' })
 }
 
+/**
+ * Apply cache + build headers to static asset responses.
+ * HTML: revalidate. Hashed /assets/*: immutable. Images: short cache + revalidate.
+ */
+function withCacheHeaders(request, response) {
+  const url = new URL(request.url)
+  const path = url.pathname
+  const headers = new Headers(response.headers)
+  const contentType = (headers.get('Content-Type') || '').toLowerCase()
+
+  headers.set('X-DMR-Build', BUILD.commit)
+  headers.set('X-DMR-Built-At', BUILD.builtAt)
+
+  const isHtml =
+    contentType.includes('text/html') ||
+    path.endsWith('.html') ||
+    path === '/' ||
+    (!path.includes('.') && !path.startsWith('/api/'))
+
+  const isHashedAsset =
+    path.startsWith('/assets/') &&
+    /-[A-Za-z0-9_-]{6,}\.(js|css|woff2?|ttf|otf)$/i.test(path)
+
+  const isMutableImage =
+    /\.(jpe?g|png|webp|gif|svg|ico|avif)$/i.test(path) && !isHashedAsset
+
+  const isMeta =
+    path === '/robots.txt' ||
+    path === '/sitemap.xml' ||
+    path === '/_headers' ||
+    path === '/favicon.png'
+
+  if (isHtml || isMeta) {
+    headers.set('Cache-Control', 'no-cache, must-revalidate')
+    headers.set('CDN-Cache-Control', 'no-cache')
+  } else if (isHashedAsset) {
+    headers.set('Cache-Control', 'public, max-age=31536000, immutable')
+  } else if (isMutableImage) {
+    // Stable filenames that may be replaced — allow revalidation
+    headers.set('Cache-Control', 'public, max-age=86400, must-revalidate')
+  }
+
+  return new Response(response.body, {
+    status: response.status,
+    statusText: response.statusText,
+    headers,
+  })
+}
+
+async function serveStatic(request, env) {
+  if (!env.ASSETS) {
+    return json({ ok: false, error: 'Not found' }, 404)
+  }
+  const response = await env.ASSETS.fetch(request)
+  return withCacheHeaders(request, response)
+}
+
 export default {
   async fetch(request, env) {
     const url = new URL(request.url)
@@ -246,21 +305,24 @@ export default {
     }
 
     if (!url.pathname.startsWith('/api/')) {
-      if (env.ASSETS) {
-        return env.ASSETS.fetch(request)
-      }
-      return json({ ok: false, error: 'Not found' }, 404)
+      return serveStatic(request, env)
     }
 
     if (request.method === 'OPTIONS') {
       return new Response(null, { status: 204, headers: CORS_HEADERS })
     }
 
-    if (request.method === 'GET' && url.pathname === '/api/health') {
+    if (
+      request.method === 'GET' &&
+      (url.pathname === '/api/health' || url.pathname === '/api/version')
+    ) {
       return json({
         ok: true,
         service: 'duurzaammetaalrecycling',
-        routes: ['POST /api/contact'],
+        worker: 'metaalrecycling',
+        commit: BUILD.commit,
+        builtAt: BUILD.builtAt,
+        routes: ['POST /api/contact', 'GET /api/version'],
         emailConfigured: Boolean(env.RESEND_API_KEY),
         turnstileConfigured: Boolean(env.TURNSTILE_SECRET_KEY),
       })
