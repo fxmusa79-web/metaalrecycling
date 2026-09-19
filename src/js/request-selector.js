@@ -1,8 +1,10 @@
 import {
+  apiErrorMessage,
+  filesToAttachments,
   mountTurnstile,
-  photosMetadata,
   submitContact,
   validateEmail,
+  validatePhotos,
 } from './contact-api.js'
 import { getSelectedPhotos, initPhotoUploads } from './photos.js'
 import {
@@ -215,6 +217,7 @@ export function initRequestSelector() {
 
   form.addEventListener('submit', async (event) => {
     event.preventDefault()
+    if (submitBtn?.disabled && submitBtn?.getAttribute('aria-busy') === 'true') return
     showError('')
 
     if (!kind) {
@@ -248,26 +251,39 @@ export function initRequestSelector() {
     }
 
     const photos = getSelectedPhotos(form)
+    const photoCheck = validatePhotos(photos)
+    if (!photoCheck.ok) {
+      showError(photoCheck.message)
+      return
+    }
+
     const requestType = TYPE_LABELS[kind] || kind
     const description = buildDescription(kind, panel)
     const location = getLocation(panel)
 
-    const payload = {
-      name,
-      company,
-      phone,
-      email,
-      requestType,
-      location,
-      description,
-      photosMetadata: photosMetadata(photos),
-      photoCount: photos.length,
-      turnstileToken: getTurnstileToken(),
+    const originalLabel = submitBtn?.textContent || 'Verstuur aanvraag'
+    if (submitBtn) {
+      submitBtn.disabled = true
+      submitBtn.setAttribute('aria-busy', 'true')
+      submitBtn.textContent = 'Verzenden…'
     }
 
-    if (submitBtn) submitBtn.disabled = true
-
     try {
+      const photoAttachments = await filesToAttachments(photos)
+      const payload = {
+        name,
+        company,
+        phone,
+        email,
+        requestType,
+        location,
+        description,
+        photos: photoAttachments,
+        photoCount: photos.length,
+        sourcePage: window.location.href,
+        turnstileToken: getTurnstileToken(),
+      }
+
       const { ok, status, data } = await submitContact(payload)
 
       if (ok) {
@@ -281,21 +297,27 @@ export function initRequestSelector() {
         return
       }
 
-      if (status === 503) {
-        showError(
-          data.error ||
-            'De e-mailservice is nog niet geconfigureerd. Mail ons via info@duurzaammetaalrecycling.nl of bel ons.'
+      showError(
+        apiErrorMessage(
+          data,
+          status === 503
+            ? 'De e-mailservice is nog niet geconfigureerd. Mail ons via info@duurzaammetaalrecycling.nl of bel ons.'
+            : 'Verzenden mislukt. Probeer opnieuw of bel ons.'
         )
-        return
-      }
-
-      showError(data.error || 'Verzenden mislukt. Probeer opnieuw of bel ons.')
+      )
     } catch {
       showError(
         'Verbinding mislukt. Controleer uw internetverbinding of mail ons via info@duurzaammetaalrecycling.nl.'
       )
     } finally {
-      if (submitBtn) submitBtn.disabled = false
+      if (submitBtn && success?.hidden !== false) {
+        // only restore if success not shown — success hides the form steps
+      }
+      if (submitBtn && (success?.hidden ?? true)) {
+        submitBtn.disabled = false
+        submitBtn.setAttribute('aria-busy', 'false')
+        submitBtn.textContent = originalLabel
+      }
     }
   })
 

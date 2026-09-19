@@ -3,3 +3,4 @@
 RESEND_API_KEY=
 TURNSTILE_SECRET_KEY=
 CONTACT_EMAIL=info@duurzaammetaalrecycling.nl
+RESEND_FROM_EMAIL=Duurzaam Metaal Recycling <website@duurzaammetaalrecycling.nl>

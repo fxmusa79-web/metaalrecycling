@@ -1,10 +1,12 @@
 import {
+  apiErrorMessage,
+  filesToAttachments,
   mountTurnstile,
-  photosMetadata,
   submitContact,
   SUCCESS_TEXT,
   SUCCESS_TITLE,
   validateEmail,
+  validatePhotos,
 } from './contact-api.js'
 import { getSelectedPhotos, initPhotoUploads } from './photos.js'
 import { getStoredProjectLocation } from './work-area.js'
@@ -13,6 +15,15 @@ function showError(el, message) {
   if (!el) return
   el.hidden = !message
   el.textContent = message || ''
+}
+
+function setSubmitting(btn, busy) {
+  if (!btn) return
+  btn.disabled = busy
+  btn.setAttribute('aria-busy', busy ? 'true' : 'false')
+  const label = btn.querySelector('span') || btn
+  if (!btn.dataset.label) btn.dataset.label = label.textContent || 'Verstuur aanvraag'
+  label.textContent = busy ? 'Verzenden…' : btn.dataset.label
 }
 
 export function initContactForm() {
@@ -52,8 +63,12 @@ export function initContactForm() {
   typeSelect?.addEventListener('change', syncOther)
   syncOther()
 
+  let submitting = false
+
   form.addEventListener('submit', async (event) => {
     event.preventDefault()
+    if (submitting) return
+
     showError(formError, '')
     if (formSuccess) formSuccess.hidden = true
 
@@ -85,30 +100,40 @@ export function initContactForm() {
     setFieldError('message', message ? '' : 'Vul een omschrijving in.')
     setFieldError('privacy', privacy ? '' : 'Bevestig de privacyverklaring.')
 
+    const photos = getSelectedPhotos(form)
+    const photoCheck = validatePhotos(photos)
+    if (!photoCheck.ok) {
+      showError(formError, photoCheck.message)
+      return
+    }
+
     if (!valid) {
       showError(formError, 'Controleer de gemarkeerde velden.')
       return
     }
 
-    const photos = getSelectedPhotos(form)
     const requestType = type === 'Ander verzoek' && other ? `${type}: ${other}` : type
-    const payload = {
-      name,
-      company,
-      phone,
-      email,
-      requestType,
-      location,
-      description: message,
-      photosMetadata: photosMetadata(photos),
-      photoCount: photos.length,
-      turnstileToken: getTurnstileToken() || String(data.get('cf-turnstile-response') || ''),
-    }
-
     const submitBtn = form.querySelector('[type="submit"]')
-    if (submitBtn) submitBtn.disabled = true
+
+    submitting = true
+    setSubmitting(submitBtn, true)
 
     try {
+      const photoAttachments = await filesToAttachments(photos)
+      const payload = {
+        name,
+        company,
+        phone,
+        email,
+        requestType,
+        location,
+        description: message,
+        photos: photoAttachments,
+        photoCount: photos.length,
+        sourcePage: window.location.href,
+        turnstileToken: getTurnstileToken() || String(data.get('cf-turnstile-response') || ''),
+      }
+
       const { ok, status, data: resData } = await submitContact(payload)
 
       if (ok) {
@@ -128,23 +153,23 @@ export function initContactForm() {
         return
       }
 
-      if (status === 503) {
-        showError(
-          formError,
-          resData.error ||
-            'De e-mailservice is nog niet geconfigureerd. Mail ons via info@duurzaammetaalrecycling.nl of bel ons.'
+      showError(
+        formError,
+        apiErrorMessage(
+          resData,
+          status === 503
+            ? 'De e-mailservice is nog niet geconfigureerd. Mail ons via info@duurzaammetaalrecycling.nl of bel ons.'
+            : 'Verzenden mislukt. Probeer opnieuw of bel ons.'
         )
-        return
-      }
-
-      showError(formError, resData.error || 'Verzenden mislukt. Probeer opnieuw of bel ons.')
+      )
     } catch {
       showError(
         formError,
         'Verbinding mislukt. Controleer uw internetverbinding of mail ons via info@duurzaammetaalrecycling.nl.'
       )
     } finally {
-      if (submitBtn && formSuccess?.hidden) submitBtn.disabled = false
+      submitting = false
+      if (submitBtn && formSuccess?.hidden) setSubmitting(submitBtn, false)
     }
   })
 }

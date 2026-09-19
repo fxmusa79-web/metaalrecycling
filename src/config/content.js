@@ -52,7 +52,7 @@ export const services = [
     title: 'Kabels & transformatoren',
     text: 'Kabelpartijen, transformatoren en elektra verwerken. Metalen scheiden we voor recycling.',
     examples: ['Koperkabels', 'Aluminiumkabels', 'Transformatoren', 'Elektromateriaal'],
-    href: '/contact.html?type=Kabels%20%2F%20transformatoren',
+    href: '/contact.html?type=Kabels%20%2F%20transformator',
     cta: 'Metaal aanbieden',
   },
   {

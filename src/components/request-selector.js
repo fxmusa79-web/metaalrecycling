@@ -45,7 +45,7 @@ function photoField(id) {
             class="js-photo-input"
             name="photos"
             type="file"
-            accept="image/*"
+            accept="image/jpeg,image/png,image/webp"
             capture="environment"
             data-max-files="6"
             data-max-mb="5"
@@ -62,7 +62,7 @@ function photoField(id) {
             class="js-photo-input"
             name="photos"
             type="file"
-            accept="image/jpeg,image/png,image/webp,image/heic"
+            accept="image/jpeg,image/png,image/webp"
             multiple
             data-max-files="6"
             data-max-mb="5"

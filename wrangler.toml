@@ -25,10 +25,14 @@ run_worker_first = true
 
 [vars]
 CONTACT_EMAIL = "info@duurzaammetaalrecycling.nl"
+# Verified Resend sender (override with secret if needed)
+RESEND_FROM_EMAIL = "Duurzaam Metaal Recycling <website@duurzaammetaalrecycling.nl>"
 
 # Secrets (set via `npx wrangler secret put`, never commit):
-# RESEND_API_KEY
-# TURNSTILE_SECRET_KEY
+#   npx wrangler secret put RESEND_API_KEY
+#   npx wrangler secret put TURNSTILE_SECRET_KEY
+# Optional override:
+#   npx wrangler secret put RESEND_FROM_EMAIL
 
 [observability]
 enabled = true

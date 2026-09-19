@@ -1,7 +1,16 @@
-/** Photo upload UI — preview, remove, size feedback (no backend upload) */
+/** Photo upload UI — preview, remove, size feedback */
+
+import { ALLOWED_PHOTO_TYPES, MAX_PHOTO_MB, MAX_PHOTOS } from './contact-api.js'
 
 function formatMb(bytes) {
   return (bytes / (1024 * 1024)).toFixed(1)
+}
+
+function isAllowedImage(file) {
+  const type = (file.type || '').toLowerCase()
+  if (!type) return true // some mobile cameras omit MIME; server checks magic bytes
+  if (ALLOWED_PHOTO_TYPES.has(type) || type === 'image/jpg') return true
+  return false
 }
 
 export function initPhotoUploads(root = document) {
@@ -27,8 +36,8 @@ export function initPhotoUploads(root = document) {
     group.preview = preview
     if (feedback) group.feedback = feedback
 
-    const maxFiles = Number(input.dataset.maxFiles || 6)
-    const maxMb = Number(input.dataset.maxMb || 5)
+    const maxFiles = Number(input.dataset.maxFiles || MAX_PHOTOS)
+    const maxMb = Number(input.dataset.maxMb || MAX_PHOTO_MB)
 
     const showFeedback = (message) => {
       if (!group.feedback) return
@@ -58,12 +67,12 @@ export function initPhotoUploads(root = document) {
       let feedbackMsg = ''
 
       for (const file of incoming) {
-        if (!file.type.startsWith('image/') && file.type !== '') {
-          feedbackMsg = `${file.name} is geen afbeelding.`
+        if (!isAllowedImage(file)) {
+          feedbackMsg = `${file.name}: alleen JPG, PNG of WEBP zijn toegestaan.`
           continue
         }
         if (file.size > maxMb * 1024 * 1024) {
-          feedbackMsg = `${file.name} is ${formatMb(file.size)} MB. Maximum is ${maxMb} MB.`
+          feedbackMsg = `${file.name} is ${formatMb(file.size)} MB. Maximum is ${maxMb} MB per foto.`
           continue
         }
         if (next.length >= maxFiles) {
