@@ -44,11 +44,12 @@ export const site = {
  * Header logo variant toggle (reversible).
  *
  * true  → body.header-round-logo  (circular emblem in navbar)
- * false → current wordmark logo (default fallback)
+ * false → standard rectangular PNG header logo (active)
  *
  * Switch here, then rebuild/redeploy. CSS/markup for both styles stay intact.
+ * Round asset (logoRound / rondelogo.png) is kept for easy rollback.
  */
-export const HEADER_ROUND_LOGO = true
+export const HEADER_ROUND_LOGO = false
 
 /** Apply body class for the active header logo variant */
 export function applyHeaderLogoVariant(doc = document) {

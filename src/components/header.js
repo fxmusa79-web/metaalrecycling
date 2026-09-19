@@ -71,13 +71,13 @@ export function TopBar() {
 
 /**
  * Brand mark markup.
- * Both wordmark + round logo ship in the DOM; CSS + body.header-round-logo
- * switches which one is visible. Do not remove either asset.
+ * Standard PNG is the active header logo.
+ * Round emblem stays in the DOM (hidden) for reversible HEADER_ROUND_LOGO toggle.
  */
 function BrandMark({ mobile = false } = {}) {
-  const wordClass = mobile
-    ? 'brand__logo brand__logo--wordmark brand__logo--mobile'
-    : 'brand__logo brand__logo--wordmark'
+  const standardClass = mobile
+    ? 'brand__logo site-logo-standard brand__logo--wordmark brand__logo--mobile'
+    : 'brand__logo site-logo-standard brand__logo--wordmark'
   const roundClass = mobile
     ? 'brand__logo brand__logo--round brand__logo--round-mobile'
     : 'brand__logo brand__logo--round'
@@ -86,20 +86,22 @@ function BrandMark({ mobile = false } = {}) {
   return `
     <a class="${brandClass}" href="/" aria-label="${site.name} — naar home">
       <img
-        class="${wordClass}"
+        class="${standardClass}"
         src="${site.assets.logoHeader}"
         alt="${site.name}"
-        width="480"
-        height="96"
+        width="2172"
+        height="724"
         decoding="async"
       />
+      <!-- Round emblem: inactive unless HEADER_ROUND_LOGO === true -->
       <img
         class="${roundClass}"
         src="${site.assets.logoRound}"
-        alt="${site.name}"
+        alt=""
         width="512"
         height="512"
         decoding="async"
+        aria-hidden="true"
       />
     </a>
   `

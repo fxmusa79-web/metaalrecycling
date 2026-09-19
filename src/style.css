@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap');
 
 :root {
-  /* Brand ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ sampled from logo (#297324) */
+  /* Brand ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ sampled from logo (#297324) */
   --green: #297324;
   --green-dark: #1e5a1b;
   --green-deep: #163f14;
@@ -138,7 +138,7 @@ p {
   height: 1rem;
 }
 
-/* Buttons ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ primary / secondary / text-link */
+/* Buttons ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ primary / secondary / text-link */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -384,7 +384,7 @@ p {
   }
 }
 
-/* Header / navbar ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ light background for readable logo */
+/* Header / navbar ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ light background for readable logo */
 .site-header {
   position: sticky;
   top: 0;
@@ -407,52 +407,65 @@ p {
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  min-height: 4.5rem;
-  padding-block: 0.45rem;
+  min-height: 4.25rem;
+  padding-block: 0.4rem;
   transition:
     min-height 0.25s var(--ease),
     padding-block 0.25s var(--ease);
 }
 
 .site-header.is-stuck .site-header__inner {
-  min-height: 4.1rem;
-  padding-block: 0.3rem;
+  min-height: 3.85rem;
+  padding-block: 0.28rem;
 }
 
 .brand {
   display: inline-flex;
   align-items: center;
   flex-shrink: 0;
+  line-height: 0;
 }
 
-.brand__logo {
-  width: clamp(160px, 46vw, 190px);
-  height: auto;
-  max-height: 3.75rem;
+/* Standard rectangular header PNG — active when HEADER_ROUND_LOGO is false */
+.brand__logo,
+.site-logo-standard {
+  display: block;
+  width: auto;
+  height: 2.5rem; /* 40px mobile */
+  max-width: min(12rem, 54vw);
   object-fit: contain;
   object-position: left center;
-  transition: max-height 0.25s var(--ease), width 0.25s var(--ease);
+  border-radius: 0;
+  box-shadow: none;
+  background: transparent;
+  transition:
+    height 0.25s var(--ease),
+    max-width 0.25s var(--ease);
 }
 
-.site-header.is-stuck .brand__logo {
-  max-height: 3.35rem;
+.site-header.is-stuck .brand__logo,
+.site-header.is-stuck .site-logo-standard {
+  height: 2.3rem;
 }
 
 .brand__logo--mobile {
-  width: clamp(160px, 58vw, 180px);
-  max-height: 3.25rem;
+  height: 2.25rem;
+  max-width: min(11rem, 58vw);
 }
 
 .brand__logo--footer {
   width: clamp(190px, 55vw, 240px);
+  height: auto;
+  max-width: none;
   max-height: none;
   mix-blend-mode: lighten;
 }
 
 /*
- * Round logo header variant (reversible)
- * Toggle: HEADER_ROUND_LOGO in src/config/site.js â body.header-round-logo
- * Round emblem is DESKTOP-ONLY (â¥1180px). Phones/tablets keep the wordmark.
+ * Round logo header variant (INACTIVE by default — reversible)
+ * Toggle: HEADER_ROUND_LOGO in src/config/site.js → body.header-round-logo
+ * Round emblem is DESKTOP-ONLY (≥1180px). Phones/tablets keep the standard PNG.
+ * Asset kept: /images/rondelogo.png — do not delete.
  */
 .brand__logo--round {
   display: none;
@@ -615,17 +628,30 @@ p {
     display: inline-flex;
   }
 
-  .brand__logo {
-    width: 240px;
-    max-height: 4rem;
+  .brand__logo,
+  .site-logo-standard {
+    height: 3.125rem; /* 50px desktop */
+    max-width: 15rem;
+  }
+
+  .site-header.is-stuck .brand__logo,
+  .site-header.is-stuck .site-logo-standard {
+    height: 2.75rem;
   }
 
   .site-header__inner {
-    min-height: 5rem;
+    min-height: 4.65rem;
+    padding-block: 0.45rem;
+    gap: 1.15rem;
+  }
+
+  .site-header.is-stuck .site-header__inner {
+    min-height: 4.15rem;
+    padding-block: 0.3rem;
   }
 }
 
-/* Mobile menu ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ light to match navbar */
+/* Mobile menu ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ light to match navbar */
 .mobile-menu {
   position: fixed;
   inset: 0;
@@ -710,7 +736,7 @@ p {
   justify-content: flex-start;
 }
 
-/* Hero ÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ real company photo */
+/* Hero ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ real company photo */
 .hero {
   position: relative;
   overflow: hidden;
@@ -884,7 +910,7 @@ p {
   }
 }
 
-/* Mobile hero â dedicated portrait photo (hero-telefoon), compact CTAs */
+/* Mobile hero Ã¢ÂÂ dedicated portrait photo (hero-telefoon), compact CTAs */
 @media (max-width: 767.98px) {
   :root {
     --topbar-h: 2.4rem;
@@ -900,25 +926,27 @@ p {
   }
 
   .site-header__inner {
-    min-height: 4.35rem;
-    padding-block: 0.45rem;
+    min-height: 4.1rem;
+    padding-block: 0.4rem;
     gap: 0.75rem;
   }
 
   .site-header.is-stuck .site-header__inner {
-    min-height: 4.1rem;
-    padding-block: 0.35rem;
+    min-height: 3.85rem;
+    padding-block: 0.3rem;
   }
 
   .brand__logo,
+  .site-logo-standard,
   .brand__logo--wordmark {
-    width: clamp(145px, 44vw, 175px);
-    max-height: 2.9rem;
+    height: 2.5rem; /* 40px */
+    max-width: min(12rem, 54vw);
   }
 
   .site-header.is-stuck .brand__logo,
+  .site-header.is-stuck .site-logo-standard,
   .site-header.is-stuck .brand__logo--wordmark {
-    max-height: 2.7rem;
+    height: 2.3rem;
   }
 
   .nav-toggle {
@@ -1066,8 +1094,10 @@ p {
   }
 
   .brand__logo,
+  .site-logo-standard,
   .brand__logo--wordmark {
-    width: clamp(145px, 48vw, 165px);
+    height: 2.35rem;
+    max-width: min(11rem, 56vw);
   }
 
   .hero {
@@ -1157,7 +1187,7 @@ p {
   align-items: center;
 }
 
-/* ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ Homepage visual system ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ */
+/* ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ Homepage visual system ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ */
 .page-home main > .section,
 .page-home main > .services-editorial,
 .page-home main > .material-matrix,
@@ -2455,7 +2485,7 @@ p {
   }
 }
 
-/* ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ Enhancements: categories, request selector, timeline, etc. ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ */
+/* ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ Enhancements: categories, request selector, timeline, etc. ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ */
 .section-note {
   margin: -0.5rem 0 1.5rem;
   max-width: 46rem;
@@ -3993,13 +4023,14 @@ body.has-sticky-bar {
     font-size: 0.78rem;
   }
 
-  .brand__logo {
-    width: clamp(145px, 44vw, 175px);
-    max-height: 2.9rem;
+  .brand__logo,
+  .site-logo-standard {
+    height: 2.5rem;
+    max-width: min(12rem, 54vw);
   }
 
   .site-header__inner {
-    min-height: 4.35rem;
+    min-height: 4.1rem;
   }
 
   .topbar__trust {
@@ -4071,7 +4102,7 @@ body.has-sticky-bar {
   overflow-x: clip;
 }
 
-/* ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ Real work photography ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ */
+/* ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ Real work photography ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ */
 .work-photo {
   position: relative;
   width: 100%;
@@ -4547,7 +4578,7 @@ body.has-sticky-bar {
 
 
 /* =========================================================
-   Homepage redesign ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¯ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¿ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ½ editorial layouts
+   Homepage redesign ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¯ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¿ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ½ editorial layouts
    ========================================================= */
 
 .page-home .section-header--center {
@@ -4676,7 +4707,7 @@ body.has-sticky-bar {
   }
 }
 
-/* Services editorial — featured industrial showcase */
+/* Services editorial â featured industrial showcase */
 .services-editorial {
   color: rgba(255, 255, 255, 0.78);
 }
@@ -5117,7 +5148,7 @@ body.has-sticky-bar {
   }
 }
 
-/* Band CTA ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ aligned with homepage closing CTA */
+/* Band CTA ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ aligned with homepage closing CTA */
 .band-cta {
   padding: clamp(2.25rem, 4.5vw, 3.25rem) 0;
 }
@@ -5937,7 +5968,7 @@ body.has-sticky-bar {
   }
 }
 
-/* ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ Dedicated responsive polish (homepage + subpages) ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ */
+/* ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ Dedicated responsive polish (homepage + subpages) ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ */
 @media (max-width: 700px) {
   .page-sub .section {
     padding-block: var(--section-space);
