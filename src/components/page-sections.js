@@ -30,7 +30,7 @@ function renderCta(cta, { tone = 'light', isPrimary = true } = {}) {
 }
 
 /**
- * Consistent subpage hero — readable content column, shared CTA pattern.
+ * Shared subpage hero — full-bleed background, content in site .container.
  * Optional static photo background from real project photography.
  */
 export function PageHero({
@@ -74,14 +74,16 @@ export function PageHero({
         <div class="page-hero__veil" aria-hidden="true"></div>`
           : ''
       }
-      <div class="container page-hero__grid">
-        <div class="page-hero__copy">
-          ${label ? `<p class="page-hero__label">${label}</p>` : ''}
-          <h1 class="page-hero__title">${title}</h1>
-          ${text ? `<p class="page-hero__text">${text}</p>` : ''}
-          ${actions ? `<div class="page-hero__actions">${actions}</div>` : ''}
+      <div class="container page-hero__inner">
+        <div class="page-hero__grid${mediaHtml ? ' page-hero__grid--split' : ''}">
+          <div class="page-hero__copy">
+            ${label ? `<p class="page-hero__label">${label}</p>` : ''}
+            <h1 class="page-hero__title">${title}</h1>
+            ${text ? `<p class="page-hero__text">${text}</p>` : ''}
+            ${actions ? `<div class="page-hero__actions">${actions}</div>` : ''}
+          </div>
+          ${mediaHtml ? `<div class="page-hero__media">${mediaHtml}</div>` : ''}
         </div>
-        ${mediaHtml ? `<div class="page-hero__media">${mediaHtml}</div>` : ''}
       </div>
     </section>
   `
