@@ -148,7 +148,7 @@ export function initAnimations() {
       stagger: 0.07,
       ease: EASE,
       delay: 0.04,
-      clearProps: 'transform',
+      clearProps: 'transform,opacity',
     })
   }
 
@@ -209,7 +209,7 @@ export function initAnimations() {
   })
 
   // Project / work panels — short stagger (visible by default for no-JS / late triggers)
-  const workGrid = document.querySelector('.work-practice__mosaic')
+  const workGrid = document.querySelector('.work-practice__editorial')
   if (workGrid) {
     gsap.from(workGrid.querySelectorAll('.work-panel'), {
       opacity: 0,

@@ -25,7 +25,7 @@ const categories = [
     title: 'Kabels',
     size: 'medium',
     items: ['Koperkabel', 'Aluminiumkabel', 'Kabelpartijen'],
-    image: 'kabelPremium',
+    image: 'kabel',
   },
   {
     id: 'machines',

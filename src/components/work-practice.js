@@ -4,9 +4,10 @@ function projectPanel(card) {
   const img = workImages[card.image]
   const pos = img.position || 'center center'
   const posMobile = img.positionMobile || pos
+  const size = card.size || 'medium'
 
   return `
-    <a class="work-panel" href="${card.href}" data-work-card data-image="${card.image}">
+    <a class="work-panel work-panel--${size}" href="${card.href}" data-work-card data-image="${card.image}">
       <div
         class="work-panel__media"
         style="--work-pos:${pos}; --work-pos-m:${posMobile}"
@@ -19,7 +20,7 @@ function projectPanel(card) {
           height="${img.height}"
           loading="lazy"
           decoding="async"
-          sizes="(max-width: 699px) 100vw, (max-width: 1023px) 50vw, 25vw"
+          sizes="(max-width: 699px) 100vw, (max-width: 1023px) 50vw, 42vw"
         />
         <span class="work-panel__veil" aria-hidden="true"></span>
         <span class="work-panel__label">${card.title}</span>
@@ -36,7 +37,7 @@ export function WorkPractice() {
           <h2>Werk in de praktijk</h2>
           <p>Enkele voorbeelden van recente werkzaamheden.</p>
         </div>
-        <div class="work-practice__mosaic">
+        <div class="work-practice__editorial">
           ${workPracticeCards.map(projectPanel).join('')}
         </div>
       </div>

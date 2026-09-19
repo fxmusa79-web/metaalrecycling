@@ -8,7 +8,7 @@ import { subpageHeroes } from '../config/media.js'
 const heroBg = subpageHeroes.materialen
 
 const featured = {
-  kabels: 'kabelPremium',
+  kabels: 'kabel',
   trafos: 'transformator',
   machines: 'windmolenRing',
 }

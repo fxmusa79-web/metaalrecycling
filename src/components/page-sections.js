@@ -31,7 +31,7 @@ function renderCta(cta, { tone = 'light', isPrimary = true } = {}) {
 
 /**
  * Consistent subpage hero — left-aligned, controlled height.
- * Optional static photo background from /pictures/heros/.
+ * Optional static photo background from real project photography.
  */
 export function PageHero({
   label = '',

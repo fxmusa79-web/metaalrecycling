@@ -14,7 +14,6 @@ import { initNavigation } from './js/navigation.js'
 import { initFaq } from './js/faq.js'
 import { initStickyBar } from './js/sticky-bar.js'
 import { initAnimations } from './js/animations.js'
-import { initHeroSlideshow } from './js/hero-slideshow.js'
 import { site } from './config/site.js'
 
 document.title =
@@ -71,4 +70,3 @@ initNavigation()
 initFaq()
 initStickyBar()
 initAnimations()
-initHeroSlideshow()

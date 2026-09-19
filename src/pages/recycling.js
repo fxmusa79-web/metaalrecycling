@@ -52,7 +52,7 @@ mountPage({
         </div>
         <div class="editorial-split__media">
           ${WorkPhoto({
-            imageKey: 'kabelPremium',
+            imageKey: 'kabel',
             sizes: '(max-width: 900px) 100vw, 46vw',
             aspect: '4 / 5',
           })}

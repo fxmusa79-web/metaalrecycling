@@ -16,7 +16,7 @@ export function Services() {
         <article class="service-feature">
           <div class="service-feature__media">
             ${WorkPhoto({
-              imageKey: 'demontageSite',
+              imageKey: 'snijBranden',
               sizes: '(max-width: 900px) 100vw, 48vw',
               aspect: '5 / 4',
             })}

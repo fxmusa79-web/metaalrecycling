@@ -1,134 +1,44 @@
 /**
- * Project & facility photography + hero system.
- *
- * ============================================================
- * HERO IMAGE AUDIT — /pictures/heros/ (mirrored in public/images/heros/)
- * ============================================================
- *
- * LANDSCAPE 1672×941 (ar 1.777) — desktop candidates
- * -------------------------------------------------
- * yard-crane.png        DESKTOP  crane right, open left yard — excellent text space
- * cables-yard.png       DESKTOP  cables/grapple right — excellent left negative space
- * facility-bay.png      DESKTOP  misty bay, coils right — clean left sky/floor
- * demolition-site.png   DESKTOP  excavator demontage — strong, left sky for text
- *                        (reserved for services/subpages to avoid homepage repeat)
- * facility-sunset.png   DESKTOP  sunset yard — strong, similar to yard-crane (alt)
- * yard-dusk.png         DESKTOP  dusk yard — near-duplicate of facility-bay (alt/skip)
- *
- * PORTRAIT 941×1672 (ar 0.563) — mobile candidates
- * ------------------------------------------------
- * yard-handler.png      MOBILE   crane + materials, dark sky top — excellent
- * cable-coils.png       MOBILE   copper cable ends lower — excellent (also work mosaic)
- * transformer-yard.png  MOBILE   transformer lower-right — excellent
- * torch-cutting.png     MOBILE   sparks lower-right — excellent demontage
- * steel-bales.png       MOBILE   crane + bales, dark sky — excellent
- * copper-cables.png     MOBILE   transformer + copper — strong (alt to transformer)
- * sorted-materials.png  MOBILE   sorted yard materials — excellent facility
- *
- * Rule: do NOT force landscape images onto mobile or portraits onto desktop.
+ * Real company photography only.
+ * AI-generated /pictures/heros assets are not used on the live site.
  */
 
-/**
- * Homepage hero — desktop / tablet (≥768px). Landscape only.
- * QA-curated (3): subject right, calm left for text; strong overlay where sun is bright.
- */
-export const desktopHeroImages = [
-  {
-    id: 'yard-crane',
-    src: '/images/heros/yard-crane.png',
-    position: '72% 42%',
-    overlay: 'strong',
-    alt: 'Recyclingterrein met kraan en gesorteerd metaal',
-    width: 1672,
-    height: 941,
-  },
-  {
-    id: 'cables-yard',
-    src: '/images/heros/cables-yard.png',
-    position: '78% 40%',
-    overlay: 'strong',
-    alt: 'Kabelpartijen en kraan op het recyclingterrein',
-    width: 1672,
-    height: 941,
-  },
-  {
-    id: 'facility-bay',
-    src: '/images/heros/facility-bay.png',
-    position: '74% 48%',
-    overlay: 'strong',
-    alt: 'Metaalrecyclingfaciliteit met materialen en kraan',
-    width: 1672,
-    height: 941,
-  },
-]
+/** Homepage hero — real yard photo with company vehicles */
+export const homepageHero = {
+  src: '/images/hero-nieuw.jpg',
+  alt: 'Bedrijfsvoertuigen van Duurzaam Metaal Recycling op het terrein',
+  width: 1280,
+  height: 714,
+  /** Desktop: keep green crane truck + white flatbeds visible */
+  position: '58% 48%',
+  /** Mobile: keep green crane truck in frame */
+  positionMobile: '70% 40%',
+}
 
 /**
- * Homepage hero — mobile (<768px). Portrait only.
- * QA-curated (3): dark upper sky for text; busy subjects kept lower.
- * Dropped torch-cutting (busy sparks/scaffolding hurt calm readability).
- */
-export const mobileHeroImages = [
-  {
-    id: 'cable-coils',
-    src: '/images/heros/cable-coils.png',
-    position: '48% 70%',
-    overlay: 'mobile',
-    alt: 'Kabelpartijen en koper op het recyclingterrein',
-    width: 941,
-    height: 1672,
-  },
-  {
-    id: 'sorted-materials',
-    src: '/images/heros/sorted-materials.png',
-    position: '50% 66%',
-    overlay: 'mobile',
-    alt: 'Gesorteerde materialen en faciliteit bij schemering',
-    width: 941,
-    height: 1672,
-  },
-  {
-    id: 'steel-bales',
-    src: '/images/heros/steel-bales.png',
-    position: '52% 68%',
-    overlay: 'mobile',
-    alt: 'Staalbundels en kraan op het recyclingterrein',
-    width: 941,
-    height: 1672,
-  },
-]
-
-/** @deprecated use desktopHeroImages / mobileHeroImages */
-export const heroSlides = desktopHeroImages.map((slide) => ({
-  src: slide.src,
-  position: slide.position,
-  positionMobile: slide.position,
-  alt: slide.alt,
-}))
-
-/**
- * Static subpage hero backgrounds (from /pictures/heros only).
+ * Subpage photo heroes — real project photos (not AI).
  * Contact / FAQ / werkgebied stay text-oriented.
  */
 export const subpageHeroes = {
   'metaal-inkoop': {
-    src: '/images/heros/cables-yard.png',
-    position: '75% 45%',
-    positionMobile: '80% 40%',
+    src: '/images/kabel.jpg',
+    position: 'center 55%',
+    positionMobile: 'center 50%',
   },
   recycling: {
-    src: '/images/heros/facility-bay.png',
-    position: '68% 48%',
-    positionMobile: '72% 42%',
+    src: '/images/transformator.jpg',
+    position: 'center 45%',
+    positionMobile: 'center 40%',
   },
   demontage: {
-    src: '/images/heros/demolition-site.png',
-    position: '70% 40%',
-    positionMobile: '78% 38%',
+    src: '/images/snij-branden.jpg',
+    position: '35% 25%',
+    positionMobile: '38% 28%',
   },
   materialen: {
-    src: '/images/heros/facility-sunset.png',
-    position: '72% 42%',
-    positionMobile: '78% 40%',
+    src: '/images/transformator-2.jpg',
+    position: '48% 30%',
+    positionMobile: '50% 28%',
   },
 }
 
@@ -143,21 +53,10 @@ export const workImages = {
     width: 599,
     height: 1280,
     position: 'center 58%',
+    positionMobile: 'center 52%',
     orientation: 'portrait',
     cardAspect: '4 / 5',
     featureAspect: '3 / 4',
-  },
-  /** Portrait — work mosaic / materialen (not in mobile hero slideshow) */
-  kabelPremium: {
-    src: '/images/heros/copper-cables.png',
-    alt: 'Koperkabels en transformator tijdens demontage',
-    width: 941,
-    height: 1672,
-    position: '58% 55%',
-    positionMobile: '60% 58%',
-    orientation: 'portrait',
-    cardAspect: '4 / 5',
-    featureAspect: '4 / 5',
   },
   snijBranden: {
     src: '/images/snij-branden.jpg',
@@ -202,23 +101,10 @@ export const workImages = {
     cardAspect: '4 / 5',
     featureAspect: '5 / 4',
   },
-  /** Landscape facility shot — homepage services featured only */
-  demontageSite: {
-    src: '/images/heros/demolition-site.png',
-    alt: 'Industriële demontage en sloop op locatie',
-    width: 1672,
-    height: 941,
-    position: '68% 40%',
-    positionMobile: '75% 38%',
-    orientation: 'landscape',
-    cardAspect: '16 / 11',
-    featureAspect: '5 / 4',
-  },
 }
 
 /**
- * Homepage “Werk in de praktijk” — real project photos + one curated cable shot.
- * Avoids repeating active homepage hero slideshow assets where possible.
+ * Homepage “Werk in de praktijk” — three real project photos max.
  */
 export const workPracticeCards = [
   {
@@ -226,23 +112,20 @@ export const workPracticeCards = [
     image: 'snijBranden',
     title: 'Brand- en snijwerk',
     href: '/demontage.html#brand-snijwerk',
+    size: 'large',
   },
   {
     id: 'trafo',
     image: 'transformator2',
     title: 'Transformatoren',
     href: '/demontage.html#installaties',
+    size: 'medium',
   },
   {
     id: 'kabels',
-    image: 'kabelPremium',
+    image: 'kabel',
     title: 'Kabelpartijen',
     href: '/materialen.html#kabels',
-  },
-  {
-    id: 'industrie',
-    image: 'windmolenRing',
-    title: 'Industriële demontage',
-    href: '/demontage.html#industriële-onderdelen',
+    size: 'small',
   },
 ]
