@@ -54,12 +54,12 @@ mountPage({
   pageId: 'metaal-inkoop',
   title: 'Metaal Verkopen & Metaal Inkoop Groningen | Duurzaam Metaal Recycling',
   description:
-    'Metaal verkopen als particulier of bedrijf? Ferro- en non-ferro, kabels, motoren en machines. Foto’s helpen bij de eerste beoordeling.',
+    'Metaal verkopen als particulier of bedrijf? Ferro- en non-ferro, kabels, motoren, machines en transformatoren. Foto’s helpen bij de eerste beoordeling.',
   content: `
     ${PageHero({
       label: 'Metaal inkoop',
       title: 'Metaal verkopen',
-      text: 'Particulieren en bedrijven kunnen ferro- en non-ferrometalen, kabels, motoren en machines aanbieden. Niet alles wordt automatisch aangenomen — stuur foto’s mee voor een eerste beoordeling.',
+      text: 'Particulieren en bedrijven kunnen ferro- en non-ferrometalen, kabels, motoren, machines en transformatoren aanbieden. Niet alles wordt automatisch aangenomen — stuur foto’s mee voor een eerste beoordeling.',
       backgroundImage: heroBg.src,
       backgroundPosition: heroBg.position,
       backgroundPositionMobile: heroBg.positionMobile,
@@ -108,6 +108,42 @@ mountPage({
             </article>`
             )
             .join('')}
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--muted editorial-split" id="transformatoren">
+      <div class="container editorial-split__grid">
+        <div class="editorial-split__media">
+          ${WorkPhoto({
+            imageKey: 'transformator1',
+            aspect: '4 / 5',
+            sizes: '(max-width: 899px) 100vw, 48vw',
+          })}
+        </div>
+        <div class="editorial-split__copy">
+          <p class="section-header__eyebrow">Transformatoren</p>
+          <h2>Transformatoren en metaalhoudende installaties</h2>
+          <p>
+            Ook transformatoren en vergelijkbare metaalhoudende installaties
+            kunnen wij beoordelen. Afhankelijk van type, omvang, bereikbaarheid
+            en materiaalopbouw bekijken we wat mogelijk is voor inkoop,
+            demontage of verdere verwerking.
+          </p>
+          <p>
+            Stuur bij voorkeur foto’s en informatie over de locatie mee voor
+            een eerste beoordeling. Niet elk object wordt automatisch
+            aangenomen.
+          </p>
+          <a
+            class="btn btn--primary btn--sm"
+            href="/contact.html?type=Kabels%20%2F%20transformator"
+          >
+            Transformator aanbieden
+          </a>
+          <a class="text-link" href="/contact.html?type=Kabels%20%2F%20transformator">
+            Vraag beoordeling aan ${icons.arrow}
+          </a>
         </div>
       </div>
     </section>

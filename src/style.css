@@ -7415,3 +7415,43 @@ body.has-sticky-bar {
     max-height: 18rem;
   }
 }
+
+/* Metaal inkoop — transformer editorial */
+#transformatoren.editorial-split .editorial-split__media .work-photo {
+  border-radius: 4px;
+  border: 1px solid var(--line-soft);
+  max-height: 28rem;
+  width: 100%;
+}
+
+#transformatoren .editorial-split__copy .btn {
+  display: inline-flex;
+  margin-top: 0.35rem;
+  margin-right: 1rem;
+  margin-bottom: 0.35rem;
+}
+
+#transformatoren .editorial-split__copy .text-link {
+  display: inline-flex;
+  align-items: center;
+  vertical-align: middle;
+}
+
+@media (min-width: 900px) {
+  #transformatoren .editorial-split__grid {
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+    gap: clamp(2rem, 3.5vw, 3.25rem);
+    align-items: center;
+  }
+
+  #transformatoren.editorial-split .editorial-split__media .work-photo {
+    max-height: 32rem;
+  }
+}
+
+@media (max-width: 899.98px) {
+  #transformatoren.editorial-split .editorial-split__media .work-photo {
+    max-height: 22rem;
+    aspect-ratio: 4 / 5;
+  }
+}

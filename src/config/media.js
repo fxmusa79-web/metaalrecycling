@@ -115,6 +115,18 @@ export const workImages = {
     cardAspect: '4 / 5',
     featureAspect: '3 / 4',
   },
+  transformator1: {
+    src: '/images/transformator1.jpg',
+    alt: 'Transformator en metaalhoudende installatie voor beoordeling',
+    width: 974,
+    height: 1280,
+    /** Keep glove + copper busbars in frame (left/center) */
+    position: '36% 46%',
+    positionMobile: '38% 44%',
+    orientation: 'portrait',
+    cardAspect: '4 / 5',
+    featureAspect: '4 / 5',
+  },
   windmolenRing: {
     src: '/images/windmolen-ring.jpg',
     alt: 'Industriële demontage van een groot metalen component met materiaalscheiding',
