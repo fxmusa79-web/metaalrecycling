@@ -41,13 +41,8 @@ export function Hero() {
             <span class="hero__title-line">laten recyclen</span>
           </h1>
           <p class="hero__lead hero-anim">
-            <span class="hero__lead-full">
-              Wij kopen metalen in van particulieren en bedrijven. Daarnaast verzorgen we
-              demontage, sloop en materiaalscheiding van machines, constructies en installaties.
-            </span>
-            <span class="hero__lead-short">
-              Metaal inkoop, demontage en recycling voor particulier en bedrijf.
-            </span>
+            Wij kopen metalen in van particulieren en bedrijven. Daarnaast verzorgen we
+            demontage, sloop en materiaalscheiding van machines, constructies en installaties.
           </p>
           <p class="hero__sub hero-anim">
             Staat uw materiaal of object er niet tussen? Neem contact op.
@@ -56,7 +51,7 @@ export function Hero() {
           <div class="hero__actions hero-anim">
             ${Button({
               href: '/#aanvraag',
-              label: 'Aanvraag starten',
+              label: 'Metaal aanbieden',
               variant: 'primary',
               size: 'lg',
             })}

@@ -13,8 +13,12 @@ export function initStickyBar() {
       syncBody()
       return
     }
-    const threshold = hero ? hero.offsetHeight * 0.55 : 360
-    bar.hidden = window.scrollY < threshold
+
+    // Hide while hero is still on screen — avoid competing CTAs in the first viewport
+    const heroBottom = hero
+      ? hero.offsetTop + hero.offsetHeight - 24
+      : window.innerHeight
+    bar.hidden = window.scrollY < heroBottom
     syncBody()
   }
 

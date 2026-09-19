@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap');
 
 :root {
-  /* Brand ÃÂÃÂ¢ÃÂÃÂÃÂÃÂ sampled from logo (#297324) */
+  /* Brand ÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ sampled from logo (#297324) */
   --green: #297324;
   --green-dark: #1e5a1b;
   --green-deep: #163f14;
@@ -138,7 +138,7 @@ p {
   height: 1rem;
 }
 
-/* Buttons ÃÂÃÂ¢ÃÂÃÂÃÂÃÂ primary / secondary / text-link */
+/* Buttons ÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ primary / secondary / text-link */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -384,7 +384,7 @@ p {
   }
 }
 
-/* Header / navbar ÃÂÃÂ¢ÃÂÃÂÃÂÃÂ light background for readable logo */
+/* Header / navbar ÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ light background for readable logo */
 .site-header {
   position: sticky;
   top: 0;
@@ -451,97 +451,42 @@ p {
 
 /*
  * Round logo header variant (reversible)
- * Toggle: HEADER_ROUND_LOGO in src/config/site.js
- * → adds/removes body class: header-round-logo
- * Wordmark remains the default when the class is absent.
+ * Toggle: HEADER_ROUND_LOGO in src/config/site.js → body.header-round-logo
+ * Round emblem is DESKTOP-ONLY (≥1180px). Phones/tablets keep the wordmark.
  */
 .brand__logo--round {
   display: none;
 }
 
-body.header-round-logo .brand__logo--wordmark {
-  display: none;
-}
-
-body.header-round-logo .brand__logo--round {
-  display: block;
-  width: 3.35rem;
-  height: 3.35rem;
-  max-height: none;
-  object-fit: contain;
-  object-position: center;
-  border-radius: 50%;
-  background: var(--white);
-  box-shadow:
-    0 0 0 1px rgba(19, 23, 24, 0.08),
-    0 2px 8px rgba(19, 23, 24, 0.08);
-  transition:
-    transform 0.2s var(--ease),
-    box-shadow 0.2s var(--ease),
-    width 0.25s var(--ease),
-    height 0.25s var(--ease);
-}
-
-body.header-round-logo .brand:hover .brand__logo--round {
-  transform: translateY(-1px);
-  box-shadow:
-    0 0 0 1px rgba(41, 115, 36, 0.22),
-    0 4px 12px rgba(19, 23, 24, 0.1);
-}
-
-body.header-round-logo .site-header.is-stuck .brand__logo--round {
-  width: 3rem;
-  height: 3rem;
-}
-
-body.header-round-logo .site-header__inner {
-  min-height: 4.15rem;
-  padding-block: 0.4rem;
-  gap: 1.15rem;
-}
-
-body.header-round-logo .site-header.is-stuck .site-header__inner {
-  min-height: 3.75rem;
-  padding-block: 0.28rem;
-}
-
-body.header-round-logo .nav__list {
-  gap: 0.12rem;
-}
-
-body.header-round-logo .nav__link {
-  padding: 0.4rem 0.5rem;
-  font-size: 0.86rem;
-}
-
-body.header-round-logo .site-header__actions .btn {
-  border-radius: 3px;
-  font-weight: 700;
-  letter-spacing: 0.01em;
-}
-
-body.header-round-logo .mobile-menu__top .brand__logo--round,
-body.header-round-logo .brand__logo--round-mobile {
-  width: 3rem;
-  height: 3rem;
-}
-
-@media (min-width: 768px) {
-  body.header-round-logo .brand__logo--round {
-    width: 3.85rem;
-    height: 3.85rem;
-  }
-
-  body.header-round-logo .site-header.is-stuck .brand__logo--round {
-    width: 3.4rem;
-    height: 3.4rem;
-  }
-}
-
 @media (min-width: 1180px) {
+  body.header-round-logo .brand__logo--wordmark {
+    display: none;
+  }
+
   body.header-round-logo .brand__logo--round {
+    display: block;
     width: 4.35rem;
     height: 4.35rem;
+    max-height: none;
+    object-fit: contain;
+    object-position: center;
+    border-radius: 50%;
+    background: var(--white);
+    box-shadow:
+      0 0 0 1px rgba(19, 23, 24, 0.08),
+      0 2px 8px rgba(19, 23, 24, 0.08);
+    transition:
+      transform 0.2s var(--ease),
+      box-shadow 0.2s var(--ease),
+      width 0.25s var(--ease),
+      height 0.25s var(--ease);
+  }
+
+  body.header-round-logo .brand:hover .brand__logo--round {
+    transform: translateY(-1px);
+    box-shadow:
+      0 0 0 1px rgba(41, 115, 36, 0.22),
+      0 4px 12px rgba(19, 23, 24, 0.1);
   }
 
   body.header-round-logo .site-header.is-stuck .brand__logo--round {
@@ -552,14 +497,31 @@ body.header-round-logo .brand__logo--round-mobile {
   body.header-round-logo .site-header__inner {
     min-height: 4.75rem;
     padding-block: 0.5rem;
+    gap: 1.15rem;
   }
 
   body.header-round-logo .site-header.is-stuck .site-header__inner {
     min-height: 4.15rem;
   }
 
+  body.header-round-logo .nav__list {
+    gap: 0.12rem;
+  }
+
   body.header-round-logo .nav__link {
     padding: 0.42rem 0.55rem;
+    font-size: 0.86rem;
+  }
+
+  body.header-round-logo .site-header__actions .btn {
+    border-radius: 3px;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+  }
+
+  body.header-round-logo .mobile-menu__top .brand__logo--round,
+  body.header-round-logo .brand__logo--round-mobile {
+    display: none;
   }
 }
 
@@ -663,7 +625,7 @@ body.header-round-logo .brand__logo--round-mobile {
   }
 }
 
-/* Mobile menu ÃÂÃÂ¢ÃÂÃÂÃÂÃÂ light to match navbar */
+/* Mobile menu ÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ light to match navbar */
 .mobile-menu {
   position: fixed;
   inset: 0;
@@ -748,7 +710,7 @@ body.header-round-logo .brand__logo--round-mobile {
   justify-content: flex-start;
 }
 
-/* Hero ÃÂ¢ÃÂÃÂ real company photo */
+/* Hero ÃÂÃÂ¢ÃÂÃÂÃÂÃÂ real company photo */
 .hero {
   position: relative;
   overflow: hidden;
@@ -850,10 +812,6 @@ body.header-round-logo .brand__logo--round-mobile {
   text-shadow: 0 1px 14px rgba(0, 0, 0, 0.4);
 }
 
-.hero__lead-short {
-  display: none;
-}
-
 .hero__sub {
   margin: 0.7rem 0 0;
   max-width: 30rem;
@@ -926,94 +884,245 @@ body.header-round-logo .brand__logo--round-mobile {
   }
 }
 
-/* Mobile hero Ã¢ÂÂ dedicated portrait photo (hero-telefoon) */
+/* Mobile hero — dedicated portrait photo (hero-telefoon), compact CTAs */
 @media (max-width: 767.98px) {
+  :root {
+    --topbar-h: 2.4rem;
+    --container-pad: 1.25rem;
+  }
+
+  .topbar {
+    font-size: 0.8125rem;
+  }
+
+  .topbar__inner {
+    padding-block: 0.3rem;
+  }
+
+  .site-header__inner {
+    min-height: 4.35rem;
+    padding-block: 0.45rem;
+    gap: 0.75rem;
+  }
+
+  .site-header.is-stuck .site-header__inner {
+    min-height: 4.1rem;
+    padding-block: 0.35rem;
+  }
+
+  .brand__logo,
+  .brand__logo--wordmark {
+    width: clamp(145px, 44vw, 175px);
+    max-height: 2.9rem;
+  }
+
+  .site-header.is-stuck .brand__logo,
+  .site-header.is-stuck .brand__logo--wordmark {
+    max-height: 2.7rem;
+  }
+
+  .nav-toggle {
+    width: 2.55rem;
+    height: 2.55rem;
+  }
+
   .hero {
-    min-height: clamp(38.75rem, 78svh, 43.75rem);
-    padding: 1.65rem 0 1.85rem;
+    min-height: clamp(38.75rem, 88svh, 43.75rem);
+    padding: 1.9rem 0 2rem;
     align-items: flex-start;
   }
 
   .hero__img {
-    /* Trucks + branding in lower half; sky above for copy */
-    object-position: center 68%;
+    object-position: center 66%;
   }
 
   .hero__content {
-    max-width: 28rem;
-    padding-top: 0.1rem;
+    max-width: 100%;
+    padding-top: 0.15rem;
   }
 
   .hero__eyebrow {
-    margin-bottom: 0.55rem;
-    font-size: 0.68rem;
-    letter-spacing: 0.12em;
+    margin-bottom: 0.65rem;
+    font-size: 0.78rem;
+    letter-spacing: 0.11em;
   }
 
   .hero h1 {
     max-width: none;
-    font-size: clamp(2.05rem, 8.2vw, 2.75rem);
-    line-height: 1.04;
+    font-size: clamp(2.35rem, 11vw, 3.1rem);
+    font-weight: 800;
+    line-height: 1.02;
+    letter-spacing: -0.035em;
   }
 
   .hero__lead {
-    margin-top: 0.75rem;
-    font-size: 0.95rem;
-  }
-
-  .hero__lead-full {
-    display: none;
-  }
-
-  .hero__lead-short {
-    display: inline;
+    margin-top: 0.85rem;
+    max-width: 100%;
+    font-size: 1.05rem;
+    line-height: 1.5;
   }
 
   .hero__sub {
-    display: none;
+    display: block;
+    margin-top: 0.55rem;
+    max-width: 100%;
+    font-size: 0.94rem;
+    line-height: 1.45;
+    color: rgba(230, 235, 232, 0.78);
   }
 
   .hero__actions {
+    display: flex;
     flex-direction: column;
     align-items: stretch;
     width: 100%;
-    max-width: 22rem;
-    gap: 0.5rem;
-    margin-top: 1.15rem;
+    max-width: none;
+    gap: 0.55rem;
+    margin-top: 1.2rem;
   }
 
   .hero__actions .btn {
     width: 100%;
     justify-content: center;
-    min-height: 2.6rem;
+    min-height: 2.95rem;
+    height: auto;
+    padding: 0.65rem 1.15rem;
+    font-size: 0.95rem;
+    font-weight: 700;
+    border-radius: 5px;
+    box-shadow: none;
+  }
+
+  .hero__actions .btn--primary {
+    background: var(--green);
+    border-color: var(--green);
   }
 
   .hero__actions .btn--ghost {
-    background: rgba(10, 16, 15, 0.48);
-    border-color: rgba(255, 255, 255, 0.58);
+    background: rgba(10, 16, 15, 0.42);
+    border-color: rgba(255, 255, 255, 0.55);
   }
 
-  /* Stronger top veil Ã¢ÂÂ bright sky + sun behind text */
   .hero__veil {
     background:
       linear-gradient(
         180deg,
-        rgba(10, 16, 15, 0.84) 0%,
-        rgba(10, 16, 15, 0.66) 28%,
-        rgba(10, 16, 15, 0.28) 55%,
-        rgba(10, 16, 15, 0.18) 78%,
-        rgba(10, 16, 15, 0.36) 100%
+        rgba(10, 16, 15, 0.78) 0%,
+        rgba(10, 16, 15, 0.62) 26%,
+        rgba(10, 16, 15, 0.34) 48%,
+        rgba(10, 16, 15, 0.12) 72%,
+        rgba(10, 16, 15, 0.28) 100%
       );
   }
 }
 
 @media (max-width: 430px) {
+  :root {
+    --container-pad: 1.15rem;
+  }
+
   .hero {
-    min-height: clamp(38rem, 76svh, 42rem);
+    min-height: clamp(39.5rem, 90svh, 43.75rem);
+    padding: 1.75rem 0 1.85rem;
   }
 
   .hero__img {
+    object-position: center 68%;
+  }
+
+  .hero h1 {
+    font-size: clamp(2.35rem, 10.5vw, 2.95rem);
+    line-height: 1.03;
+  }
+
+  .hero__lead {
+    font-size: 1.02rem;
+  }
+
+  .hero__sub {
+    font-size: 0.9rem;
+  }
+
+  .hero__actions .btn {
+    min-height: 2.9rem;
+    padding: 0.6rem 1.1rem;
+    font-size: 0.94rem;
+  }
+}
+
+@media (max-width: 390px) {
+  .hero__img {
     object-position: center 70%;
+  }
+
+  .hero__actions {
+    gap: 0.5rem;
+  }
+}
+
+@media (max-width: 360px) {
+  :root {
+    --container-pad: 1.1rem;
+  }
+
+  .brand__logo,
+  .brand__logo--wordmark {
+    width: clamp(145px, 48vw, 165px);
+  }
+
+  .hero {
+    min-height: 39rem;
+    padding: 1.65rem 0 1.75rem;
+  }
+
+  .hero__img {
+    object-position: center 72%;
+  }
+
+  .hero h1 {
+    font-size: clamp(2.25rem, 10.8vw, 2.7rem);
+  }
+
+  .hero__lead {
+    font-size: 1rem;
+    line-height: 1.48;
+  }
+
+  .hero__sub {
+    font-size: 0.88rem;
+  }
+
+  .hero__actions .btn {
+    min-height: 2.85rem;
+    font-size: 0.92rem;
+  }
+}
+
+@media (max-width: 320px) {
+  .hero {
+    min-height: 38.75rem;
+  }
+
+  .hero__img {
+    object-position: center 74%;
+  }
+
+  .hero h1 {
+    font-size: 2.2rem;
+  }
+}
+
+@media (min-width: 400px) and (max-width: 767.98px) {
+  .hero__actions {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: stretch;
+  }
+
+  .hero__actions .btn {
+    width: auto;
+    flex: 1 1 calc(50% - 0.3rem);
+    min-width: 9.5rem;
   }
 }
 
@@ -1048,7 +1157,7 @@ body.header-round-logo .brand__logo--round-mobile {
   align-items: center;
 }
 
-/* ÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂ Homepage visual system ÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂ */
+/* ÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ Homepage visual system ÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ */
 .page-home main > .section,
 .page-home main > .services-editorial,
 .page-home main > .material-matrix,
@@ -2325,7 +2434,7 @@ body.header-round-logo .brand__logo--round-mobile {
   }
 }
 
-/* ÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂ Enhancements: categories, request selector, timeline, etc. ÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂ */
+/* ÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ Enhancements: categories, request selector, timeline, etc. ÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ */
 .section-note {
   margin: -0.5rem 0 1.5rem;
   max-width: 46rem;
@@ -3461,8 +3570,8 @@ body.has-sticky-bar {
 @media (max-width: 900px) {
   .whatsapp-float {
     --wa-size: 3.25rem;
-    --wa-right: 1rem;
-    --wa-bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
+    --wa-right: 0.95rem;
+    --wa-bottom: calc(1.1rem + env(safe-area-inset-bottom, 0px));
   }
 
   .whatsapp-float__tooltip {
@@ -3477,8 +3586,9 @@ body.has-sticky-bar {
 
 @media (max-width: 430px) {
   .whatsapp-float {
-    --wa-size: 3.15rem;
+    --wa-size: 3.2rem;
     --wa-right: 0.9rem;
+    --wa-bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
   }
 }
 
@@ -3604,7 +3714,7 @@ body.has-sticky-bar {
   :root {
     --section-space: clamp(2.35rem, 8vw, 3.25rem);
     --section-space-tight: clamp(1.35rem, 4vw, 2rem);
-    --container-pad: 1rem;
+    --container-pad: 1.15rem;
     --home-h2: clamp(1.4rem, 6.5vw, 1.75rem);
     --home-lead-size: 0.98rem;
     --home-intro-gap: 1.05rem;
@@ -3862,12 +3972,12 @@ body.has-sticky-bar {
   }
 
   .brand__logo {
-    width: min(190px, 58vw);
-    max-height: 2.75rem;
+    width: clamp(145px, 44vw, 175px);
+    max-height: 2.9rem;
   }
 
   .site-header__inner {
-    min-height: 3.75rem;
+    min-height: 4.35rem;
   }
 
   .topbar__trust {
@@ -3939,7 +4049,7 @@ body.has-sticky-bar {
   overflow-x: clip;
 }
 
-/* ÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂ Real work photography ÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂ */
+/* ÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ Real work photography ÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ */
 .work-photo {
   position: relative;
   width: 100%;
@@ -4415,7 +4525,7 @@ body.has-sticky-bar {
 
 
 /* =========================================================
-   Homepage redesign ÃÂÃÂ¯ÃÂÃÂ¿ÃÂÃÂ½ editorial layouts
+   Homepage redesign ÃÂÃÂÃÂÃÂ¯ÃÂÃÂÃÂÃÂ¿ÃÂÃÂÃÂÃÂ½ editorial layouts
    ========================================================= */
 
 .page-home .section-header--center {
@@ -4893,7 +5003,7 @@ body.has-sticky-bar {
   }
 }
 
-/* Band CTA ÃÂÃÂ¢ÃÂÃÂÃÂÃÂ aligned with homepage closing CTA */
+/* Band CTA ÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ aligned with homepage closing CTA */
 .band-cta {
   padding: clamp(2.25rem, 4.5vw, 3.25rem) 0;
 }
@@ -5713,7 +5823,7 @@ body.has-sticky-bar {
   }
 }
 
-/* ÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂ Dedicated responsive polish (homepage + subpages) ÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂ */
+/* ÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ Dedicated responsive polish (homepage + subpages) ÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¢ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ */
 @media (max-width: 700px) {
   .page-sub .section {
     padding-block: var(--section-space);
