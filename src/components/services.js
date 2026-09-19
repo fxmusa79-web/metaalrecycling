@@ -2,12 +2,22 @@ import { services } from '../config/content.js'
 import { icons } from './icons.js'
 import { WorkPhoto } from './media.js'
 
-/** Homepage shows three pillars only — specializations live on subpages */
-const featuredId = 'demontage-service'
-const listOrder = ['inkoop', 'recycling']
+/**
+ * Homepage featured service — industrial dismantling showcase.
+ * Primary visual: windmolen-ring.jpg (not brand-/snijwerk).
+ */
+const featured = {
+  label: 'Uitgelicht',
+  title: 'Industriële demontage & materiaalscheiding',
+  text:
+    'Grote machines en samengestelde metalen onderdelen demonteren we voor verdere materiaalterugwinning. Onderdelen worden gescheiden en klaargemaakt voor recycling.',
+  href: '/demontage.html',
+  cta: 'Meer over demontage',
+}
+
+const listOrder = ['inkoop', 'recycling', 'brand-snijwerk', 'machines', 'kabels']
 
 export function Services() {
-  const featured = services.find((s) => s.id === featuredId)
   const list = listOrder.map((id) => services.find((s) => s.id === id)).filter(Boolean)
 
   return `
@@ -16,17 +26,18 @@ export function Services() {
         <article class="service-feature">
           <div class="service-feature__media">
             ${WorkPhoto({
-              imageKey: 'snijBranden',
-              sizes: '(max-width: 900px) 100vw, 48vw',
+              imageKey: 'windmolenRing',
+              sizes: '(max-width: 900px) 100vw, 52vw',
               aspect: '5 / 4',
+              priority: true,
             })}
           </div>
           <div class="service-feature__body">
-            <p class="service-feature__label">Uitgelicht</p>
+            <p class="service-feature__label">${featured.label}</p>
             <h2>${featured.title}</h2>
             <p>${featured.text}</p>
             <a class="text-link text-link--on-dark" href="${featured.href}">
-              Meer over demontage ${icons.arrow}
+              ${featured.cta} ${icons.arrow}
             </a>
           </div>
         </article>

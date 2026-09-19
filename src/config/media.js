@@ -103,11 +103,12 @@ export const workImages = {
   },
   windmolenRing: {
     src: '/images/windmolen-ring.jpg',
-    alt: 'Groot industrieel component tijdens demontage en materiaalscheiding',
+    alt: 'Industriële demontage van een groot metalen component met materiaalscheiding',
     width: 1280,
     height: 1260,
-    position: '68% 48%',
-    positionMobile: '62% 45%',
+    /** Keep the circular ring + copper windings readable */
+    position: '46% 48%',
+    positionMobile: '44% 46%',
     orientation: 'square',
     cardAspect: '4 / 5',
     featureAspect: '5 / 4',
@@ -116,20 +117,21 @@ export const workImages = {
 
 /**
  * Homepage “Werk in de praktijk” — three real project photos max.
+ * Windmolen ring is reserved for the featured services block — do not reuse here.
  */
 export const workPracticeCards = [
-  {
-    id: 'snij',
-    image: 'snijBranden',
-    title: 'Brand- en snijwerk',
-    href: '/demontage.html#brand-snijwerk',
-    size: 'large',
-  },
   {
     id: 'trafo',
     image: 'transformator2',
     title: 'Transformatoren',
     href: '/demontage.html#installaties',
+    size: 'large',
+  },
+  {
+    id: 'snij',
+    image: 'snijBranden',
+    title: 'Brand- en snijwerk',
+    href: '/demontage.html#brand-snijwerk',
     size: 'medium',
   },
   {
