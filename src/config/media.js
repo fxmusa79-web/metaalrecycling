@@ -46,9 +46,9 @@ export const subpageHeroes = {
     positionMobile: '38% 28%',
   },
   materialen: {
-    src: '/images/non-ferro.jpg',
-    position: '42% 48%',
-    positionMobile: '40% 45%',
+    src: '/images/ferro.jpg',
+    position: '48% 40%',
+    positionMobile: '50% 38%',
   },
   werkgebied: {
     src: '/images/hero-nieuw.jpg',
