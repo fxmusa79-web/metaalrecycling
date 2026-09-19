@@ -106,12 +106,12 @@ export const workImages = {
     alt: 'Industriële demontage van een groot metalen component met materiaalscheiding',
     width: 1280,
     height: 1260,
-    /** Keep the circular ring + copper windings readable */
-    position: '46% 48%',
-    positionMobile: '44% 46%',
+    /** Focal point: circular ring + copper windings */
+    position: '42% 48%',
+    positionMobile: '40% 46%',
     orientation: 'square',
     cardAspect: '4 / 5',
-    featureAspect: '5 / 4',
+    featureAspect: '4 / 3',
   },
 }
 
