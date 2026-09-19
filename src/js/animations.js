@@ -62,7 +62,7 @@ function revealCta(el) {
 }
 
 function initTimeline() {
-  const timelines = gsap.utils.toArray('[data-timeline]')
+  const timelines = gsap.utils.toArray('[data-timeline]:not([data-process-mobile])')
   if (!timelines.length) return
 
   const isDesktop = () => window.matchMedia('(min-width: 900px)').matches
