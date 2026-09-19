@@ -5,7 +5,7 @@ export function RecyclingTimeline() {
     <section class="section section--muted timeline-section" id="proces">
       <div class="container">
         <div class="timeline-section__intro">
-          <h2>Hoe het werkt</h2>
+          <h2>Van materiaal naar hergebruik</h2>
           <p>Van eerste contact tot recycling — in vijf stappen.</p>
         </div>
         <div class="timeline" data-timeline>

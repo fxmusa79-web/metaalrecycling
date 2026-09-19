@@ -90,8 +90,8 @@ export function Navbar({ pageId = 'home' } = {}) {
 
         <div class="site-header__actions">
           ${Button({
-            href: '/contact.html?type=Metaal%20aanbieden',
-            label: 'Metaal aanbieden',
+            href: '/#aanvraag',
+            label: 'Aanvraag',
             variant: 'primary',
             size: 'sm',
           })}
@@ -130,8 +130,8 @@ export function Navbar({ pageId = 'home' } = {}) {
         </nav>
         <div class="mobile-menu__cta">
           ${Button({
-            href: '/contact.html?type=Metaal%20aanbieden',
-            label: 'Metaal aanbieden',
+            href: '/#aanvraag',
+            label: 'Aanvraag',
             variant: 'primary',
             size: 'lg',
           })}

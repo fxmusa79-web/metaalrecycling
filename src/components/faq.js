@@ -11,11 +11,11 @@ const homeQuestions = [
 
 const filters = [
   { id: 'all', label: 'Alles' },
-  { id: 'inkoop', label: 'Metaal inkoop' },
+  { id: 'inkoop', label: 'Inkoop' },
   { id: 'recycling', label: 'Recycling' },
   { id: 'demontage', label: 'Demontage' },
   { id: 'ophalen', label: 'Ophalen' },
-  { id: 'overig', label: 'Overige vragen' },
+  { id: 'overig', label: 'Overig' },
 ]
 
 export function FaqPreview({ limit = 3 } = {}) {

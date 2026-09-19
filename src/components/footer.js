@@ -98,8 +98,7 @@ export function StickyContactBar() {
   return `
     <div class="sticky-bar" id="sticky-bar" hidden>
       <a class="sticky-bar__btn" href="${phoneHref()}">${icons.phone}<span>Bel direct</span></a>
-      <a class="sticky-bar__btn sticky-bar__btn--primary" href="/contact.html">${icons.mail}<span>Aanvraag</span></a>
-      <button class="sticky-bar__close" type="button" aria-label="Sluit contactbalk">${icons.close}</button>
+      <a class="sticky-bar__btn sticky-bar__btn--primary" href="/#aanvraag"><span>Aanvraag</span></a>
     </div>
   `
 }

@@ -9,11 +9,13 @@ import { RecyclingTimeline } from './components/timeline.js'
 import { Audiences } from './components/audiences.js'
 import { WorkArea } from './components/work-area.js'
 import { FaqPreview } from './components/faq.js'
+import { RequestSelector } from './components/request-selector.js'
 import { CTASection } from './components/contact.js'
 import { initNavigation } from './js/navigation.js'
 import { initFaq } from './js/faq.js'
 import { initStickyBar } from './js/sticky-bar.js'
 import { initAnimations } from './js/animations.js'
+import { initRequestSelector } from './js/request-selector.js'
 import { site } from './config/site.js'
 
 document.title =
@@ -41,6 +43,7 @@ document.querySelector('#app').innerHTML = `
     ${Audiences()}
     ${WorkArea()}
     ${FaqPreview()}
+    ${RequestSelector()}
     ${CTASection()}
   </main>
   ${Footer()}
@@ -70,4 +73,5 @@ document.head.appendChild(schema)
 initNavigation()
 initFaq()
 initStickyBar()
+initRequestSelector()
 initAnimations()

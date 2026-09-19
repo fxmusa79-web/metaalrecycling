@@ -61,8 +61,8 @@ mountPage({
       backgroundPosition: heroBg.position,
       backgroundPositionMobile: heroBg.positionMobile,
       primaryCta: {
-        href: '/contact.html?type=Metaal%20aanbieden',
-        label: 'Metaal aanbieden',
+        href: '/contact.html?type=Metaal%20verkopen',
+        label: 'Metaal verkopen',
       },
       secondaryCta: {
         href: '/materialen.html',
@@ -127,8 +127,8 @@ mountPage({
               Kabels, onderdelen of machines.
               Stuur foto’s mee voor een snelle beoordeling.
             </p>
-            <a class="text-link" href="/contact.html?type=Metaal%20aanbieden">
-              Metaal aanbieden ${icons.arrow}
+            <a class="text-link" href="/contact.html?type=Metaal%20verkopen">
+              Metaal verkopen ${icons.arrow}
             </a>
           </div>
         </article>
@@ -149,10 +149,10 @@ mountPage({
     </section>
 
     ${BandCta({
-      title: 'Partij metaal aanbieden?',
+      title: 'Partij Metaal verkopen?',
       text: 'Stuur een korte omschrijving en eventueel foto’s.',
       primaryCta: {
-        href: '/contact.html?type=Metaal%20aanbieden',
+        href: '/contact.html?type=Metaal%20verkopen',
         label: 'Contact',
       },
     })}

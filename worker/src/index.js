@@ -1,12 +1,8 @@
 /**
- * Cloudflare Worker API scaffold for Duurzaam Metaal Recycling.
+ * Cloudflare Worker API for Duurzaam Metaal Recycling.
  *
- * Routes (placeholders):
- *   POST /api/contact
- *   POST /api/request
- *
- * Secrets are injected via Wrangler / Cloudflare dashboard — never hardcode them.
- * Turnstile verification and email delivery are modular stubs until configured.
+ * POST /api/contact — validate, Turnstile, rate-limit, email via Resend
+ * Secrets (wrangler secret put): RESEND_API_KEY, TURNSTILE_SECRET_KEY
  */
 
 const CORS_HEADERS = {
@@ -15,6 +11,14 @@ const CORS_HEADERS = {
   'Access-Control-Allow-Headers': 'Content-Type',
   'Access-Control-Max-Age': '86400',
 }
+
+const MAX_FIELD = 4000
+const MAX_NAME = 200
+const RATE_WINDOW_MS = 60_000
+const RATE_MAX = 8
+
+/** @type {Map<string, number[]>} */
+const rateBuckets = new Map()
 
 function json(data, status = 200, extraHeaders = {}) {
   return new Response(JSON.stringify(data), {
@@ -31,16 +35,33 @@ function badRequest(message, fields = {}) {
   return json({ ok: false, error: message, fields }, 400)
 }
 
-/**
- * Verify Cloudflare Turnstile token when TURNSTILE_SECRET_KEY is configured.
- * Returns { ok: true } when secret is missing (dev) or verification succeeds.
- */
+function sanitize(value, max = MAX_FIELD) {
+  return String(value || '')
+    .replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F]/g, '')
+    .replace(/<[^>]*>/g, '')
+    .trim()
+    .slice(0, max)
+}
+
+function checkRateLimit(ip) {
+  const key = ip || 'unknown'
+  const now = Date.now()
+  const recent = (rateBuckets.get(key) || []).filter((t) => now - t < RATE_WINDOW_MS)
+  if (recent.length >= RATE_MAX) {
+    rateBuckets.set(key, recent)
+    return false
+  }
+  recent.push(now)
+  rateBuckets.set(key, recent)
+  return true
+}
+
 async function verifyTurnstile(token, secret, ip) {
   if (!secret) {
     return { ok: true, skipped: true }
   }
   if (!token) {
-    return { ok: false, error: 'Turnstile token ontbreekt.' }
+    return { ok: false, error: 'Bevestig dat u geen robot bent (Turnstile).' }
   }
 
   const body = new URLSearchParams()
@@ -54,15 +75,11 @@ async function verifyTurnstile(token, secret, ip) {
   })
   const data = await res.json()
   if (!data.success) {
-    return { ok: false, error: 'Turnstile-verificatie mislukt.' }
+    return { ok: false, error: 'Turnstile-verificatie mislukt. Probeer opnieuw.' }
   }
   return { ok: true }
 }
 
-/**
- * Send transactional email via Resend when RESEND_API_KEY is set.
- * Does not fake success when the key is missing.
- */
 async function sendEmail({ apiKey, to, replyTo, subject, text }) {
   if (!apiKey) {
     return {
@@ -97,13 +114,13 @@ async function sendEmail({ apiKey, to, replyTo, subject, text }) {
 
 function validateContactPayload(body) {
   const errors = {}
-  const name = String(body.name || '').trim()
-  const email = String(body.email || '').trim()
-  const phone = String(body.phone || '').trim()
-  const requestType = String(body.requestType || body.type || '').trim()
-  const description = String(body.description || body.message || '').trim()
-  const company = String(body.company || '').trim()
-  const location = String(body.location || '').trim()
+  const name = sanitize(body.name, MAX_NAME)
+  const email = sanitize(body.email, 320)
+  const phone = sanitize(body.phone, 80)
+  const requestType = sanitize(body.requestType || body.type, 200)
+  const description = sanitize(body.description || body.message, MAX_FIELD)
+  const company = sanitize(body.company, 200)
+  const location = sanitize(body.location, 200)
 
   if (!name) errors.name = 'Naam is verplicht.'
   if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
@@ -113,13 +130,48 @@ function validateContactPayload(body) {
   if (!requestType) errors.requestType = 'Type aanvraag is verplicht.'
   if (!description) errors.description = 'Omschrijving is verplicht.'
 
+  const photosRaw = Array.isArray(body.photosMetadata) ? body.photosMetadata : []
+  const photosMetadata = photosRaw.slice(0, 12).map((item) => ({
+    name: sanitize(item?.name, 180),
+    size: Number(item?.size) || 0,
+    type: sanitize(item?.type, 80),
+  }))
+
   return {
     errors,
-    data: { name, email, phone, requestType, description, company, location },
+    data: {
+      name,
+      email,
+      phone,
+      requestType,
+      description,
+      company,
+      location,
+      photosMetadata,
+    },
   }
 }
 
+function formatPhotosBlock(photos) {
+  if (!photos.length) return 'Foto’s: geen bestanden geselecteerd in het formulier.'
+  const lines = photos.map(
+    (p, i) =>
+      `  ${i + 1}. ${p.name || 'bestand'} (${p.type || 'image'}, ${Math.round((p.size || 0) / 1024)} KB)`
+  )
+  return [
+    `Foto’s geselecteerd in het formulier: ${photos.length}`,
+    '(Bestanden worden nog niet als bijlage meegestuurd — metadata hieronder.)',
+    ...lines,
+  ].join('\n')
+}
+
 async function handleContact(request, env) {
+  const ip = request.headers.get('CF-Connecting-IP') || ''
+
+  if (!checkRateLimit(ip)) {
+    return json({ ok: false, error: 'Te veel verzoeken. Probeer het over een minuut opnieuw.' }, 429)
+  }
+
   let body
   try {
     body = await request.json()
@@ -132,7 +184,6 @@ async function handleContact(request, env) {
     return badRequest('Validatie mislukt.', errors)
   }
 
-  const ip = request.headers.get('CF-Connecting-IP') || ''
   const turnstile = await verifyTurnstile(
     body.turnstileToken || body['cf-turnstile-response'],
     env.TURNSTILE_SECRET_KEY,
@@ -143,27 +194,26 @@ async function handleContact(request, env) {
   }
 
   const text = [
-    `Nieuwe aanvraag via website`,
-    ``,
+    'Nieuwe aanvraag via DuurzaamMetaalRecycling.nl',
+    '',
     `Naam: ${data.name}`,
     `Bedrijf: ${data.company || '—'}`,
     `Telefoon: ${data.phone}`,
     `E-mail: ${data.email}`,
-    `Type: ${data.requestType}`,
+    `Type aanvraag: ${data.requestType}`,
     `Locatie: ${data.location || '—'}`,
-    ``,
-    `Omschrijving:`,
+    '',
+    'Omschrijving:',
     data.description,
-    ``,
-    `Let op: foto-uploads gaan niet via deze JSON-route.`,
-    `Gebruik aparte storage / e-mailbijlage wanneer beschikbaar.`,
+    '',
+    formatPhotosBlock(data.photosMetadata),
   ].join('\n')
 
   const mail = await sendEmail({
     apiKey: env.RESEND_API_KEY,
     to: env.CONTACT_EMAIL || 'info@duurzaammetaalrecycling.nl',
     replyTo: data.email,
-    subject: `Aanvraag: ${data.requestType} — ${data.name}`,
+    subject: 'Nieuwe aanvraag via DuurzaamMetaalRecycling.nl',
     text,
   })
 
@@ -171,24 +221,20 @@ async function handleContact(request, env) {
     return json(
       {
         ok: false,
-        received: true,
-        email: mail,
-        message:
-          'Aanvraag ontvangen door de API, maar e-mailverzending is nog niet actief of is mislukt.',
+        error: mail.error,
+        email: { configured: mail.configured },
       },
       mail.configured ? 502 : 503
     )
   }
 
-  return json({ ok: true, message: 'Aanvraag verstuurd.' })
+  return json({ ok: true, message: 'Aanvraag ontvangen.' })
 }
 
 export default {
   async fetch(request, env) {
     const url = new URL(request.url)
 
-    // Non-API traffic should be served by Workers Static Assets.
-    // Defensive fallback if this Worker is invoked outside /api/*.
     if (!url.pathname.startsWith('/api/')) {
       if (env.ASSETS) {
         return env.ASSETS.fetch(request)
@@ -204,7 +250,9 @@ export default {
       return json({
         ok: true,
         service: 'duurzaammetaalrecycling',
-        routes: ['POST /api/contact', 'POST /api/request'],
+        routes: ['POST /api/contact'],
+        emailConfigured: Boolean(env.RESEND_API_KEY),
+        turnstileConfigured: Boolean(env.TURNSTILE_SECRET_KEY),
       })
     }
 

@@ -264,11 +264,11 @@ export const materialGroups = [
 ]
 
 export const requestTypes = [
-  'Metaal aanbieden',
-  'Recycling',
-  'Demontage & sloop',
+  'Metaal verkopen',
   'Machine / installatie',
-  'Kabels / transformatoren',
+  'Demontage & sloop',
+  'Kabels / transformator',
+  'Recycling',
   'Ophalen / afvoer',
   'Ander verzoek',
 ]

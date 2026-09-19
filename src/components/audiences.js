@@ -12,8 +12,8 @@ export function Audiences() {
               Kabels, onderdelen, machines of ander metaal.
               Stuur foto’s mee voor een snelle beoordeling.
             </p>
-            <a class="text-link" href="/contact.html?type=Metaal%20aanbieden">
-              Metaal aanbieden ${icons.arrow}
+            <a class="text-link" href="/contact.html?type=Metaal%20verkopen">
+              Metaal verkopen ${icons.arrow}
             </a>
           </div>
         </article>

@@ -1,25 +1,136 @@
-import { site } from '../config/site.js'
+import {
+  mountTurnstile,
+  photosMetadata,
+  submitContact,
+  validateEmail,
+} from './contact-api.js'
 import { getSelectedPhotos, initPhotoUploads } from './photos.js'
 
-const typeMap = {
-  metaal: 'Metaal aanbieden',
+const TYPE_LABELS = {
+  metaal: 'Metaal verkopen',
   machine: 'Machine / installatie',
   demontage: 'Demontage & sloop',
+  kabels: 'Kabels / transformator',
   ander: 'Ander verzoek',
+}
+
+function buildDescription(kind, panel) {
+  const get = (name) => {
+    const el = panel.querySelector(`[name="${name}"]`)
+    if (!el) return ''
+    if (el.type === 'radio') {
+      const checked = panel.querySelector(`[name="${name}"]:checked`)
+      return checked ? checked.value.trim() : ''
+    }
+    return String(el.value || '').trim()
+  }
+
+  const lines = []
+  const pairs = {
+    metaal: [
+      ['Materiaaltype', get('materiaal')],
+      ['Hoeveelheid', get('hoeveelheid')],
+      ['Locatie', get('locatie')],
+      ['Omschrijving', get('message')],
+    ],
+    machine: [
+      ['Soort', get('soort')],
+      ['Afmetingen', get('afmetingen')],
+      ['Locatie', get('locatie')],
+      ['Demontage nodig', get('demontage_nodig')],
+      ['Omschrijving', get('message')],
+    ],
+    demontage: [
+      ['Type object', get('object')],
+      ['Locatie', get('locatie')],
+      ['Bereikbaarheid', get('bereikbaarheid')],
+      ['Omschrijving', get('message')],
+    ],
+    kabels: [
+      ['Soort materiaal', get('soort_materiaal')],
+      ['Hoeveelheid', get('hoeveelheid')],
+      ['Locatie', get('locatie')],
+      ['Omschrijving', get('message')],
+    ],
+    ander: [
+      ['Omschrijving', get('message')],
+      ['Locatie', get('locatie')],
+    ],
+  }
+
+  for (const [label, value] of pairs[kind] || []) {
+    if (value) lines.push(`${label}: ${value}`)
+  }
+
+  return lines.join('\n') || 'Geen extra omschrijving.'
+}
+
+function getLocation(panel) {
+  const el = panel.querySelector('[name="locatie"]')
+  return el ? String(el.value || '').trim() : ''
 }
 
 export function initRequestSelector() {
   const form = document.getElementById('interactive-request-form')
+  if (!form) return
+
   const kindInput = document.getElementById('request-kind')
-  const options = document.querySelectorAll('[data-request]')
-  const panels = document.querySelectorAll('[data-panel]')
+  const options = form.querySelectorAll('[data-request]')
+  const panels = form.querySelectorAll('[data-panel]')
+  const steps = form.querySelectorAll('[data-step]')
   const error = document.getElementById('request-form-error')
-  if (!form || !options.length) return
+  const fill = form.querySelector('[data-stepper-fill]')
+  const label = form.querySelector('[data-stepper-label]')
+  const backBtn = form.querySelector('[data-stepper-back]')
+  const nextBtn = form.querySelector('[data-stepper-next]')
+  const submitBtn = form.querySelector('[data-stepper-submit]')
+  const nav = form.querySelector('[data-stepper-nav]')
+  const success = form.querySelector('[data-request-success]')
+  const turnstileSlot = form.querySelector('[data-turnstile-slot]')
 
   initPhotoUploads(form)
+  const getTurnstileToken = mountTurnstile(turnstileSlot)
 
-  const activate = (id) => {
-    const wasHidden = form.hidden
+  let step = 1
+  let kind = ''
+
+  const showError = (message) => {
+    if (!error) return
+    error.hidden = !message
+    error.textContent = message || ''
+  }
+
+  const setStep = (next) => {
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    step = next
+
+    steps.forEach((el) => {
+      const n = Number(el.dataset.step)
+      const active = n === step
+      el.hidden = !active
+      el.classList.toggle('is-active', active)
+      if (active && !reduce) {
+        el.style.opacity = '0'
+        el.style.transform = 'translateY(8px)'
+        requestAnimationFrame(() => {
+          el.style.transition = 'opacity 0.28s ease, transform 0.28s ease'
+          el.style.opacity = '1'
+          el.style.transform = 'none'
+        })
+      }
+    })
+
+    if (fill) fill.style.width = `${(step / 4) * 100}%`
+    if (label) label.textContent = `Stap ${step} van 4`
+
+    if (backBtn) backBtn.hidden = step <= 1
+    if (nextBtn) nextBtn.hidden = step >= 4
+    if (submitBtn) submitBtn.hidden = step !== 4
+  }
+
+  const activateKind = (id) => {
+    kind = id
+    if (kindInput) kindInput.value = id
 
     options.forEach((btn) => {
       const active = btn.dataset.request === id
@@ -31,93 +142,148 @@ export function initRequestSelector() {
       const active = panel.dataset.panel === id
       panel.hidden = !active
       panel.querySelectorAll('input, textarea, select').forEach((field) => {
-        if (field.type === 'hidden') return
         field.disabled = !active
       })
     })
-
-    form.hidden = false
-    if (kindInput) kindInput.value = id
-    error.hidden = true
-
-    if (wasHidden && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      const start = 0
-      const end = form.scrollHeight
-      form.style.overflow = 'hidden'
-      form.style.height = `${start}px`
-      form.style.opacity = '0.35'
-      requestAnimationFrame(() => {
-        form.style.transition = 'height 0.35s ease, opacity 0.28s ease'
-        form.style.height = `${end}px`
-        form.style.opacity = '1'
-        const done = () => {
-          form.style.height = ''
-          form.style.overflow = ''
-          form.style.transition = ''
-          form.removeEventListener('transitionend', done)
-        }
-        form.addEventListener('transitionend', done)
-      })
-    }
   }
 
   options.forEach((btn) => {
-    btn.addEventListener('click', () => activate(btn.dataset.request))
+    btn.addEventListener('click', () => {
+      activateKind(btn.dataset.request)
+      showError('')
+      setStep(2)
+    })
   })
 
-  // Disable all panel fields initially
   panels.forEach((panel) => {
     panel.querySelectorAll('input, textarea, select').forEach((field) => {
       field.disabled = true
     })
   })
 
-  form.addEventListener('submit', (event) => {
-    event.preventDefault()
-    const kind = kindInput?.value
-    if (!kind) {
-      error.hidden = false
-      error.textContent = 'Kies eerst een type verzoek.'
+  backBtn?.addEventListener('click', () => {
+    showError('')
+    if (step === 2) {
+      setStep(1)
       return
     }
+    setStep(Math.max(1, step - 1))
+  })
 
-    const activePanel = form.querySelector(`[data-panel="${kind}"]`)
-    if (!activePanel) return
-
-    const fields = [...activePanel.querySelectorAll('input, textarea, select')].filter(
-      (field) => !field.disabled
-    )
-
-    for (const field of fields) {
-      if (field.type === 'radio') continue
-      if (field.type === 'file') continue
-      if (!field.checkValidity()) {
-        field.reportValidity()
+  nextBtn?.addEventListener('click', () => {
+    showError('')
+    if (step === 1 && !kind) {
+      showError('Kies eerst wat u wilt doen.')
+      return
+    }
+    if (step === 2) {
+      const panel = form.querySelector(`[data-panel="${kind}"]`)
+      if (!panel) return
+      const requiredish = panel.querySelector(
+        kind === 'ander'
+          ? '[name="message"]'
+          : kind === 'metaal'
+            ? '[name="materiaal"]'
+            : kind === 'machine'
+              ? '[name="soort"]'
+              : kind === 'demontage'
+                ? '[name="object"]'
+                : '[name="soort_materiaal"]'
+      )
+      if (requiredish && !String(requiredish.value || '').trim()) {
+        requiredish.focus()
+        showError('Vul de belangrijkste gegevens in om verder te gaan.')
         return
       }
     }
-
-    const data = new FormData()
-    fields.forEach((field) => {
-      if (field.type === 'radio' && !field.checked) return
-      if (field.name) data.append(field.name, field.value)
-    })
-
-    const photos = getSelectedPhotos(activePanel)
-    const typeLabel = typeMap[kind] || kind
-    const lines = [`Type: ${typeLabel}`, '']
-    for (const [key, value] of data.entries()) {
-      if (!value) continue
-      lines.push(`${key}: ${value}`)
-    }
-    if (photos.length) {
-      lines.push('')
-      lines.push(`Foto’s geselecteerd: ${photos.length}. Voeg deze handmatig toe aan de e-mail.`)
-    }
-    lines.push('', '—', 'Aanvraag via duurzaammetaalrecycling.nl')
-
-    window.location.href = `mailto:${site.email}?subject=${encodeURIComponent(
-      `Aanvraag: ${typeLabel}`
-    )}&body=${encodeURIComponent(lines.join('\n'))}`
+    setStep(Math.min(4, step + 1))
   })
+
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault()
+    showError('')
+
+    if (!kind) {
+      showError('Kies eerst wat u wilt doen.')
+      setStep(1)
+      return
+    }
+
+    const panel = form.querySelector(`[data-panel="${kind}"]`)
+    const name = String(form.querySelector('[name="name"]')?.value || '').trim()
+    const company = String(form.querySelector('[name="company"]')?.value || '').trim()
+    const phone = String(form.querySelector('[name="phone"]')?.value || '').trim()
+    const email = String(form.querySelector('[name="email"]')?.value || '').trim()
+    const privacy = form.querySelector('#stepper-privacy')?.checked
+
+    if (!name) {
+      showError('Vul uw naam in.')
+      return
+    }
+    if (!phone) {
+      showError('Vul een telefoonnummer in.')
+      return
+    }
+    if (!email || !validateEmail(email)) {
+      showError('Vul een geldig e-mailadres in.')
+      return
+    }
+    if (!privacy) {
+      showError('Bevestig de privacyverklaring.')
+      return
+    }
+
+    const photos = getSelectedPhotos(form)
+    const requestType = TYPE_LABELS[kind] || kind
+    const description = buildDescription(kind, panel)
+    const location = getLocation(panel)
+
+    const payload = {
+      name,
+      company,
+      phone,
+      email,
+      requestType,
+      location,
+      description,
+      photosMetadata: photosMetadata(photos),
+      photoCount: photos.length,
+      turnstileToken: getTurnstileToken(),
+    }
+
+    if (submitBtn) submitBtn.disabled = true
+
+    try {
+      const { ok, status, data } = await submitContact(payload)
+
+      if (ok) {
+        if (nav) nav.hidden = true
+        if (label) label.hidden = true
+        if (fill?.parentElement) fill.parentElement.hidden = true
+        steps.forEach((el) => {
+          el.hidden = true
+        })
+        if (success) success.hidden = false
+        return
+      }
+
+      if (status === 503) {
+        showError(
+          data.error ||
+            'De e-mailservice is nog niet geconfigureerd. Mail ons via info@duurzaammetaalrecycling.nl of bel ons.'
+        )
+        return
+      }
+
+      showError(data.error || 'Verzenden mislukt. Probeer opnieuw of bel ons.')
+    } catch {
+      showError(
+        'Verbinding mislukt. Controleer uw internetverbinding of mail ons via info@duurzaammetaalrecycling.nl.'
+      )
+    } finally {
+      if (submitBtn) submitBtn.disabled = false
+    }
+  })
+
+  setStep(1)
 }

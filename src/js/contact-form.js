@@ -1,18 +1,17 @@
-import { site } from '../config/site.js'
+import {
+  mountTurnstile,
+  photosMetadata,
+  submitContact,
+  SUCCESS_TEXT,
+  SUCCESS_TITLE,
+  validateEmail,
+} from './contact-api.js'
 import { getSelectedPhotos, initPhotoUploads } from './photos.js'
 
 function showError(el, message) {
   if (!el) return
   el.hidden = !message
   el.textContent = message || ''
-}
-
-function validateEmail(value) {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
-}
-
-function apiBase() {
-  return (import.meta.env.VITE_API_BASE || '').replace(/\/$/, '')
 }
 
 export function initContactForm() {
@@ -26,6 +25,8 @@ export function initContactForm() {
   const otherInput = form.querySelector('#request-other')
   const formError = form.querySelector('#request-form-error')
   const formSuccess = form.querySelector('#request-form-success')
+  const turnstileSlot = form.querySelector('[data-turnstile-slot]')
+  const getTurnstileToken = mountTurnstile(turnstileSlot)
 
   const params = new URLSearchParams(window.location.search)
   const presetType = params.get('type')
@@ -92,74 +93,51 @@ export function initContactForm() {
       requestType,
       location,
       description: message,
+      photosMetadata: photosMetadata(photos),
       photoCount: photos.length,
-      turnstileToken: String(data.get('cf-turnstile-response') || data.get('turnstileToken') || ''),
+      turnstileToken: getTurnstileToken() || String(data.get('cf-turnstile-response') || ''),
     }
 
-    const endpoint = `${apiBase()}/api/contact`
     const submitBtn = form.querySelector('[type="submit"]')
     if (submitBtn) submitBtn.disabled = true
 
     try {
-      const res = await fetch(endpoint, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-      })
+      const { ok, status, data: resData } = await submitContact(payload)
 
-      if (res.ok) {
-        form.reset()
-        syncOther()
+      if (ok) {
         if (formSuccess) {
           formSuccess.hidden = false
-          formSuccess.textContent =
-            photos.length > 0
-              ? 'Aanvraag verstuurd. Voeg geselecteerde foto’s eventueel nog per e-mail toe.'
-              : 'Aanvraag verstuurd. Wij nemen contact met u op.'
+          formSuccess.innerHTML = `<strong>${SUCCESS_TITLE}</strong><span>${SUCCESS_TEXT}</span>`
+          formSuccess.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+        }
+        form.querySelectorAll('input, textarea, select, button').forEach((el) => {
+          if (el === submitBtn) return
+          el.disabled = true
+        })
+        if (submitBtn) {
+          submitBtn.disabled = true
+          submitBtn.hidden = true
         }
         return
       }
 
-      if (res.status === 404 || res.status === 503 || res.status >= 500) {
-        openMailtoFallback({ requestType, company, location, name, phone, email, message, photos })
+      if (status === 503) {
+        showError(
+          formError,
+          resData.error ||
+            'De e-mailservice is nog niet geconfigureerd. Mail ons via info@duurzaammetaalrecycling.nl of bel ons.'
+        )
         return
       }
 
-      const err = await res.json().catch(() => ({}))
-      showError(formError, err.error || 'Verzenden mislukt. Probeer opnieuw of bel ons.')
+      showError(formError, resData.error || 'Verzenden mislukt. Probeer opnieuw of bel ons.')
     } catch {
-      openMailtoFallback({ requestType, company, location, name, phone, email, message, photos })
+      showError(
+        formError,
+        'Verbinding mislukt. Controleer uw internetverbinding of mail ons via info@duurzaammetaalrecycling.nl.'
+      )
     } finally {
-      if (submitBtn) submitBtn.disabled = false
+      if (submitBtn && formSuccess?.hidden) submitBtn.disabled = false
     }
   })
-}
-
-function openMailtoFallback({ requestType, company, location, name, phone, email, message, photos }) {
-  const subject = encodeURIComponent(`Aanvraag via website: ${requestType}`)
-  const body = encodeURIComponent(
-    [
-      `Type aanvraag: ${requestType}`,
-      company ? `Bedrijf: ${company}` : null,
-      location ? `Locatie: ${location}` : null,
-      '',
-      `Naam: ${name}`,
-      `Telefoon: ${phone}`,
-      `E-mail: ${email}`,
-      '',
-      'Omschrijving:',
-      message,
-      '',
-      photos.length
-        ? `Foto’s geselecteerd in het formulier: ${photos.length}. Voeg deze handmatig toe aan deze e-mail.`
-        : 'Geen foto’s geselecteerd.',
-      '',
-      '—',
-      'Verzoek via duurzaammetaalrecycling.nl',
-    ]
-      .filter((line) => line !== null)
-      .join('\n')
-  )
-
-  window.location.href = `mailto:${site.email}?subject=${subject}&body=${body}`
 }

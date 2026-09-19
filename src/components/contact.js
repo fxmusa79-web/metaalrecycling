@@ -6,28 +6,46 @@ function photoField() {
   return `
     <div class="form-field form-field--upload">
       <span>Foto’s</span>
-      <label class="upload-box" for="contact-photos">
-        <input
-          id="contact-photos"
-          class="js-photo-input"
-          name="photos"
-          type="file"
-          accept="image/jpeg,image/png,image/webp"
-          multiple
-          data-max-files="6"
-          data-max-mb="5"
-        />
-        <span class="upload-box__text">
-          ${icons.camera}
-          <strong>Voeg foto’s toe voor een snellere beoordeling</strong>
-          <em>JPG, PNG of WEBP · max. 6 bestanden</em>
-        </span>
-      </label>
-      <ul class="upload-preview js-photo-preview" aria-live="polite"></ul>
-      <p class="upload-note">
-        <!-- INTEGRATION POINT: connect this FileList to your backend upload endpoint. -->
-        Bij verzenden via e-mail voegt u geselecteerde foto’s handmatig toe in uw e-mailprogramma.
-      </p>
+      <p class="upload-lead">Voeg foto’s toe voor een snellere beoordeling.</p>
+      <div class="upload-actions">
+        <label class="upload-box upload-box--action" for="contact-photos-camera">
+          <input
+            id="contact-photos-camera"
+            class="js-photo-input"
+            name="photos"
+            type="file"
+            accept="image/*"
+            capture="environment"
+            data-max-files="6"
+            data-max-mb="5"
+            data-photo-group="contact"
+          />
+          <span class="upload-box__text">
+            ${icons.camera}
+            <strong>Camera</strong>
+          </span>
+        </label>
+        <label class="upload-box upload-box--action" for="contact-photos-library">
+          <input
+            id="contact-photos-library"
+            class="js-photo-input"
+            name="photos"
+            type="file"
+            accept="image/jpeg,image/png,image/webp"
+            multiple
+            data-max-files="6"
+            data-max-mb="5"
+            data-photo-group="contact"
+          />
+          <span class="upload-box__text">
+            ${icons.camera}
+            <strong>Fotobibliotheek</strong>
+          </span>
+        </label>
+      </div>
+      <ul class="upload-preview js-photo-preview" data-photo-group="contact" aria-live="polite"></ul>
+      <p class="upload-feedback js-photo-feedback" data-photo-group="contact" hidden></p>
+      <p class="upload-note">JPG, PNG of WEBP · max. 5 MB per foto · max. 6 foto’s</p>
     </div>
   `
 }
@@ -107,11 +125,13 @@ export function ContactForm({ compact = false } = {}) {
       </label>
       <span class="field-error" data-error-for="privacy" hidden></span>
 
+      <div class="turnstile-slot" data-turnstile-slot hidden></div>
+
       <p class="form-error" id="request-form-error" hidden></p>
-      <p class="form-success" id="request-form-success" hidden>Uw e-mailprogramma opent. Voeg eventuele foto’s handmatig toe.</p>
+      <div class="form-success" id="request-form-success" hidden></div>
 
       <button class="btn btn--primary btn--lg contact-form__submit" type="submit">
-        <span>Verstuur</span>
+        <span>Verstuur aanvraag</span>
       </button>
     </form>
   `
@@ -149,17 +169,17 @@ export function CTASection() {
     <section class="cta-section cta-section--home" id="contact" aria-labelledby="cta-title">
       <div class="container cta-section__inner">
         <div class="cta-section__copy">
-          <h2 id="cta-title">Metaal aanbieden?</h2>
+          <h2 id="cta-title">Liever direct contact?</h2>
           <p>
-            Stuur een korte omschrijving en eventueel foto’s.
+            Bel of mail — of start hierboven een aanvraag met foto’s.
           </p>
         </div>
         <div class="cta-section__actions">
-          <a class="btn btn--primary btn--lg" href="/contact.html?type=Metaal%20aanbieden">
-            <span>Contact</span>
-          </a>
-          <a class="btn btn--ghost btn--lg" href="${phoneHref()}">
+          <a class="btn btn--primary btn--lg" href="${phoneHref()}">
             <span>Bel ${phoneLabel()}</span>
+          </a>
+          <a class="btn btn--ghost btn--lg" href="${emailHref()}">
+            <span>${emailLabel()}</span>
           </a>
         </div>
       </div>

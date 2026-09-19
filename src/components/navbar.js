@@ -49,8 +49,8 @@ export function Navbar() {
 
         <div class="site-header__actions">
           ${Button({
-            href: '#contact',
-            label: 'Metaal aanbieden',
+            href: '/#aanvraag',
+            label: 'Aanvraag',
             variant: 'primary',
             size: 'sm',
           })}
@@ -89,8 +89,8 @@ export function Navbar() {
         </nav>
         <div class="mobile-menu__cta">
           ${Button({
-            href: '#contact',
-            label: 'Metaal aanbieden',
+            href: '/#aanvraag',
+            label: 'Aanvraag',
             variant: 'primary',
             size: 'lg',
           })}
