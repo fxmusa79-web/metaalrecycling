@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap');
 
 :root {
-  /* Brand â sampled from logo (#297324) */
+  /* Brand Ã¢ÂÂ sampled from logo (#297324) */
   --green: #297324;
   --green-dark: #1e5a1b;
   --green-deep: #163f14;
@@ -138,7 +138,7 @@ p {
   height: 1rem;
 }
 
-/* Buttons â primary / secondary / text-link */
+/* Buttons Ã¢ÂÂ primary / secondary / text-link */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -384,7 +384,7 @@ p {
   }
 }
 
-/* Header / navbar â light background for readable logo */
+/* Header / navbar Ã¢ÂÂ light background for readable logo */
 .site-header {
   position: sticky;
   top: 0;
@@ -531,7 +531,7 @@ p {
   }
 }
 
-/* Mobile menu â light to match navbar */
+/* Mobile menu Ã¢ÂÂ light to match navbar */
 .mobile-menu {
   position: fixed;
   inset: 0;
@@ -616,7 +616,7 @@ p {
   justify-content: flex-start;
 }
 
-/* Hero — real company photo */
+/* Hero â real company photo */
 .hero {
   position: relative;
   overflow: hidden;
@@ -637,6 +637,12 @@ p {
   inset: 0;
   z-index: 0;
   background: var(--ink);
+}
+
+.hero__media picture {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
 .hero__img {
@@ -784,7 +790,7 @@ p {
   }
 }
 
-/* Mobile hero — landscape photo with controlled focal crop */
+/* Mobile hero — dedicated portrait photo (hero-telefoon) */
 @media (max-width: 767.98px) {
   .hero {
     min-height: clamp(38.75rem, 78svh, 43.75rem);
@@ -793,7 +799,8 @@ p {
   }
 
   .hero__img {
-    object-position: 75% 38%;
+    /* Trucks + branding in lower half; sky above for copy */
+    object-position: center 68%;
   }
 
   .hero__content {
@@ -843,20 +850,16 @@ p {
     border-color: rgba(255, 255, 255, 0.58);
   }
 
+  /* Stronger top veil — bright sky + sun behind text */
   .hero__veil {
     background:
       linear-gradient(
         180deg,
-        rgba(10, 16, 15, 0.8) 0%,
-        rgba(10, 16, 15, 0.58) 34%,
-        rgba(10, 16, 15, 0.22) 62%,
-        rgba(10, 16, 15, 0.32) 100%
-      ),
-      linear-gradient(
-        90deg,
-        rgba(10, 16, 15, 0.42) 0%,
-        rgba(10, 16, 15, 0.12) 60%,
-        rgba(10, 16, 15, 0.05) 100%
+        rgba(10, 16, 15, 0.84) 0%,
+        rgba(10, 16, 15, 0.66) 28%,
+        rgba(10, 16, 15, 0.28) 55%,
+        rgba(10, 16, 15, 0.18) 78%,
+        rgba(10, 16, 15, 0.36) 100%
       );
   }
 }
@@ -867,7 +870,7 @@ p {
   }
 
   .hero__img {
-    object-position: 78% 36%;
+    object-position: center 70%;
   }
 
   .hero__sub {
@@ -906,7 +909,7 @@ p {
   align-items: center;
 }
 
-/* ââ Homepage visual system ââ */
+/* Ã¢ÂÂÃ¢ÂÂ Homepage visual system Ã¢ÂÂÃ¢ÂÂ */
 .page-home main > .section,
 .page-home main > .services-editorial,
 .page-home main > .material-matrix,
@@ -2183,7 +2186,7 @@ p {
   }
 }
 
-/* ââ Enhancements: categories, request selector, timeline, etc. ââ */
+/* Ã¢ÂÂÃ¢ÂÂ Enhancements: categories, request selector, timeline, etc. Ã¢ÂÂÃ¢ÂÂ */
 .section-note {
   margin: -0.5rem 0 1.5rem;
   max-width: 46rem;
@@ -3562,7 +3565,7 @@ p {
   overflow-x: clip;
 }
 
-/* ââ Real work photography ââ */
+/* Ã¢ÂÂÃ¢ÂÂ Real work photography Ã¢ÂÂÃ¢ÂÂ */
 .work-photo {
   position: relative;
   width: 100%;
@@ -4014,7 +4017,7 @@ p {
 
 
 /* =========================================================
-   Homepage redesign ï¿½ editorial layouts
+   Homepage redesign Ã¯Â¿Â½ editorial layouts
    ========================================================= */
 
 .page-home .section-header--center {
@@ -4492,7 +4495,7 @@ p {
   }
 }
 
-/* Band CTA â aligned with homepage closing CTA */
+/* Band CTA Ã¢ÂÂ aligned with homepage closing CTA */
 .band-cta {
   padding: clamp(2.25rem, 4.5vw, 3.25rem) 0;
 }
@@ -5295,7 +5298,7 @@ p {
   }
 }
 
-/* ââ Dedicated responsive polish (homepage + subpages) ââ */
+/* Ã¢ÂÂÃ¢ÂÂ Dedicated responsive polish (homepage + subpages) Ã¢ÂÂÃ¢ÂÂ */
 @media (max-width: 700px) {
   .page-sub .section {
     padding-block: var(--section-space);

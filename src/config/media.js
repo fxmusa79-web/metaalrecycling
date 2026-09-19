@@ -3,17 +3,28 @@
  * AI-generated /pictures/heros assets are not used on the live site.
  */
 
-/** Homepage hero — real yard photo with company vehicles */
-export const homepageHero = {
+/** Homepage hero — desktop / tablet (≥768px) */
+export const homepageHeroDesktop = {
   src: '/images/hero-nieuw.jpg',
   alt: 'Bedrijfsvoertuigen van Duurzaam Metaal Recycling op het terrein',
   width: 1280,
   height: 714,
-  /** Desktop: keep green crane truck + white flatbeds visible */
   position: '58% 48%',
-  /** Mobile: keep green crane truck in frame */
-  positionMobile: '70% 40%',
 }
+
+/** Homepage hero — phones (<768px), dedicated portrait photo */
+export const homepageHeroMobile = {
+  src: '/images/hero-telefoon.png',
+  alt: 'Bedrijfsvoertuigen van Duurzaam Metaal Recycling, mobiele weergave',
+  width: 941,
+  height: 1672,
+  /** Keep branded truck + crane in lower frame; sky for text */
+  position: 'center 68%',
+}
+
+/** @deprecated use homepageHeroDesktop / homepageHeroMobile */
+export const homepageHero = homepageHeroDesktop
+
 
 /**
  * Subpage photo heroes — real project photos (not AI).

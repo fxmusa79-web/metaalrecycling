@@ -1,8 +1,9 @@
 import { Button } from './ui.js'
-import { homepageHero } from '../config/media.js'
+import { homepageHeroDesktop, homepageHeroMobile } from '../config/media.js'
 
 export function Hero() {
-  const hero = homepageHero
+  const desktop = homepageHeroDesktop
+  const mobile = homepageHeroMobile
 
   return `
     <section
@@ -11,15 +12,23 @@ export function Hero() {
       aria-labelledby="hero-title"
     >
       <div class="hero__media" aria-hidden="true">
-        <img
-          class="hero__img"
-          src="${hero.src}"
-          alt=""
-          width="${hero.width}"
-          height="${hero.height}"
-          fetchpriority="high"
-          decoding="async"
-        />
+        <picture>
+          <source
+            media="(max-width: 767.98px)"
+            srcset="${mobile.src}"
+            width="${mobile.width}"
+            height="${mobile.height}"
+          />
+          <img
+            class="hero__img"
+            src="${desktop.src}"
+            alt=""
+            width="${desktop.width}"
+            height="${desktop.height}"
+            fetchpriority="high"
+            decoding="async"
+          />
+        </picture>
       </div>
       <div class="hero__veil" aria-hidden="true"></div>
 
