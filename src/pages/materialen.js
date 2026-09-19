@@ -21,9 +21,9 @@ const aspects = {
 
 mountPage({
   pageId: 'materialen',
-  title: 'Materialen & Recycling | Duurzaam Metaal Recycling',
+  title: 'Metalen, Kabels, Machines & Transformatoren | Duurzaam Metaal Recycling',
   description:
-    'Wat kunnen wij verwerken? Overzicht van metalen, kabels, machines, transformatoren en constructies. Staat uw materiaal er niet tussen? Neem contact op.',
+    'Overzicht van metalen, kabels, machines, transformatoren en constructies die wij kunnen beoordelen. Geen volledige lijst — stuur foto’s bij twijfel.',
   content: `
     ${PageHero({
       label: 'Materialen',

@@ -84,7 +84,7 @@ export function Footer() {
           <p>© ${year} DuurzaamMetaalRecycling.nl</p>
           <ul class="site-footer__legal">
             <li><a href="/contact.html">Privacybeleid</a></li>
-            <li><a href="/contact.html">Cookiebeleid</a></li>
+            <li><a href="#" data-open-cookie-settings>Cookie-instellingen</a></li>
             <li><a href="/contact.html">Algemene voorwaarden</a></li>
             <li><a href="/contact.html">Disclaimer</a></li>
           </ul>

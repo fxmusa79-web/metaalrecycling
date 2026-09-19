@@ -235,6 +235,16 @@ export default {
   async fetch(request, env) {
     const url = new URL(request.url)
 
+    // Prefer apex hostname for public page URLs (keep API on whatever host was called)
+    if (
+      url.hostname === 'www.duurzaammetaalrecycling.nl' &&
+      (request.method === 'GET' || request.method === 'HEAD') &&
+      !url.pathname.startsWith('/api/')
+    ) {
+      url.hostname = 'duurzaammetaalrecycling.nl'
+      return Response.redirect(url.toString(), 301)
+    }
+
     if (!url.pathname.startsWith('/api/')) {
       if (env.ASSETS) {
         return env.ASSETS.fetch(request)

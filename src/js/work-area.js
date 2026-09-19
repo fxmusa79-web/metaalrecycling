@@ -90,13 +90,20 @@ export function initWorkArea() {
   })
 
   cta?.addEventListener('click', (event) => {
-    event.preventDefault()
     const location =
       getStoredProjectLocation() || String(input?.value || '').trim()
     if (location) {
       setStoredProjectLocation(location)
       applyProjectLocationToRequestForm(location)
     }
+
+    const href = cta.getAttribute('href') || ''
+    if (href.startsWith('/contact')) {
+      // Navigate to contact — location already stored in session
+      return
+    }
+
+    event.preventDefault()
     if (window.location.hash !== '#aanvraag') {
       history.pushState(null, '', '#aanvraag')
     }

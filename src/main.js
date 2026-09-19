@@ -1,8 +1,10 @@
 import './style.css'
 import { TopBar, Navbar } from './components/header.js'
 import { Footer, StickyContactBar, WhatsAppFloat } from './components/footer.js'
+import { CookieConsentMarkup, initCookieConsent } from './components/cookie-consent.js'
 import { Hero } from './components/hero.js'
 import { Benefits } from './components/benefits.js'
+import { ProcessCategories } from './components/process-categories.js'
 import { Services } from './components/services.js'
 import { WorkPractice } from './components/work-practice.js'
 import { RecyclingTimeline } from './components/timeline.js'
@@ -17,29 +19,25 @@ import { initStickyBar } from './js/sticky-bar.js'
 import { initAnimations } from './js/animations.js'
 import { initRequestSelector } from './js/request-selector.js'
 import { initWorkArea } from './js/work-area.js'
+import { initUspRail } from './js/usp-rail.js'
+import { initProcessCycle } from './js/process-cycle.js'
+import { initConsentApi } from './js/consent.js'
 import { site, applyHeaderLogoVariant } from './config/site.js'
 
 document.title =
-  'Duurzaam Metaal Recycling | Metaal Inkoop, Recycling & Demontage'
+  'Metaal Inkoop, Recycling & Demontage Groningen | Duurzaam Metaal Recycling'
 
 document.body.classList.add('page-home')
-/* Toggle round logo header: HEADER_ROUND_LOGO in src/config/site.js → body.header-round-logo */
 applyHeaderLogoVariant()
+initConsentApi()
 
-/**
- * Homepage flow (focused, conversion-first):
- * Hero → trust → core services → real work → process →
- * audiences → location → FAQ → CTA
- *
- * Detailed material lists live on /materialen.html
- * Demontage specializations live on /demontage.html
- */
 document.querySelector('#app').innerHTML = `
   ${TopBar()}
   ${Navbar({ pageId: 'home' })}
   <main>
     ${Hero()}
     ${Benefits()}
+    ${ProcessCategories()}
     ${Services()}
     ${WorkPractice()}
     ${RecyclingTimeline()}
@@ -52,6 +50,7 @@ document.querySelector('#app').innerHTML = `
   ${Footer()}
   ${StickyContactBar()}
   ${WhatsAppFloat()}
+  ${CookieConsentMarkup()}
 `
 
 const schema = document.createElement('script')
@@ -62,7 +61,7 @@ schema.textContent = JSON.stringify({
   name: site.name,
   url: site.url,
   email: site.email,
-  telephone: site.phoneDisplay,
+  telephone: '+31648667182',
   address: {
     '@type': 'PostalAddress',
     streetAddress: 'Gerrit Imbosstraat 60',
@@ -70,6 +69,11 @@ schema.textContent = JSON.stringify({
     addressLocality: 'Foxhol',
     addressCountry: 'NL',
   },
+  areaServed: {
+    '@type': 'AdministrativeArea',
+    name: 'Groningen',
+  },
+  description: site.description,
 })
 document.head.appendChild(schema)
 
@@ -78,4 +82,7 @@ initFaq()
 initStickyBar()
 initWorkArea()
 initRequestSelector()
+initUspRail()
+initProcessCycle()
+initCookieConsent()
 initAnimations()

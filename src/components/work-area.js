@@ -8,19 +8,18 @@ export function WorkArea() {
       <div class="container workarea">
         <div class="workarea__content reveal">
           <p class="section-header__eyebrow">Werkgebied</p>
-          <h2>Gevestigd in ${site.city}</h2>
+          <h2>Werkgebied Groningen en daarbuiten</h2>
           <p class="workarea__lead">
-            Vanuit Foxhol werken we voor particulieren en bedrijven in de regio
-            en daarbuiten, afhankelijk van de opdracht.
+            Vanuit Foxhol werken we in heel Groningen voor particulieren en bedrijven.
+            Ook opdrachten buiten Groningen zijn mogelijk. Voorrijkosten bespreken we vooraf.
           </p>
           <p class="workarea__prompt">
-            Wilt u weten of we voor uw locatie iets kunnen betekenen?
-            Vul uw plaats of postcode in.
+            Vul uw plaats of postcode in — we nemen die mee in uw aanvraag.
           </p>
 
           <form class="location-check" id="location-check-form" novalidate>
             <label class="location-check__label" for="location-check-input">
-              Waar bevindt het project zich?
+              Waar vindt de opdracht plaats?
             </label>
             <div class="location-check__row">
               <input
@@ -33,7 +32,7 @@ export function WorkArea() {
                 required
               />
               <button class="btn btn--primary btn--sm location-check__submit" type="submit">
-                Check locatie
+                Locatie meesturen
               </button>
             </div>
             <p class="location-check__error" id="location-check-error" hidden></p>

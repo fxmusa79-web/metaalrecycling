@@ -7,6 +7,7 @@ import {
   validateEmail,
 } from './contact-api.js'
 import { getSelectedPhotos, initPhotoUploads } from './photos.js'
+import { getStoredProjectLocation } from './work-area.js'
 
 function showError(el, message) {
   if (!el) return
@@ -33,6 +34,12 @@ export function initContactForm() {
   if (presetType && typeSelect) {
     const match = [...typeSelect.options].find((opt) => opt.value === presetType)
     if (match) typeSelect.value = presetType
+  }
+
+  const storedLocation = getStoredProjectLocation()
+  if (storedLocation) {
+    const locationField = form.querySelector('#request-location, [name="location"]')
+    if (locationField && !locationField.value) locationField.value = storedLocation
   }
 
   const syncOther = () => {

@@ -3,8 +3,7 @@ import { icons } from './icons.js'
 import { WorkPhoto } from './media.js'
 
 /**
- * Homepage featured service — industrial dismantling showcase.
- * Primary visual: windmolen-ring.jpg
+ * Homepage services — list first, then featured industrial showcase.
  */
 const featured = {
   label: 'Uitgelicht',
@@ -16,7 +15,7 @@ const featured = {
   cta: 'Bekijk demontage',
 }
 
-const listOrder = ['inkoop', 'recycling', 'brand-snijwerk', 'machines', 'kabels']
+const listOrder = ['inkoop', 'recycling', 'brand-snijwerk', 'machines', 'kabels', 'ophalen']
 
 export function Services() {
   const list = listOrder.map((id) => services.find((s) => s.id === id)).filter(Boolean)
@@ -24,6 +23,32 @@ export function Services() {
   return `
     <section class="section section--dark services-editorial" id="diensten">
       <div class="container">
+        <div class="service-list">
+          <h2 class="service-list__heading">Onze hoofddiensten</h2>
+          <ul class="service-list__items">
+            ${list
+              .map(
+                (item) => `
+              <li class="service-row">
+                <span class="service-row__icon" aria-hidden="true">${icons[item.icon]}</span>
+                <div class="service-row__copy">
+                  <h3><a href="${item.href}">${item.title}</a></h3>
+                  <p>${item.text}</p>
+                  <a class="text-link text-link--on-dark service-row__cta" href="${item.href}">
+                    ${item.cta} ${icons.arrow}
+                  </a>
+                </div>
+              </li>`
+              )
+              .join('')}
+          </ul>
+          <p class="service-list__note">
+            <a class="text-link text-link--on-dark" href="/materialen.html">
+              Materialen &amp; objecten ${icons.arrow}
+            </a>
+          </p>
+        </div>
+
         <div class="services-editorial__showcase">
           <div class="service-feature__media">
             ${WorkPhoto({
@@ -31,7 +56,6 @@ export function Services() {
               className: 'service-feature__photo',
               sizes: '(max-width: 899px) 100vw, 56vw',
               aspect: '4 / 3',
-              priority: true,
             })}
           </div>
 
@@ -44,29 +68,6 @@ export function Services() {
               ${featured.cta} ${icons.arrow}
             </a>
           </div>
-        </div>
-
-        <div class="service-list">
-          <h3 class="service-list__heading">Onze hoofddiensten</h3>
-          <ul class="service-list__items">
-            ${list
-              .map(
-                (item) => `
-              <li class="service-row">
-                <span class="service-row__icon">${icons[item.icon]}</span>
-                <div class="service-row__copy">
-                  <h4><a href="${item.href}">${item.title}</a></h4>
-                  <p>${item.text}</p>
-                </div>
-              </li>`
-              )
-              .join('')}
-          </ul>
-          <p class="service-list__note">
-            <a class="text-link text-link--on-dark" href="/materialen.html">
-              Materialen &amp; objecten ${icons.arrow}
-            </a>
-          </p>
         </div>
       </div>
     </section>

@@ -26,14 +26,14 @@ const snijItems = [
 
 mountPage({
   pageId: 'demontage',
-  title: 'Demontage & Sloop van Metaal | Duurzaam Metaal Recycling',
+  title: 'Metaal Demontage & Sloop Groningen | Duurzaam Metaal Recycling',
   description:
-    'Demontage en sloop van machines, constructies en installaties, inclusief brand- en snijwerk waar nodig.',
+    'Demontage van machines, installaties en metalen constructies. Inclusief brand- en snijwerk, scheiding op locatie en sortering achteraf.',
   content: `
     ${PageHero({
       label: 'Demontage &amp; sloop',
       title: 'Demontage van metalen installaties',
-      text: 'Wij demonteren machines, constructies en installaties en scheiden metalen voor verdere verwerking. Waar nodig doen we brand- en snijwerk.',
+      text: 'We demonteren machines, installaties en metalen constructies. Waar nodig doen we brand- en snijwerk, scheiden materialen op locatie en sorteren daarna voor verdere verwerking.',
       backgroundImage: heroBg.src,
       backgroundPosition: heroBg.position,
       backgroundPositionMobile: heroBg.positionMobile,
@@ -52,6 +52,12 @@ mountPage({
       <div class="container editorial-split__grid">
         <div class="editorial-split__copy">
           <h2>Wat wij demonteren</h2>
+          <p>
+            We demonteren machines, constructies en industriële objecten op
+            locatie. Waar nodig scheiden we materialen ter plaatse. Na demontage
+            sorteren we metalen voor verdere verwerking. Elk project beoordelen
+            we vooraf op bereikbaarheid, samenstelling en veiligheid.
+          </p>
           <ul class="plain-list">
             ${categories.map((item) => `<li>${item}</li>`).join('')}
           </ul>

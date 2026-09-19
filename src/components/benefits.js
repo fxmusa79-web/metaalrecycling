@@ -12,12 +12,12 @@ export function Benefits() {
   return `
     <section class="benefits" aria-label="Voordelen">
       <div class="container">
-        <ul class="benefits__list">
+        <ul class="benefits__list" data-usp-rail>
           ${benefits
             .map(
               (item) => `
             <li class="benefit-item">
-              <span class="benefit-item__icon">${item.icon}</span>
+              <span class="benefit-item__icon" aria-hidden="true">${item.icon}</span>
               <span class="benefit-item__label">${item.label}</span>
             </li>`
             )

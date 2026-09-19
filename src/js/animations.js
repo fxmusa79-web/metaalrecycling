@@ -228,5 +228,51 @@ export function initAnimations() {
   }
 
   initTimeline()
+  initRecycleMotifs()
   requestAnimationFrame(() => ScrollTrigger.refresh())
+}
+
+function initRecycleMotifs() {
+  const motifs = gsap.utils.toArray('[data-recycle-motif]')
+  if (!motifs.length) return
+
+  motifs.forEach((motif) => {
+    const section = motif.closest('section') || motif.parentElement
+    gsap.set(motif, { opacity: 0, y: 28, scale: 0.98 })
+
+    ScrollTrigger.create({
+      trigger: section,
+      start: 'top 75%',
+      end: 'bottom 35%',
+      onEnter: () => {
+        gsap.to(motif, {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.7,
+          ease: EASE_SOFT,
+        })
+      },
+      onLeave: () => {
+        gsap.to(motif, { opacity: 0, y: -16, duration: 0.4, ease: EASE })
+      },
+      onEnterBack: () => {
+        gsap.to(motif, { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: EASE })
+      },
+      onLeaveBack: () => {
+        gsap.to(motif, { opacity: 0, y: 20, duration: 0.35, ease: EASE })
+      },
+    })
+
+    gsap.to(motif, {
+      y: -24,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: section,
+        start: 'top bottom',
+        end: 'bottom top',
+        scrub: 0.6,
+      },
+    })
+  })
 }

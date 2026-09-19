@@ -4,6 +4,7 @@ import { phoneHref } from '../config/site.js'
 import { icons } from '../components/icons.js'
 import { PageHero, ProcessLine, BandCta } from '../components/page-sections.js'
 import { WorkPhoto } from '../components/media.js'
+import { RecycleMotif } from '../components/recycle-motif.js'
 
 const values = [
   {
@@ -45,6 +46,16 @@ const pillars = [
     href: '/demontage.html',
   },
   {
+    title: 'Brand- en snijwerk',
+    text: 'Zware constructies gecontroleerd doorsnijden waar demontage dat vraagt.',
+    href: '/demontage.html#brand-snijwerk',
+  },
+  {
+    title: 'Machines',
+    text: 'Industriële machines en metalen onderdelen uit elkaar voor materiaalterugwinning.',
+    href: '/demontage.html',
+  },
+  {
     title: 'Kabels & transformatoren',
     text: 'Kabelpartijen, trafo’s en samengestelde objecten verwerken.',
     href: '/materialen.html',
@@ -53,17 +64,17 @@ const pillars = [
 
 mountPage({
   pageId: 'over-ons',
-  title: 'Over ons | Duurzaam Metaal Recycling',
+  title: 'Over Duurzaam Metaal Recycling | Foxhol Groningen',
   description:
-    'Duurzaam Metaal Recycling in Foxhol: metaal inkoop, recycling, demontage en materiaalscheiding voor particulieren en bedrijven in Groningen en daarbuiten.',
+    'Duurzaam Metaal Recycling in Foxhol: metaal inkoop, recycling, demontage, brand- en snijwerk en materiaalscheiding voor particulieren en bedrijven.',
   content: `
     ${PageHero({
       label: 'Over ons',
       title: 'Praktisch in metaal recycling',
-      text: 'Vanuit Foxhol verzorgen we metaal inkoop, recycling, demontage en het scheiden van waardevolle materialen — voor particulieren en bedrijven.',
+      text: 'Vanuit Foxhol verzorgen we metaal inkoop, recycling, demontage en het scheiden van materialen — voor particulieren en bedrijven in Groningen en daarbuiten.',
       primaryCta: {
         href: '/contact.html',
-        label: 'Contact',
+        label: 'Bespreek uw aanvraag',
       },
       secondaryCta: {
         href: '/#aanvraag',
@@ -71,7 +82,8 @@ mountPage({
       },
     })}
 
-    <section class="section editorial-split">
+    <section class="section editorial-split has-recycle-motif">
+      ${RecycleMotif({ className: 'recycle-motif--about' })}
       <div class="container editorial-split__grid">
         <div class="editorial-split__copy">
           <p class="section-header__eyebrow">Wie wij zijn</p>
@@ -104,8 +116,8 @@ mountPage({
     <section class="section section--muted about-pillars">
       <div class="container">
         <div class="about-pillars__intro">
-          <h2>Wat we doen</h2>
-          <p>Onze kernactiviteiten — van inkoop tot demontage en recycling.</p>
+          <h2>Wat wij doen</h2>
+          <p>Inkoop, recycling, demontage, snijwerk, machines, kabels en materiaalscheiding.</p>
         </div>
         <ul class="about-pillars__grid">
           ${pillars
@@ -124,13 +136,13 @@ mountPage({
 
     ${ProcessLine({
       id: 'werkwijze',
-      title: 'Hoe we werken',
-      text: 'Van eerste contact tot verwerking — kort en overzichtelijk.',
+      title: 'Onze aanpak',
+      text: 'Eerst beoordelen, dan plannen, uitvoeren en scheiden.',
       steps: [
-        { title: 'Aanmelden', text: 'Omschrijving en eventueel foto’s.' },
-        { title: 'Beoordelen', text: 'Mogelijkheden en eerste indicatie.' },
-        { title: 'Uitvoeren', text: 'Ophalen, demontage of inkoop.' },
-        { title: 'Scheiden', text: 'Materialen gesorteerd voor recycling.' },
+        { title: 'Eerste beoordeling', text: 'Omschrijving, foto’s en locatie.' },
+        { title: 'Planning', text: 'Wat nodig is voor ophalen of demontage.' },
+        { title: 'Uitvoeren', text: 'Ophalen, demonteren of inkoop op locatie.' },
+        { title: 'Scheiden & recycling', text: 'Materialen gesorteerd voor verdere stromen.' },
       ],
     })}
 
@@ -178,8 +190,47 @@ mountPage({
       </div>
     </section>
 
+    <section class="section editorial-split">
+      <div class="container editorial-split__grid">
+        <div class="editorial-split__media">
+          ${WorkPhoto({
+            imageKey: 'kabel',
+            sizes: '(max-width: 900px) 100vw, 46vw',
+            aspect: '4 / 5',
+          })}
+        </div>
+        <div class="editorial-split__copy">
+          <p class="section-header__eyebrow">Materiaal</p>
+          <h2>Bewust omgaan met materiaal</h2>
+          <p>
+            Door metalen en onderdelen te scheiden, kunnen bruikbare of
+            recyclebare stromen apart verder. Dat voorkomt onnodige menging
+            en maakt verdere verwerking praktischer.
+          </p>
+          <p>
+            Niet alles is automatisch geschikt voor inkoop of recycling.
+            Daarom beoordelen we per verzoek wat realistisch is.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--muted">
+      <div class="container" style="max-width:40rem">
+        <h2>Werkgebied</h2>
+        <p>
+          Onze basis ligt in Foxhol. We werken in heel Groningen voor
+          particulieren en bedrijven. Buiten Groningen is ook mogelijk;
+          voorrijkosten en bereikbaarheid bespreken we vooraf.
+        </p>
+        <a class="text-link" href="/werkgebied.html">
+          Bekijk werkgebied ${icons.arrow}
+        </a>
+      </div>
+    </section>
+
     ${BandCta({
-      title: 'Een aanvraag bespreken?',
+      title: 'Bespreek uw aanvraag',
       text: 'Stuur een korte omschrijving en eventueel foto’s — we reageren met wat mogelijk is.',
       primaryCta: {
         href: '/contact.html',

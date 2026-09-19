@@ -49,14 +49,14 @@ const categories = [
 
 mountPage({
   pageId: 'metaal-inkoop',
-  title: 'Metaal Inkoop | Duurzaam Metaal Recycling',
+  title: 'Metaal Verkopen & Metaal Inkoop Groningen | Duurzaam Metaal Recycling',
   description:
-    'Metaal verkopen als particulier of bedrijf? Duurzaam Metaal Recycling koopt ferro- en non-ferrometalen in. Stuur foto’s voor een eerste beoordeling.',
+    'Metaal verkopen als particulier of bedrijf? Ferro- en non-ferro, kabels, machines en transformatoren. Foto’s helpen bij de eerste beoordeling.',
   content: `
     ${PageHero({
       label: 'Metaal inkoop',
       title: 'Metaal verkopen',
-      text: 'Wij kopen ferro- en non-ferrometalen in van particulieren, bedrijven en industrie. Stuur foto’s mee voor een snelle eerste beoordeling.',
+      text: 'Particulieren en bedrijven kunnen ferro- en non-ferrometalen, kabels, machines en transformatoren aanbieden. Niet alles wordt automatisch aangenomen — stuur foto’s mee voor een eerste beoordeling.',
       backgroundImage: heroBg.src,
       backgroundPosition: heroBg.position,
       backgroundPositionMobile: heroBg.positionMobile,

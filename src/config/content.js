@@ -55,6 +55,15 @@ export const services = [
     href: '/contact.html?type=Kabels%20%2F%20transformatoren',
     cta: 'Metaal aanbieden',
   },
+  {
+    id: 'ophalen',
+    icon: 'truck',
+    title: 'Ophalen & afvoer',
+    text: 'Partijen, machines en metalen objecten kunnen afhankelijk van omvang, locatie en bereikbaarheid worden opgehaald of afgevoerd.',
+    examples: ['Ophalen op locatie', 'Afvoer van partijen', 'Machines', 'Gemengde objecten'],
+    href: '/contact.html?type=Ander%20verzoek',
+    cta: 'Ophalen bespreken',
+  },
 ]
 
 export const processCategories = [
@@ -144,7 +153,7 @@ export const timelineSteps = [
   },
   {
     num: '05',
-    title: 'Recycling',
+    title: 'Recycling / hergebruik',
     text: 'Materialen gaan door naar recyclingstromen voor hergebruik.',
   },
 ]

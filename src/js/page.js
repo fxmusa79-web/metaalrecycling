@@ -1,16 +1,19 @@
 import { TopBar, Navbar } from '../components/header.js'
 import { Footer, StickyContactBar, WhatsAppFloat } from '../components/footer.js'
+import { CookieConsentMarkup, initCookieConsent } from '../components/cookie-consent.js'
 import { site, applyHeaderLogoVariant } from '../config/site.js'
 import { initNavigation } from './navigation.js'
 import { initStickyBar } from './sticky-bar.js'
 import { initFaq } from './faq.js'
 import { initAnimations } from './animations.js'
+import { initConsentApi } from './consent.js'
+import { initWorkArea } from './work-area.js'
 
 export function mountPage({ pageId, title, description, content }) {
   document.title = title
   document.body.classList.add('page-sub', `page-${pageId}`)
-  /* Toggle round logo header: HEADER_ROUND_LOGO in src/config/site.js → body.header-round-logo */
   applyHeaderLogoVariant()
+  initConsentApi()
 
   let desc = document.querySelector('meta[name="description"]')
   if (!desc) {
@@ -42,14 +45,14 @@ export function mountPage({ pageId, title, description, content }) {
   }
   canonical.setAttribute('href', canonicalUrl)
 
-  const setOg = (property, content) => {
+  const setOg = (property, contentValue) => {
     let el = document.querySelector(`meta[property="${property}"]`)
     if (!el) {
       el = document.createElement('meta')
       el.setAttribute('property', property)
       document.head.appendChild(el)
     }
-    el.setAttribute('content', content)
+    el.setAttribute('content', contentValue)
   }
 
   setOg('og:type', 'website')
@@ -69,6 +72,7 @@ export function mountPage({ pageId, title, description, content }) {
     ${Footer()}
     ${StickyContactBar()}
     ${WhatsAppFloat()}
+    ${CookieConsentMarkup()}
   `
 
   const existing = document.getElementById('local-business-schema')
@@ -82,7 +86,7 @@ export function mountPage({ pageId, title, description, content }) {
     name: site.name,
     url: site.url,
     email: site.email,
-    telephone: site.phoneDisplay,
+    telephone: '+31648667182',
     address: {
       '@type': 'PostalAddress',
       streetAddress: 'Gerrit Imbosstraat 60',
@@ -90,11 +94,17 @@ export function mountPage({ pageId, title, description, content }) {
       addressLocality: 'Foxhol',
       addressCountry: 'NL',
     },
+    areaServed: {
+      '@type': 'AdministrativeArea',
+      name: 'Groningen',
+    },
   })
   document.head.appendChild(schema)
 
   initNavigation()
   initStickyBar()
   initFaq()
+  initWorkArea()
+  initCookieConsent()
   initAnimations()
 }

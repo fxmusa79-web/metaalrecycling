@@ -8,22 +8,22 @@ const highlights = [
   { title: 'Heel Groningen', text: 'Particulier en zakelijk in de provincie.' },
   { title: 'Buiten Groningen', text: 'Ook mogelijk, afhankelijk van de opdracht.' },
   { title: 'Voorrijkosten', text: 'Buiten de regio in overleg per project.' },
-  { title: 'Op aanvraag', text: 'We beoordelen locatie en bereikbaarheid.' },
+  { title: 'Vooraf besproken', text: 'Kosten en bereikbaarheid bespreken we eerst.' },
 ]
 
 mountPage({
   pageId: 'werkgebied',
-  title: 'Werkgebied | Duurzaam Metaal Recycling',
+  title: 'Werkgebied Groningen & Omgeving | Duurzaam Metaal Recycling',
   description:
-    'Duurzaam Metaal Recycling werkt in heel Groningen en daarbuiten. Gevestigd in Foxhol. Voorrijkosten buiten de regio in overleg.',
+    'Vanuit Foxhol werken we in heel Groningen voor particulieren en bedrijven. Opdrachten buiten Groningen zijn mogelijk; voorrijkosten bespreken we vooraf.',
   content: `
     ${PageHero({
       label: 'Werkgebied',
-      title: 'Heel Groningen — en daarbuiten',
-      text: 'Wij werken in heel Groningen voor particulieren en bedrijven. Ook buiten Groningen kunnen wij werkzaamheden uitvoeren, afhankelijk van locatie en opdracht.',
+      title: 'Werkgebied Groningen en daarbuiten',
+      text: 'Vanuit Foxhol werken we in heel Groningen voor particulieren en bedrijven. Ook opdrachten buiten Groningen zijn mogelijk. Afhankelijk van de locatie en werkzaamheden kunnen voorrijkosten gelden. Deze bespreken we vooraf.',
       primaryCta: {
-        href: '/contact.html',
-        label: 'Locatie bespreken',
+        href: '#locatie-checker',
+        label: 'Locatie meesturen',
       },
       secondaryCta: {
         href: phoneHref(),
@@ -58,12 +58,12 @@ mountPage({
           <p>
             Vanuit Foxhol werken we voor particulieren en bedrijven in heel
             Groningen. Demontage, inkoop en recycling beoordelen we per verzoek —
-            ook als de locatie buiten de directe omgeving ligt.
+            ook als de locatie buiten de provincie ligt.
           </p>
           <p>
-            Bij opdrachten buiten Groningen kunnen voorrijkosten of aanvullende
-            afspraken gelden, afhankelijk van locatie en opdracht. Neem contact
-            op voor een duidelijke beoordeling.
+            Bij opdrachten buiten Groningen kunnen voorrijkosten gelden.
+            Exacte kosten hangen af van locatie, omvang en type werkzaamheden.
+            Dat bespreken we vooraf, zodat u weet waar u aan toe bent.
           </p>
           <div class="werkgebied-page__actions">
             <a class="btn btn--primary btn--sm" href="/contact.html">Contact</a>
@@ -107,14 +107,54 @@ mountPage({
       </div>
     </section>
 
-    <section class="section section--muted werkgebied-note">
+    <section class="section section--muted" id="locatie-checker">
+      <div class="container" style="max-width:36rem">
+        <h2>Waar vindt de opdracht plaats?</h2>
+        <p>
+          Vul uw plaats of postcode in. We nemen de locatie mee naar het
+          aanvraagformulier, zodat we bereikbaarheid en eventuele voorrijkosten
+          kunnen meenemen in de beoordeling.
+        </p>
+        <form class="location-check" id="location-check-form" novalidate>
+          <label class="location-check__label" for="location-check-input">
+            Postcode of plaats
+          </label>
+          <div class="location-check__row">
+            <input
+              id="location-check-input"
+              class="location-check__input"
+              name="project_location"
+              type="text"
+              autocomplete="address-level2"
+              placeholder="Bijv. 9607 PE of Foxhol"
+              required
+            />
+            <button class="btn btn--primary btn--sm location-check__submit" type="submit">
+              Locatie meesturen
+            </button>
+          </div>
+          <p class="location-check__error" id="location-check-error" hidden></p>
+          <div class="location-check__result" id="location-check-result" hidden>
+            <p class="location-check__result-title">Locatie opgeslagen</p>
+            <p class="location-check__result-text">
+              Voor <strong data-location-value></strong> bekijken we graag wat mogelijk is.
+            </p>
+            <a class="btn btn--primary btn--sm" href="/contact.html" data-location-cta>
+              Door naar aanvraag
+            </a>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <section class="section werkgebied-note">
       <div class="container werkgebied-note__inner">
         <div>
           <h2>Project buiten Groningen?</h2>
           <p>
             Ook grotere of bijzondere projecten buiten de provincie beoordelen
             we op aanvraag. Reisafstand, bereikbaarheid en type werkzaamheden
-            bespreken we vooraf — zonder vaste radiusclaim.
+            bespreken we vooraf.
           </p>
         </div>
         <a class="btn btn--primary" href="/contact.html?type=Ander%20verzoek">
@@ -124,7 +164,7 @@ mountPage({
     </section>
 
     ${BandCta({
-      title: 'Weten of we bij u kunnen komen?',
+      title: 'Locatie bespreken?',
       text: 'Stuur uw plaats of postcode mee — we kijken wat mogelijk is.',
       primaryCta: {
         href: '/contact.html',
