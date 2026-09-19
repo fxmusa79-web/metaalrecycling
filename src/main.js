@@ -1,6 +1,6 @@
 import './style.css'
 import { TopBar, Navbar } from './components/header.js'
-import { Footer, StickyContactBar } from './components/footer.js'
+import { Footer, StickyContactBar, WhatsAppFloat } from './components/footer.js'
 import { Hero } from './components/hero.js'
 import { Benefits } from './components/benefits.js'
 import { Services } from './components/services.js'
@@ -45,6 +45,7 @@ document.querySelector('#app').innerHTML = `
   </main>
   ${Footer()}
   ${StickyContactBar()}
+  ${WhatsAppFloat()}
 `
 
 const schema = document.createElement('script')

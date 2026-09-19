@@ -104,6 +104,22 @@ export function StickyContactBar() {
   `
 }
 
+export function WhatsAppFloat() {
+  return `
+    <a
+      class="whatsapp-float"
+      href="${site.whatsappUrl}"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Neem contact op via WhatsApp"
+      data-whatsapp-float
+    >
+      <span class="whatsapp-float__tooltip" aria-hidden="true">WhatsApp</span>
+      ${icons.whatsapp}
+    </a>
+  `
+}
+
 export function LocalBusinessSchema() {
   const data = {
     '@context': 'https://schema.org',

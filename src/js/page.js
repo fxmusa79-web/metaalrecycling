@@ -1,5 +1,5 @@
 import { TopBar, Navbar } from '../components/header.js'
-import { Footer, StickyContactBar } from '../components/footer.js'
+import { Footer, StickyContactBar, WhatsAppFloat } from '../components/footer.js'
 import { site } from '../config/site.js'
 import { initNavigation } from './navigation.js'
 import { initStickyBar } from './sticky-bar.js'
@@ -66,6 +66,7 @@ export function mountPage({ pageId, title, description, content }) {
     </main>
     ${Footer()}
     ${StickyContactBar()}
+    ${WhatsAppFloat()}
   `
 
   const existing = document.getElementById('local-business-schema')

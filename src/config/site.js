@@ -34,6 +34,8 @@ export const site = {
     logo: '/images/logo.png',
     logoMark: '/images/logo-mark.png',
   },
+
+  whatsappUrl: 'https://wa.me/message/WXTFMZ757WGGH1',
 }
 
 export const navigation = [
