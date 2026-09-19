@@ -33,9 +33,26 @@ export const site = {
     logoHeader: '/images/logo-header.png',
     logo: '/images/logo.png',
     logoMark: '/images/logo-mark.png',
+    /** Circular brand emblem — used by optional header-round-logo variant */
+    logoRound: '/images/rondelogo.png',
   },
 
   whatsappUrl: 'https://wa.me/message/WXTFMZ757WGGH1',
+}
+
+/**
+ * Header logo variant toggle (reversible).
+ *
+ * true  → body.header-round-logo  (circular emblem in navbar)
+ * false → current wordmark logo (default fallback)
+ *
+ * Switch here, then rebuild/redeploy. CSS/markup for both styles stay intact.
+ */
+export const HEADER_ROUND_LOGO = true
+
+/** Apply body class for the active header logo variant */
+export function applyHeaderLogoVariant(doc = document) {
+  doc.body.classList.toggle('header-round-logo', Boolean(HEADER_ROUND_LOGO))
 }
 
 export const navigation = [

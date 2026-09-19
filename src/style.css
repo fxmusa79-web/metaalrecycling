@@ -449,6 +449,138 @@ p {
   mix-blend-mode: lighten;
 }
 
+/*
+ * Round logo header variant (reversible)
+ * Toggle: HEADER_ROUND_LOGO in src/config/site.js
+ * → adds/removes body class: header-round-logo
+ * Wordmark remains the default when the class is absent.
+ */
+.brand__logo--round {
+  display: none;
+}
+
+body.header-round-logo .brand__logo--wordmark {
+  display: none;
+}
+
+body.header-round-logo .brand__logo--round {
+  display: block;
+  width: 3.35rem;
+  height: 3.35rem;
+  max-height: none;
+  object-fit: contain;
+  object-position: center;
+  border-radius: 50%;
+  background: var(--white);
+  box-shadow:
+    0 0 0 1px rgba(19, 23, 24, 0.08),
+    0 2px 8px rgba(19, 23, 24, 0.08);
+  transition:
+    transform 0.2s var(--ease),
+    box-shadow 0.2s var(--ease),
+    width 0.25s var(--ease),
+    height 0.25s var(--ease);
+}
+
+body.header-round-logo .brand:hover .brand__logo--round {
+  transform: translateY(-1px);
+  box-shadow:
+    0 0 0 1px rgba(41, 115, 36, 0.22),
+    0 4px 12px rgba(19, 23, 24, 0.1);
+}
+
+body.header-round-logo .site-header.is-stuck .brand__logo--round {
+  width: 3rem;
+  height: 3rem;
+}
+
+body.header-round-logo .site-header__inner {
+  min-height: 4.15rem;
+  padding-block: 0.4rem;
+  gap: 1.15rem;
+}
+
+body.header-round-logo .site-header.is-stuck .site-header__inner {
+  min-height: 3.75rem;
+  padding-block: 0.28rem;
+}
+
+body.header-round-logo .nav__list {
+  gap: 0.12rem;
+}
+
+body.header-round-logo .nav__link {
+  padding: 0.4rem 0.5rem;
+  font-size: 0.86rem;
+}
+
+body.header-round-logo .site-header__actions .btn {
+  border-radius: 3px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+body.header-round-logo .mobile-menu__top .brand__logo--round,
+body.header-round-logo .brand__logo--round-mobile {
+  width: 3rem;
+  height: 3rem;
+}
+
+@media (min-width: 768px) {
+  body.header-round-logo .brand__logo--round {
+    width: 3.85rem;
+    height: 3.85rem;
+  }
+
+  body.header-round-logo .site-header.is-stuck .brand__logo--round {
+    width: 3.4rem;
+    height: 3.4rem;
+  }
+}
+
+@media (min-width: 1180px) {
+  body.header-round-logo .brand__logo--round {
+    width: 4.35rem;
+    height: 4.35rem;
+  }
+
+  body.header-round-logo .site-header.is-stuck .brand__logo--round {
+    width: 3.85rem;
+    height: 3.85rem;
+  }
+
+  body.header-round-logo .site-header__inner {
+    min-height: 4.75rem;
+    padding-block: 0.5rem;
+  }
+
+  body.header-round-logo .site-header.is-stuck .site-header__inner {
+    min-height: 4.15rem;
+  }
+
+  body.header-round-logo .nav__link {
+    padding: 0.42rem 0.55rem;
+  }
+}
+
+@media (min-width: 1440px) {
+  body.header-round-logo .brand__logo--round {
+    width: 4.6rem;
+    height: 4.6rem;
+  }
+
+  body.header-round-logo .site-header.is-stuck .brand__logo--round {
+    width: 4rem;
+    height: 4rem;
+  }
+}
+
+@media (hover: none) {
+  body.header-round-logo .brand:hover .brand__logo--round {
+    transform: none;
+  }
+}
+
 .site-header__actions {
   display: flex;
   align-items: center;

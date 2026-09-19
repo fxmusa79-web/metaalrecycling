@@ -1,6 +1,6 @@
 import { TopBar, Navbar } from '../components/header.js'
 import { Footer, StickyContactBar, WhatsAppFloat } from '../components/footer.js'
-import { site } from '../config/site.js'
+import { site, applyHeaderLogoVariant } from '../config/site.js'
 import { initNavigation } from './navigation.js'
 import { initStickyBar } from './sticky-bar.js'
 import { initFaq } from './faq.js'
@@ -9,6 +9,8 @@ import { initAnimations } from './animations.js'
 export function mountPage({ pageId, title, description, content }) {
   document.title = title
   document.body.classList.add('page-sub', `page-${pageId}`)
+  /* Toggle round logo header: HEADER_ROUND_LOGO in src/config/site.js → body.header-round-logo */
+  applyHeaderLogoVariant()
 
   let desc = document.querySelector('meta[name="description"]')
   if (!desc) {

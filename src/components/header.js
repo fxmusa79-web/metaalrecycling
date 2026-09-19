@@ -69,20 +69,47 @@ export function TopBar() {
   `
 }
 
+/**
+ * Brand mark markup.
+ * Both wordmark + round logo ship in the DOM; CSS + body.header-round-logo
+ * switches which one is visible. Do not remove either asset.
+ */
+function BrandMark({ mobile = false } = {}) {
+  const wordClass = mobile
+    ? 'brand__logo brand__logo--wordmark brand__logo--mobile'
+    : 'brand__logo brand__logo--wordmark'
+  const roundClass = mobile
+    ? 'brand__logo brand__logo--round brand__logo--round-mobile'
+    : 'brand__logo brand__logo--round'
+  const brandClass = mobile ? 'brand brand--mobile' : 'brand'
+
+  return `
+    <a class="${brandClass}" href="/" aria-label="${site.name} — naar home">
+      <img
+        class="${wordClass}"
+        src="${site.assets.logoHeader}"
+        alt="${site.name}"
+        width="480"
+        height="96"
+        decoding="async"
+      />
+      <img
+        class="${roundClass}"
+        src="${site.assets.logoRound}"
+        alt="${site.name}"
+        width="512"
+        height="512"
+        decoding="async"
+      />
+    </a>
+  `
+}
+
 export function Navbar({ pageId = 'home' } = {}) {
   return `
     <header class="site-header" id="site-header">
       <div class="container site-header__inner">
-        <a class="brand" href="/" aria-label="${site.name} — naar home">
-          <img
-            class="brand__logo"
-            src="${site.assets.logoHeader}"
-            alt="${site.name}"
-            width="480"
-            height="96"
-            decoding="async"
-          />
-        </a>
+        ${BrandMark()}
 
         <nav class="nav nav--desktop" aria-label="Hoofdnavigatie">
           ${navLinks(pageId)}
@@ -111,16 +138,7 @@ export function Navbar({ pageId = 'home' } = {}) {
     <div class="mobile-menu" id="mobile-menu" hidden>
       <div class="mobile-menu__panel">
         <div class="mobile-menu__top">
-          <a class="brand brand--mobile" href="/">
-            <img
-              class="brand__logo brand__logo--mobile"
-              src="${site.assets.logoHeader}"
-              alt="${site.name}"
-              width="360"
-              height="72"
-              decoding="async"
-            />
-          </a>
+          ${BrandMark({ mobile: true })}
           <button class="nav-toggle nav-toggle--close" type="button" aria-label="Menu sluiten">
             ${icons.close}
           </button>

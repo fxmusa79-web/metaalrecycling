@@ -16,12 +16,14 @@ import { initFaq } from './js/faq.js'
 import { initStickyBar } from './js/sticky-bar.js'
 import { initAnimations } from './js/animations.js'
 import { initRequestSelector } from './js/request-selector.js'
-import { site } from './config/site.js'
+import { site, applyHeaderLogoVariant } from './config/site.js'
 
 document.title =
   'Duurzaam Metaal Recycling | Metaal Inkoop, Recycling & Demontage'
 
 document.body.classList.add('page-home')
+/* Toggle round logo header: HEADER_ROUND_LOGO in src/config/site.js → body.header-round-logo */
+applyHeaderLogoVariant()
 
 /**
  * Homepage flow (focused, conversion-first):
