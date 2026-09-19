@@ -1,5 +1,5 @@
 import { faqs } from '../config/content.js'
-import { BandCta } from './page-sections.js'
+import { BandCta, PageHero } from './page-sections.js'
 import { icons } from './icons.js'
 
 /** Homepage: only the questions that unblock contact */
@@ -62,15 +62,19 @@ export function FaqPreview({ limit = 3 } = {}) {
 
 export function FaqFull() {
   return `
-    <section class="section page-hero page-hero--light faq-hero">
-      <div class="container">
-        <p class="page-hero__label">FAQ</p>
-        <h1 class="page-hero__title">Veelgestelde vragen</h1>
-        <p class="page-hero__text">
-          Antwoorden over inkoop, recycling, demontage en aanvragen.
-        </p>
-      </div>
-    </section>
+    ${PageHero({
+      label: 'FAQ',
+      title: 'Veelgestelde vragen',
+      text: 'Antwoorden over inkoop, recycling, demontage en aanvragen.',
+      primaryCta: {
+        href: '/contact.html',
+        label: 'Contact',
+      },
+      secondaryCta: {
+        href: '/#aanvraag',
+        label: 'Aanvraag starten',
+      },
+    })}
 
     <section class="section section--muted faq-page">
       <div class="container narrow">
@@ -120,6 +124,11 @@ export function FaqFull() {
       primaryCta: {
         href: '/contact.html',
         label: 'Contact',
+      },
+      secondaryCta: {
+        href: '/#aanvraag',
+        label: 'Aanvraag starten',
+        variant: 'ghost',
       },
     })}
   `

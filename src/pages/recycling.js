@@ -36,7 +36,6 @@ mountPage({
       secondaryCta: {
         href: '/materialen.html',
         label: 'Materialen',
-        asLink: true,
       },
     })}
 

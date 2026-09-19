@@ -23,14 +23,14 @@ function renderCta(cta, { tone = 'light', isPrimary = true } = {}) {
     href: cta.href,
     label: cta.label,
     variant: cta.variant || defaultVariant,
-    size: cta.size || (isPrimary ? 'lg' : 'md'),
+    size: cta.size || 'md',
     icon: cta.icon || '',
     attrs: cta.attrs || '',
   })
 }
 
 /**
- * Consistent subpage hero — left-aligned, controlled height.
+ * Consistent subpage hero — readable content column, shared CTA pattern.
  * Optional static photo background from real project photography.
  */
 export function PageHero({
@@ -46,7 +46,12 @@ export function PageHero({
   backgroundPositionMobile = '',
 } = {}) {
   const actions = [primaryCta, secondaryCta]
-    .map((cta, index) => renderCta(cta, { tone: backgroundImage ? 'dark' : tone, isPrimary: index === 0 }))
+    .map((cta, index) =>
+      renderCta(cta, {
+        tone: backgroundImage ? 'dark' : tone,
+        isPrimary: index === 0,
+      })
+    )
     .filter(Boolean)
     .join('')
 

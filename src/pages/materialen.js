@@ -36,6 +36,10 @@ mountPage({
         href: '/contact.html?type=Ander%20verzoek',
         label: 'Contact',
       },
+      secondaryCta: {
+        href: '/#aanvraag',
+        label: 'Aanvraag starten',
+      },
     })}
 
     <section class="section materials-catalog">
