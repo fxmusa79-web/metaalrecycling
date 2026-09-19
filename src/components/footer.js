@@ -68,6 +68,11 @@ export function Footer() {
           <div class="site-footer__contact-block">
             <p class="site-footer__company">${site.name}</p>
             <p class="site-footer__address-block">${addressHtml}</p>
+            ${
+              site.kvk
+                ? `<p class="site-footer__kvk">KvK: ${site.kvk}</p>`
+                : ''
+            }
             <ul class="site-footer__contact">
               <li>
                 <a href="${phoneHref()}">${icons.phone}<span>${phoneLabel()}</span></a>

@@ -2426,6 +2426,13 @@ p {
   color: rgba(255, 255, 255, 0.72);
 }
 
+.site-footer__kvk {
+  margin: -0.35rem 0 0.9rem;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.72);
+}
+
 .site-footer__address {
   color: rgba(255, 255, 255, 0.86);
   font-weight: 600;

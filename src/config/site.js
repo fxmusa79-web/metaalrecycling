@@ -22,7 +22,7 @@ export const site = {
   mapsUrl:
     'https://www.google.com/maps/search/?api=1&query=Gerrit+Imbosstraat+60,+9607+PE+Foxhol',
 
-  kvk: '',
+  kvk: '90568338',
   btw: '',
 
   trustLine: 'Metaal inkoop • Recycling • Demontage & sloop',
