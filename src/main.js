@@ -16,6 +16,7 @@ import { initFaq } from './js/faq.js'
 import { initStickyBar } from './js/sticky-bar.js'
 import { initAnimations } from './js/animations.js'
 import { initRequestSelector } from './js/request-selector.js'
+import { initWorkArea } from './js/work-area.js'
 import { site, applyHeaderLogoVariant } from './config/site.js'
 
 document.title =
@@ -75,5 +76,6 @@ document.head.appendChild(schema)
 initNavigation()
 initFaq()
 initStickyBar()
+initWorkArea()
 initRequestSelector()
 initAnimations()

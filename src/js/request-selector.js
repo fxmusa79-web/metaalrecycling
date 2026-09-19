@@ -5,6 +5,10 @@ import {
   validateEmail,
 } from './contact-api.js'
 import { getSelectedPhotos, initPhotoUploads } from './photos.js'
+import {
+  applyProjectLocationToRequestForm,
+  getStoredProjectLocation,
+} from './work-area.js'
 
 const TYPE_LABELS = {
   metaal: 'Metaal verkopen',
@@ -91,6 +95,12 @@ export function initRequestSelector() {
   initPhotoUploads(form)
   const getTurnstileToken = mountTurnstile(turnstileSlot)
 
+  /* Prefill location from work-area checker or ?locatie= / ?location= */
+  const params = new URLSearchParams(window.location.search)
+  const fromQuery = String(params.get('locatie') || params.get('location') || '').trim()
+  const presetLocation = fromQuery || getStoredProjectLocation()
+  if (presetLocation) applyProjectLocationToRequestForm(presetLocation)
+
   let step = 1
   let kind = ''
 
@@ -145,6 +155,10 @@ export function initRequestSelector() {
         field.disabled = !active
       })
     })
+
+    /* Re-apply stored location when a type panel becomes active */
+    const stored = getStoredProjectLocation()
+    if (stored) applyProjectLocationToRequestForm(stored)
   }
 
   options.forEach((btn) => {
