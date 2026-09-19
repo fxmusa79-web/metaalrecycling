@@ -1,9 +1,7 @@
 import './../style.css'
 import { mountPage } from '../js/page.js'
 import { site, mapsHref, phoneHref } from '../config/site.js'
-import { Button } from '../components/ui.js'
 import { icons } from '../components/icons.js'
-import { CTASection } from '../components/contact.js'
 import { PageHero, BandCta } from '../components/page-sections.js'
 
 mountPage({
@@ -15,7 +13,7 @@ mountPage({
     ${PageHero({
       label: 'Werkgebied',
       title: 'Werkgebied &amp; bereikbaarheid',
-      text: 'Wij zijn gevestigd in Foxhol en werken vanuit daar voor particulieren en bedrijven in de regio en daarbuiten, afhankelijk van de opdracht.',
+      text: 'Gevestigd in Foxhol. Wij werken voor particulieren en bedrijven in de regio en daarbuiten, afhankelijk van de opdracht.',
     })}
 
     <section class="section werkgebied-page">
@@ -26,23 +24,16 @@ mountPage({
             ${site.addressLines.join('<br />')}
           </address>
           <p>
-            Voor grotere projecten, demontage en zakelijke partijen bekijken we per aanvraag
-            wat praktisch mogelijk is.
+            Voor grotere projecten, demontage en zakelijke partijen
+            bekijken we per aanvraag wat mogelijk is.
           </p>
           <div class="werkgebied-page__actions">
-            ${Button({
-              href: mapsHref(),
-              label: 'Open in Google Maps',
-              variant: 'secondary',
-              size: 'md',
-              attrs: 'target="_blank" rel="noopener noreferrer"',
-            })}
-            ${Button({
-              href: '/contact.html',
-              label: 'Contact opnemen',
-              variant: 'primary',
-              size: 'md',
-            })}
+            <a class="text-link" href="${mapsHref()}" target="_blank" rel="noopener noreferrer">
+              Google Maps ${icons.arrow}
+            </a>
+            <a class="text-link text-link--muted" href="/contact.html">
+              Contact ${icons.arrow}
+            </a>
           </div>
         </div>
         <div class="werkgebied-page__map" aria-label="Kaartregio Foxhol">
@@ -62,18 +53,16 @@ mountPage({
 
     ${BandCta({
       title: 'Ook buiten de regio?',
-      text: 'Grotere partijen of projecten buiten de directe omgeving kunnen op aanvraag worden beoordeeld.',
+      text: 'Grotere partijen of projecten buiten de directe omgeving beoordelen we op aanvraag.',
       primaryCta: {
         href: '/contact.html?type=Ander%20verzoek',
-        label: 'Project bespreken',
+        label: 'Contact',
       },
       secondaryCta: {
         href: phoneHref(),
         label: 'Bel direct',
-        icon: icons.phone,
+        variant: 'ghost',
       },
     })}
-
-    ${CTASection()}
   `,
 })

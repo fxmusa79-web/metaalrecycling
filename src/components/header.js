@@ -135,20 +135,8 @@ export function Navbar({ pageId = 'home' } = {}) {
             variant: 'primary',
             size: 'lg',
           })}
-          ${Button({
-            href: phoneHref(),
-            label: phoneLabel(),
-            variant: 'secondary',
-            size: 'lg',
-            icon: icons.phone,
-          })}
-          ${Button({
-            href: emailHref(),
-            label: emailLabel(),
-            variant: 'secondary',
-            size: 'lg',
-            icon: icons.mail,
-          })}
+          <a class="text-link" href="${phoneHref()}">${icons.phone}<span>${phoneLabel()}</span></a>
+          <a class="text-link" href="${emailHref()}">${icons.mail}<span>${emailLabel()}</span></a>
         </div>
       </div>
     </div>

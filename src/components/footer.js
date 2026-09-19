@@ -7,7 +7,6 @@ import {
   mapsHref,
 } from '../config/site.js'
 import { icons } from './icons.js'
-import { Button } from './ui.js'
 
 export function Footer() {
   const year = new Date().getFullYear()
@@ -21,19 +20,6 @@ export function Footer() {
 
   return `
     <footer class="site-footer">
-      <div class="container site-footer__cta-bar">
-        <div>
-          <h2 class="site-footer__cta-title">Metaal aanbieden of een project bespreken?</h2>
-          <p>Stuur foto’s en een korte omschrijving voor een snellere beoordeling.</p>
-        </div>
-        ${Button({
-          href: '/contact.html?type=Metaal%20aanbieden',
-          label: 'Stuur een aanvraag',
-          variant: 'primary',
-          size: 'md',
-        })}
-      </div>
-
       <div class="container site-footer__grid">
         <div class="site-footer__brand">
           <a class="brand" href="/">

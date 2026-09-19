@@ -17,6 +17,7 @@ export function WorkPhoto({
   if (!img) return ''
 
   const objectPosition = position || img.position || 'center center'
+  const objectPositionMobile = img.positionMobile || objectPosition
   const resolvedAspect = aspect || img.featureAspect || '4 / 3'
   const orientation = img.orientation ? ` work-photo--${img.orientation}` : ''
   const loading = priority ? 'eager' : 'lazy'
@@ -25,7 +26,7 @@ export function WorkPhoto({
   return `
     <div
       class="work-photo${orientation} ${className}"
-      style="--work-aspect: ${resolvedAspect}; --work-pos: ${objectPosition}"
+      style="--work-aspect: ${resolvedAspect}; --work-pos: ${objectPosition}; --work-pos-m: ${objectPositionMobile}"
     >
       <img
         class="work-photo__img"

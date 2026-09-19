@@ -36,7 +36,7 @@ export function ContactForm({ compact = false } = {}) {
   return `
     <form class="contact-form contact-form--refined" id="request-form" novalidate>
       <p class="contact-form__lead">
-        Beschrijf uw situatie en stuur indien mogelijk foto’s mee.
+        Korte omschrijving en eventueel foto’s.
       </p>
 
       <div class="form-group">
@@ -111,8 +111,7 @@ export function ContactForm({ compact = false } = {}) {
       <p class="form-success" id="request-form-success" hidden>Uw e-mailprogramma opent. Voeg eventuele foto’s handmatig toe.</p>
 
       <button class="btn btn--primary btn--lg contact-form__submit" type="submit">
-        <span>Verstuur verzoek</span>
-        ${icons.arrow}
+        <span>Verstuur</span>
       </button>
     </form>
   `
@@ -121,10 +120,9 @@ export function ContactForm({ compact = false } = {}) {
 export function ContactInfo() {
   return `
     <div class="contact-info">
-      <p class="page-hero__label">Contact</p>
-      <h1 class="page-hero__title">Neem contact op</h1>
+      <h2 class="contact-info__heading">Gegevens</h2>
       <p class="contact-info__text">
-        Bel, mail of stuur een verzoek. Ook andere recycling- en demontageverzoeken beoordelen wij.
+        Foxhol · particulier en zakelijk.
       </p>
       <ul class="contact-info__list">
         <li>
@@ -151,17 +149,17 @@ export function CTASection() {
     <section class="cta-section cta-section--home" id="contact" aria-labelledby="cta-title">
       <div class="container cta-section__inner">
         <div class="cta-section__copy">
-          <h2 id="cta-title">Metaal aanbieden of een project bespreken?</h2>
+          <h2 id="cta-title">Metaal aanbieden?</h2>
           <p>
-            Stuur foto’s en een korte omschrijving. Dan kunnen we sneller beoordelen wat mogelijk is.
+            Stuur een korte omschrijving en eventueel foto’s.
           </p>
         </div>
         <div class="cta-section__actions">
           <a class="btn btn--primary btn--lg" href="/contact.html?type=Metaal%20aanbieden">
-            <span>Stuur een aanvraag</span>
+            <span>Contact</span>
           </a>
-          <a class="btn btn--on-dark btn--lg" href="${phoneHref()}">
-            ${icons.phone}<span>Bel ${phoneLabel()}</span>
+          <a class="btn btn--ghost btn--lg" href="${phoneHref()}">
+            <span>Bel ${phoneLabel()}</span>
           </a>
         </div>
       </div>

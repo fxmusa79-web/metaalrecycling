@@ -1,8 +1,10 @@
 import './../style.css'
 import { mountPage } from '../js/page.js'
-import { CTASection } from '../components/contact.js'
 import { PageHero, ProcessLine, BandCta } from '../components/page-sections.js'
 import { WorkPhoto } from '../components/media.js'
+import { subpageHeroes } from '../config/media.js'
+
+const heroBg = subpageHeroes.recycling
 
 const categories = [
   'Kabels',
@@ -23,30 +25,34 @@ mountPage({
     ${PageHero({
       label: 'Recycling',
       title: 'Metaal recycling &amp; hergebruik',
-      text: 'Metalen worden gesorteerd, gescheiden en klaargemaakt voor recycling. Ook samengestelde objecten beoordelen wij op materiaal en verwerking.',
+      text: 'Metalen sorteren, scheiden en klaarmaken voor recycling. Ook samengestelde objecten beoordelen we op materiaal en verwerking.',
+      backgroundImage: heroBg.src,
+      backgroundPosition: heroBg.position,
+      backgroundPositionMobile: heroBg.positionMobile,
       primaryCta: {
         href: '/contact.html?type=Recycling',
-        label: 'Stuur uw verzoek',
+        label: 'Contact',
       },
       secondaryCta: {
         href: '/materialen.html',
-        label: 'Bekijk materialen',
+        label: 'Materialen',
+        asLink: true,
       },
     })}
 
     <section class="section editorial-split" id="meer-dan-los">
       <div class="container editorial-split__grid">
         <div class="editorial-split__copy">
-          <h2>Meer dan alleen los metaal</h2>
+          <h2>Meer dan los metaal</h2>
           <p>
-            Veel machines, kabels, transformatoren en installaties bestaan uit meerdere materialen.
-            Door deze eerst te demonteren en te scheiden kunnen verschillende metaalstromen
-            afzonderlijk worden verwerkt.
+            Machines, kabels, transformatoren en installaties bestaan vaak uit
+            meerdere materialen. Door eerst te demonteren en te scheiden,
+            kunnen metaalstromen apart worden verwerkt.
           </p>
         </div>
         <div class="editorial-split__media">
           ${WorkPhoto({
-            imageKey: 'kabel',
+            imageKey: 'kabelPremium',
             sizes: '(max-width: 900px) 100vw, 46vw',
             aspect: '4 / 5',
           })}
@@ -57,10 +63,10 @@ mountPage({
     ${ProcessLine({
       id: 'proces',
       title: 'Van object naar materiaalstroom',
-      text: 'Van eerste beoordeling tot gescheiden metaalstromen.',
+      text: 'Van beoordeling tot gescheiden metaalstromen.',
       steps: [
-        { title: 'Beoordelen', text: 'Samenstelling en mogelijkheden bekijken.' },
-        { title: 'Demonteren', text: 'Objecten gecontroleerd uit elkaar halen.' },
+        { title: 'Beoordelen', text: 'Samenstelling en mogelijkheden.' },
+        { title: 'Demonteren', text: 'Objecten gecontroleerd uit elkaar.' },
         { title: 'Sorteren', text: 'Materialen op type ordenen.' },
         { title: 'Scheiden', text: 'Metaalstromen apart houden.' },
         { title: 'Verwerken', text: 'Doorzetten naar recycling.' },
@@ -70,7 +76,8 @@ mountPage({
     <section class="section section--muted recycle-cats">
       <div class="container">
         <div class="recycle-cats__intro">
-          <h2>Wat verwerken wij onder andere?</h2>
+          <h2>Wat verwerken wij?</h2>
+          <p>Onder andere deze stromen en objecten.</p>
         </div>
         <ul class="recycle-cats__list">
           ${categories.map((item) => `<li>${item}</li>`).join('')}
@@ -98,13 +105,11 @@ mountPage({
 
     ${BandCta({
       title: 'Ander recyclingverzoek?',
-      text: 'Staat uw materiaal of object er niet tussen? Neem contact op voor een beoordeling.',
+      text: 'Staat uw materiaal er niet tussen? Neem contact op.',
       primaryCta: {
         href: '/contact.html?type=Recycling',
-        label: 'Stuur uw verzoek',
+        label: 'Contact',
       },
     })}
-
-    ${CTASection()}
   `,
 })

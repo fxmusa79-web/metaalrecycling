@@ -1,18 +1,10 @@
 import { services } from '../config/content.js'
 import { icons } from './icons.js'
-import { Button } from './ui.js'
 import { WorkPhoto } from './media.js'
 
+/** Homepage shows three pillars only — specializations live on subpages */
 const featuredId = 'demontage-service'
-const listOrder = ['inkoop', 'recycling', 'brand-snijwerk', 'machines', 'kabels']
-
-const linkLabels = {
-  inkoop: 'Bekijk inkoop',
-  recycling: 'Bekijk recycling',
-  'brand-snijwerk': 'Bekijk snijwerk',
-  machines: 'Bekijk demontage',
-  kabels: 'Bekijk materialen',
-}
+const listOrder = ['inkoop', 'recycling']
 
 export function Services() {
   const featured = services.find((s) => s.id === featuredId)
@@ -24,20 +16,18 @@ export function Services() {
         <article class="service-feature">
           <div class="service-feature__media">
             ${WorkPhoto({
-              imageKey: 'transformator2',
+              imageKey: 'demontageSite',
               sizes: '(max-width: 900px) 100vw, 48vw',
-              aspect: '4 / 5',
+              aspect: '5 / 4',
             })}
           </div>
           <div class="service-feature__body">
+            <p class="service-feature__label">Uitgelicht</p>
             <h2>${featured.title}</h2>
             <p>${featured.text}</p>
-            ${Button({
-              href: featured.href,
-              label: 'Bekijk demontage',
-              variant: 'primary',
-              size: 'md',
-            })}
+            <a class="text-link text-link--on-dark" href="${featured.href}">
+              Meer over demontage ${icons.arrow}
+            </a>
           </div>
         </article>
 
@@ -50,17 +40,18 @@ export function Services() {
               <li class="service-row">
                 <span class="service-row__icon">${icons[item.icon]}</span>
                 <div class="service-row__copy">
-                  <h3>${item.title}</h3>
+                  <h3><a href="${item.href}">${item.title}</a></h3>
                   <p>${item.text}</p>
-                  <a class="text-link" href="${item.href}">
-                    ${linkLabels[item.id] || 'Bekijk meer'}
-                    ${icons.arrow}
-                  </a>
                 </div>
               </li>`
               )
               .join('')}
           </ul>
+          <p class="service-list__note">
+            <a class="text-link text-link--on-dark" href="/materialen.html">
+              Materialen &amp; objecten ${icons.arrow}
+            </a>
+          </p>
         </div>
       </div>
     </section>

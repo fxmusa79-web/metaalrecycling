@@ -1,5 +1,4 @@
 import { site, mapsHref } from '../config/site.js'
-import { Button } from './ui.js'
 import { icons } from './icons.js'
 
 export function WorkArea() {
@@ -13,17 +12,14 @@ export function WorkArea() {
             en daarbuiten, afhankelijk van de opdracht.
           </p>
           <p class="section-note">
-            Project buiten de regio? Neem contact op voor de mogelijkheden.
+            Project buiten de regio? Neem contact op.
           </p>
           <div class="workarea__actions">
-            ${Button({
-              href: '/werkgebied.html',
-              label: 'Bekijk werkgebied',
-              variant: 'primary',
-              size: 'md',
-            })}
-            <a class="text-link" href="${mapsHref()}" target="_blank" rel="noopener noreferrer">
-              Open in Google Maps ${icons.arrow}
+            <a class="text-link" href="/werkgebied.html">
+              Werkgebied ${icons.arrow}
+            </a>
+            <a class="text-link text-link--muted" href="${mapsHref()}" target="_blank" rel="noopener noreferrer">
+              Google Maps ${icons.arrow}
             </a>
           </div>
         </div>

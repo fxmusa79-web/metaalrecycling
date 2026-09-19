@@ -1,9 +1,11 @@
 import './../style.css'
 import { mountPage } from '../js/page.js'
-import { Button } from '../components/ui.js'
-import { CTASection } from '../components/contact.js'
+import { icons } from '../components/icons.js'
 import { PageHero, ProcessLine, BandCta } from '../components/page-sections.js'
 import { WorkPhoto } from '../components/media.js'
+import { subpageHeroes } from '../config/media.js'
+
+const heroBg = subpageHeroes['metaal-inkoop']
 
 const categories = [
   {
@@ -23,7 +25,7 @@ const categories = [
     title: 'Kabels',
     size: 'medium',
     items: ['Koperkabel', 'Aluminiumkabel', 'Kabelpartijen'],
-    image: 'kabel',
+    image: 'kabelPremium',
   },
   {
     id: 'machines',
@@ -53,15 +55,19 @@ mountPage({
   content: `
     ${PageHero({
       label: 'Metaal inkoop',
-      title: 'Metaal verkopen aan Duurzaam Metaal Recycling',
-      text: 'Wij kopen verschillende ferro- en non-ferrometalen in van particulieren, bedrijven en industrie. Stuur foto’s en een korte omschrijving voor een eerste beoordeling.',
+      title: 'Metaal verkopen',
+      text: 'Wij kopen ferro- en non-ferrometalen in van particulieren, bedrijven en industrie. Stuur foto’s mee voor een snelle eerste beoordeling.',
+      backgroundImage: heroBg.src,
+      backgroundPosition: heroBg.position,
+      backgroundPositionMobile: heroBg.positionMobile,
       primaryCta: {
         href: '/contact.html?type=Metaal%20aanbieden',
         label: 'Metaal aanbieden',
       },
       secondaryCta: {
         href: '/materialen.html',
-        label: 'Bekijk materialen',
+        label: 'Materialen',
+        asLink: true,
       },
     })}
 
@@ -70,8 +76,8 @@ mountPage({
         <div class="inkoop-cats__intro">
           <h2>Welke metalen kopen wij in?</h2>
           <p>
-            De voorbeelden op deze pagina zijn niet volledig. Heeft u een andere partij of object?
-            Neem contact op voor een beoordeling.
+            Voorbeelden ter illustratie — geen volledige lijst.
+            Andere partijen? Neem contact op.
           </p>
         </div>
 
@@ -103,11 +109,11 @@ mountPage({
     </section>
 
     ${ProcessLine({
-      title: 'Zo werkt metaal aanbieden',
+      title: 'Zo werkt aanbieden',
       steps: [
-        { title: 'Stuur foto’s en omschrijving', text: 'Beschrijf de partij en voeg foto’s toe.' },
-        { title: 'Wij beoordelen de partij', text: 'U krijgt een eerste indicatie of voorstel.' },
-        { title: 'Afspraak / ophalen / verwerking', text: 'Afhankelijk van locatie en hoeveelheid.' },
+        { title: 'Foto’s en omschrijving', text: 'Korte beschrijving van de partij.' },
+        { title: 'Beoordeling', text: 'U krijgt een eerste indicatie.' },
+        { title: 'Afspraak of ophalen', text: 'Afhankelijk van locatie en hoeveelheid.' },
       ],
     })}
 
@@ -118,14 +124,12 @@ mountPage({
             <p class="audience-panel__label">Particulier</p>
             <h2 class="audience-panel__title">Metaal over?</h2>
             <p>
-              Kabels, onderdelen, oude machines of ander metaal? Stuur foto’s mee voor een eerste beoordeling.
+              Kabels, onderdelen of machines.
+              Stuur foto’s mee voor een snelle beoordeling.
             </p>
-            ${Button({
-              href: '/contact.html?type=Metaal%20aanbieden',
-              label: 'Metaal aanbieden',
-              variant: 'primary',
-              size: 'md',
-            })}
+            <a class="text-link" href="/contact.html?type=Metaal%20aanbieden">
+              Metaal aanbieden ${icons.arrow}
+            </a>
           </div>
         </article>
         <article class="audience-panel audience-panel--business">
@@ -133,14 +137,12 @@ mountPage({
             <p class="audience-panel__label">Zakelijk</p>
             <h2 class="audience-panel__title">Terugkerende partijen?</h2>
             <p>
-              Voor bedrijven verwerken we productieresten, kabelpartijen, machines en industriële materialen.
+              Productieresten, kabelpartijen, machines
+              en industriële materialen.
             </p>
-            ${Button({
-              href: '/contact.html?type=Recycling',
-              label: 'Zakelijke aanvraag',
-              variant: 'secondary',
-              size: 'md',
-            })}
+            <a class="text-link text-link--on-dark" href="/contact.html?type=Recycling">
+              Zakelijk contact ${icons.arrow}
+            </a>
           </div>
         </article>
       </div>
@@ -148,13 +150,11 @@ mountPage({
 
     ${BandCta({
       title: 'Partij metaal aanbieden?',
-      text: 'Stuur foto’s en een korte omschrijving.',
+      text: 'Stuur een korte omschrijving en eventueel foto’s.',
       primaryCta: {
         href: '/contact.html?type=Metaal%20aanbieden',
-        label: 'Stuur foto’s',
+        label: 'Contact',
       },
     })}
-
-    ${CTASection()}
   `,
 })

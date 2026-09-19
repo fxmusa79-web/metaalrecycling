@@ -1,4 +1,3 @@
-import { Button } from './ui.js'
 import { icons } from './icons.js'
 
 export function Audiences() {
@@ -10,37 +9,26 @@ export function Audiences() {
             <p class="audience-panel__label">Particulier</p>
             <h2 class="audience-panel__title">Metaal over?</h2>
             <p>
-              Heeft u kabels, metalen onderdelen, oude machines of ander materiaal?
-              Stuur foto’s mee voor een eerste beoordeling.
+              Kabels, onderdelen, machines of ander metaal.
+              Stuur foto’s mee voor een snelle beoordeling.
             </p>
-            ${Button({
-              href: '/contact.html?type=Metaal%20aanbieden',
-              label: 'Metaal aanbieden',
-              variant: 'primary',
-              size: 'md',
-            })}
+            <a class="text-link" href="/contact.html?type=Metaal%20aanbieden">
+              Metaal aanbieden ${icons.arrow}
+            </a>
           </div>
         </article>
 
         <article class="audience-panel audience-panel--business reveal" id="zakelijk">
           <div class="audience-panel__inner">
             <p class="audience-panel__label">Zakelijk</p>
-            <h2 class="audience-panel__title">Terugkerende metaalstromen?</h2>
+            <h2 class="audience-panel__title">Terugkerende stromen?</h2>
             <p>
-              Voor bedrijven verwerken we onder andere machines, kabelpartijen,
-              productieresten en industriële installaties.
+              Voor bedrijven met metaalpartijen, productieresten
+              of demontageprojecten.
             </p>
-            <ul class="audience-panel__list">
-              <li>${icons.check}<span>Terugkerende partijen</span></li>
-              <li>${icons.check}<span>Productieresten</span></li>
-              <li>${icons.check}<span>Demontageprojecten</span></li>
-            </ul>
-            ${Button({
-              href: '/contact.html?type=Recycling',
-              label: 'Zakelijke aanvraag',
-              variant: 'secondary',
-              size: 'md',
-            })}
+            <a class="text-link text-link--on-dark" href="/contact.html?type=Recycling">
+              Zakelijk contact ${icons.arrow}
+            </a>
           </div>
         </article>
       </div>

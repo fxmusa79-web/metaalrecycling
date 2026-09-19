@@ -1,5 +1,5 @@
 import { processCategories } from '../config/content.js'
-import { Button } from './ui.js'
+import { icons } from './icons.js'
 
 export function ProcessCategories() {
   const cats = processCategories.filter((c) => c.id !== 'overig')
@@ -13,12 +13,9 @@ export function ProcessCategories() {
             Van losse metalen tot machines, kabels en zware installaties.
             De voorbeelden hieronder zijn ter illustratie — geen volledige lijst.
           </p>
-          ${Button({
-            href: '/materialen.html',
-            label: 'Bekijk materialen',
-            variant: 'secondary',
-            size: 'md',
-          })}
+          <a class="text-link" href="/materialen.html">
+            Materialen ${icons.arrow}
+          </a>
         </div>
 
         <div class="material-matrix__grid">
@@ -42,15 +39,12 @@ export function ProcessCategories() {
       <div class="material-matrix__band">
         <div class="container material-matrix__band-inner">
           <div>
-            <h3>Ander materiaal of object?</h3>
+            <h3>Ander materiaal?</h3>
             <p>Neem contact op voor een beoordeling.</p>
           </div>
-          ${Button({
-            href: '/contact.html?type=Ander%20verzoek',
-            label: 'Stuur uw verzoek',
-            variant: 'primary',
-            size: 'md',
-          })}
+          <a class="text-link" href="/contact.html?type=Ander%20verzoek">
+            Contact ${icons.arrow}
+          </a>
         </div>
       </div>
     </section>

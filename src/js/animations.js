@@ -208,10 +208,10 @@ export function initAnimations() {
     )
   })
 
-  // Project / work cards — short stagger (visible by default for no-JS / late triggers)
-  const workGrid = document.querySelector('.work-practice__grid')
+  // Project / work panels — short stagger (visible by default for no-JS / late triggers)
+  const workGrid = document.querySelector('.work-practice__mosaic')
   if (workGrid) {
-    gsap.from(workGrid.querySelectorAll('.work-card'), {
+    gsap.from(workGrid.querySelectorAll('.work-panel'), {
       opacity: 0,
       y: 18,
       duration: 0.55,

@@ -1,55 +1,43 @@
 import { workPracticeCards, workImages } from '../config/media.js'
 
-function projectCard(card) {
+function projectPanel(card) {
   const img = workImages[card.image]
-  const featured = card.featured ? ' work-card--featured' : ''
-  const orientation = img.orientation ? ` work-card--${img.orientation}` : ''
-  const aspect = img.cardAspect || '4 / 3'
+  const pos = img.position || 'center center'
+  const posMobile = img.positionMobile || pos
 
   return `
-    <a
-      class="work-card${featured}${orientation}"
-      href="${card.href}"
-      data-work-card
-      data-image="${card.image}"
-    >
+    <a class="work-panel" href="${card.href}" data-work-card data-image="${card.image}">
       <div
-        class="work-card__media"
-        style="--work-pos: ${img.position}; --work-card-aspect: ${aspect}"
+        class="work-panel__media"
+        style="--work-pos:${pos}; --work-pos-m:${posMobile}"
       >
         <img
-          class="work-card__img"
+          class="work-panel__img"
           src="${img.src}"
           alt="${img.alt}"
           width="${img.width}"
           height="${img.height}"
           loading="lazy"
           decoding="async"
-          sizes="${card.featured ? '(max-width: 900px) 100vw, 55vw' : '(max-width: 900px) 100vw, 28vw'}"
+          sizes="(max-width: 699px) 100vw, (max-width: 1023px) 50vw, 25vw"
         />
-        <span class="work-card__shade" aria-hidden="true"></span>
-        <span class="work-card__caption">${card.title}</span>
+        <span class="work-panel__veil" aria-hidden="true"></span>
+        <span class="work-panel__label">${card.title}</span>
       </div>
     </a>
   `
 }
 
 export function WorkPractice() {
-  const featured = workPracticeCards.find((c) => c.featured)
-  const rest = workPracticeCards.filter((c) => !c.featured)
-
   return `
     <section class="section work-practice" id="ons-werk">
       <div class="container">
         <div class="work-practice__intro">
           <h2>Werk in de praktijk</h2>
-          <p>Een aantal voorbeelden van materialen en werkzaamheden die wij verwerken.</p>
+          <p>Enkele voorbeelden van recente werkzaamheden.</p>
         </div>
-        <div class="work-practice__grid">
-          ${featured ? projectCard(featured) : ''}
-          <div class="work-practice__side">
-            ${rest.map(projectCard).join('')}
-          </div>
+        <div class="work-practice__mosaic">
+          ${workPracticeCards.map(projectPanel).join('')}
         </div>
       </div>
     </section>

@@ -1,7 +1,6 @@
 import './../style.css'
 import { mountPage } from '../js/page.js'
-import { CTASection } from '../components/contact.js'
-import { Button } from '../components/ui.js'
+import { icons } from '../components/icons.js'
 import { PageHero, BandCta } from '../components/page-sections.js'
 import { WorkPhoto } from '../components/media.js'
 
@@ -14,13 +13,12 @@ const values = [
 ]
 
 const services = [
-  'Metaal inkoop',
-  'Demontage',
-  'Recycling',
-  'Machines',
-  'Kabels',
-  'Transformatoren',
-  'Brand- en snijwerk',
+  { label: 'Metaal inkoop', href: '/metaal-inkoop.html' },
+  { label: 'Recycling', href: '/recycling.html' },
+  { label: 'Demontage', href: '/demontage.html' },
+  { label: 'Brand- en snijwerk', href: '/demontage.html#brand-snijwerk' },
+  { label: 'Kabels & transformatoren', href: '/materialen.html' },
+  { label: 'Machines', href: '/demontage.html' },
 ]
 
 mountPage({
@@ -31,11 +29,11 @@ mountPage({
   content: `
     ${PageHero({
       label: 'Over ons',
-      title: 'Praktisch in metaal recycling en demontage',
-      text: 'Duurzaam Metaal Recycling richt zich op metaal inkoop, recycling, demontage en het scheiden van waardevolle materialen.',
+      title: 'Praktisch in metaal recycling',
+      text: 'Metaal inkoop, recycling, demontage en het scheiden van waardevolle materialen voor particulieren en bedrijven.',
       primaryCta: {
         href: '/contact.html',
-        label: 'Neem contact op',
+        label: 'Contact',
       },
     })}
 
@@ -44,14 +42,17 @@ mountPage({
         <div class="editorial-split__copy">
           <h2>Wie wij zijn</h2>
           <p>
-            Wij kopen metalen in, demonteren machines en installaties, en scheiden materialen
-            voor verdere recycling. Particulieren en bedrijven kunnen contact opnemen voor
-            een beoordeling — ook als het materiaal of object niet letterlijk op de website staat.
+            Wij kopen metalen in, demonteren machines en installaties,
+            en scheiden materialen voor recycling. Ook als uw object
+            niet letterlijk op de website staat.
           </p>
           <p>
-            Vanuit Foxhol werken we voor opdrachten in de regio en daarbuiten,
-            afhankelijk van de situatie.
+            Vanuit Foxhol werken we in de regio en daarbuiten,
+            afhankelijk van de opdracht.
           </p>
+          <a class="text-link" href="/werkgebied.html">
+            Werkgebied ${icons.arrow}
+          </a>
         </div>
         <div class="editorial-split__media">
           ${WorkPhoto({
@@ -76,20 +77,23 @@ mountPage({
       <div class="container about-services__inner">
         <h2>Wat we doen</h2>
         <ul class="about-services__list">
-          ${services.map((item) => `<li>${item}</li>`).join('')}
+          ${services
+            .map(
+              (item) =>
+                `<li><a href="${item.href}">${item.label}</a></li>`
+            )
+            .join('')}
         </ul>
       </div>
     </section>
 
     ${BandCta({
       title: 'Een aanvraag bespreken?',
-      text: 'Stuur foto’s en een korte omschrijving.',
+      text: 'Stuur een korte omschrijving en eventueel foto’s.',
       primaryCta: {
         href: '/contact.html',
-        label: 'Neem contact op',
+        label: 'Contact',
       },
     })}
-
-    ${CTASection()}
   `,
 })

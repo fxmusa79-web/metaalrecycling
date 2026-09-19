@@ -1,13 +1,14 @@
 import './../style.css'
 import { mountPage } from '../js/page.js'
 import { materialGroups } from '../config/content.js'
-import { Button } from '../components/ui.js'
-import { CTASection } from '../components/contact.js'
 import { PageHero, BandCta } from '../components/page-sections.js'
 import { WorkPhoto } from '../components/media.js'
+import { subpageHeroes } from '../config/media.js'
+
+const heroBg = subpageHeroes.materialen
 
 const featured = {
-  kabels: 'kabel',
+  kabels: 'kabelPremium',
   trafos: 'transformator',
   machines: 'windmolenRing',
 }
@@ -22,15 +23,18 @@ mountPage({
   pageId: 'materialen',
   title: 'Materialen & Recycling | Duurzaam Metaal Recycling',
   description:
-    'Overzicht van metalen, kabels, machines, transformatoren en constructies. Staat uw materiaal er niet tussen? Neem contact op.',
+    'Wat kunnen wij verwerken? Overzicht van metalen, kabels, machines, transformatoren en constructies. Staat uw materiaal er niet tussen? Neem contact op.',
   content: `
     ${PageHero({
       label: 'Materialen',
-      title: 'Materialen &amp; objecten',
-      text: 'Wij verwerken veel verschillende metaalsoorten, onderdelen en objecten. De voorbeelden hieronder zijn niet volledig.',
+      title: 'Wat kunnen wij verwerken?',
+      text: 'Van losse metalen tot kabels, machines, transformatoren en constructies. De voorbeelden hieronder zijn ter illustratie — geen volledige lijst.',
+      backgroundImage: heroBg.src,
+      backgroundPosition: heroBg.position,
+      backgroundPositionMobile: heroBg.positionMobile,
       primaryCta: {
         href: '/contact.html?type=Ander%20verzoek',
-        label: 'Stuur uw verzoek',
+        label: 'Contact',
       },
     })}
 
@@ -80,14 +84,12 @@ mountPage({
 
     ${BandCta({
       title: 'Staat uw materiaal er niet tussen?',
-      text: 'Wij beoordelen ook andere recycling-, demontage- en afvoerverzoeken.',
+      text: 'Wij beoordelen ook andere recycling- en demontageverzoeken.',
       primaryCta: {
         href: '/contact.html?type=Ander%20verzoek',
-        label: 'Stuur uw verzoek',
+        label: 'Contact',
       },
     })}
-
-    ${CTASection()}
   `,
 })
 

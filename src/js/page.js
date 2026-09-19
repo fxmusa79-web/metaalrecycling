@@ -8,6 +8,7 @@ import { initAnimations } from './animations.js'
 
 export function mountPage({ pageId, title, description, content }) {
   document.title = title
+  document.body.classList.add('page-sub', `page-${pageId}`)
 
   let desc = document.querySelector('meta[name="description"]')
   if (!desc) {

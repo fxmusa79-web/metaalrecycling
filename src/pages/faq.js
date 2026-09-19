@@ -1,7 +1,6 @@
 import './../style.css'
 import { mountPage } from '../js/page.js'
 import { FaqFull } from '../components/faq.js'
-import { CTASection } from '../components/contact.js'
 
 mountPage({
   pageId: 'faq',
@@ -10,6 +9,5 @@ mountPage({
     'Antwoorden over metaal inkoop, recycling, demontage, kabels, transformatoren, ophalen en foto’s sturen.',
   content: `
     ${FaqFull()}
-    ${CTASection()}
   `,
 })
