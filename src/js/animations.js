@@ -236,6 +236,10 @@ function initRecycleMotifs() {
   const motifs = gsap.utils.toArray('[data-recycle-motif]')
   if (!motifs.length) return
 
+  const canScrub = () =>
+    window.matchMedia('(min-width: 900px)').matches &&
+    !window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
   motifs.forEach((motif) => {
     const section = motif.closest('section') || motif.parentElement
     gsap.set(motif, { opacity: 0, y: 28, scale: 0.98 })
@@ -264,15 +268,18 @@ function initRecycleMotifs() {
       },
     })
 
-    gsap.to(motif, {
-      y: -24,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: section,
-        start: 'top bottom',
-        end: 'bottom top',
-        scrub: 0.6,
-      },
-    })
+    // Parallax scrub only on desktop — avoids extra scroll-linked work on iOS
+    if (canScrub()) {
+      gsap.to(motif, {
+        y: -24,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: section,
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: 0.6,
+        },
+      })
+    }
   })
 }

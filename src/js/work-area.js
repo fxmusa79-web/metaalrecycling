@@ -80,7 +80,7 @@ export function initWorkArea() {
     const location = String(input?.value || '').trim()
     if (!location) {
       showError('Vul een plaats of postcode in.')
-      input?.focus()
+      input?.focus({ preventScroll: true })
       return
     }
 

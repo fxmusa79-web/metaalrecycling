@@ -207,7 +207,7 @@ export function initRequestSelector() {
                 : '[name="soort_materiaal"]'
       )
       if (requiredish && !String(requiredish.value || '').trim()) {
-        requiredish.focus()
+        requiredish.focus({ preventScroll: true })
         showError('Vul de belangrijkste gegevens in om verder te gaan.')
         return
       }

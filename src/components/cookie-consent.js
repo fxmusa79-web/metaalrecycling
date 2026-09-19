@@ -142,7 +142,7 @@ export function initCookieConsent() {
     show(overlay)
     show(panel)
     syncToggles()
-    panel.querySelector('[data-cookie-save]')?.focus()
+    panel.querySelector('[data-cookie-save]')?.focus({ preventScroll: true })
   }
 
   const closeSettings = ({ restoreBanner = false } = {}) => {

@@ -140,7 +140,7 @@ export function initContactForm() {
         if (formSuccess) {
           formSuccess.hidden = false
           formSuccess.innerHTML = `<strong>${SUCCESS_TITLE}</strong><span>${SUCCESS_TEXT}</span>`
-          formSuccess.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+          formSuccess.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' })
         }
         form.querySelectorAll('input, textarea, select, button').forEach((el) => {
           if (el === submitBtn) return

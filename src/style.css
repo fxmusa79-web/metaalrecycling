@@ -51,6 +51,8 @@
 
 html {
   scroll-behavior: smooth;
+  /* Reduce iOS scroll anchoring fights when fixed UI toggles */
+  overflow-anchor: none;
 }
 
 html.menu-open,
@@ -3908,7 +3910,16 @@ p {
 }
 
 body.has-sticky-bar {
-  padding-bottom: calc(4.75rem + env(safe-area-inset-bottom, 0px));
+  /* Intentionally empty for document flow.
+     Mobile bottom inset is reserved permanently (see max-width 900 rule)
+     so toggling the sticky bar cannot change document height on iOS. */
+}
+
+@media (max-width: 900px) {
+  /* Permanent reserve for sticky bar + safe area — no mid-scroll reflow */
+  body {
+    padding-bottom: calc(4.75rem + env(safe-area-inset-bottom, 0px));
+  }
 }
 
 /* Site-wide WhatsApp floating contact */
@@ -7110,6 +7121,8 @@ body.has-sticky-bar {
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
     mask-image: linear-gradient(90deg, #000 0%, #000 86%, transparent 100%);
+    position: relative;
+    overscroll-behavior-x: contain;
   }
 
   .benefits__list::-webkit-scrollbar {
