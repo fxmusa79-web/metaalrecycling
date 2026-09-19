@@ -23,18 +23,18 @@ export function Services() {
 
   return `
     <section class="section section--dark services-editorial" id="diensten">
-      <div class="container services-editorial__layout">
-        <div class="service-feature__media">
-          ${WorkPhoto({
-            imageKey: 'windmolenRing',
-            className: 'service-feature__photo',
-            sizes: '(max-width: 899px) 100vw, 56vw',
-            aspect: '4 / 3',
-            priority: true,
-          })}
-        </div>
+      <div class="container">
+        <div class="services-editorial__showcase">
+          <div class="service-feature__media">
+            ${WorkPhoto({
+              imageKey: 'windmolenRing',
+              className: 'service-feature__photo',
+              sizes: '(max-width: 899px) 100vw, 56vw',
+              aspect: '4 / 3',
+              priority: true,
+            })}
+          </div>
 
-        <div class="services-editorial__content">
           <div class="service-feature__body">
             <p class="service-feature__label">${featured.label}</p>
             <h2>${featured.title}</h2>
@@ -44,29 +44,29 @@ export function Services() {
               ${featured.cta} ${icons.arrow}
             </a>
           </div>
+        </div>
 
-          <div class="service-list">
-            <h3 class="service-list__heading">Onze hoofddiensten</h3>
-            <ul class="service-list__items">
-              ${list
-                .map(
-                  (item) => `
-                <li class="service-row">
-                  <span class="service-row__icon">${icons[item.icon]}</span>
-                  <div class="service-row__copy">
-                    <h4><a href="${item.href}">${item.title}</a></h4>
-                    <p>${item.text}</p>
-                  </div>
-                </li>`
-                )
-                .join('')}
-            </ul>
-            <p class="service-list__note">
-              <a class="text-link text-link--on-dark" href="/materialen.html">
-                Materialen &amp; objecten ${icons.arrow}
-              </a>
-            </p>
-          </div>
+        <div class="service-list">
+          <h3 class="service-list__heading">Onze hoofddiensten</h3>
+          <ul class="service-list__items">
+            ${list
+              .map(
+                (item) => `
+              <li class="service-row">
+                <span class="service-row__icon">${icons[item.icon]}</span>
+                <div class="service-row__copy">
+                  <h4><a href="${item.href}">${item.title}</a></h4>
+                  <p>${item.text}</p>
+                </div>
+              </li>`
+              )
+              .join('')}
+          </ul>
+          <p class="service-list__note">
+            <a class="text-link text-link--on-dark" href="/materialen.html">
+              Materialen &amp; objecten ${icons.arrow}
+            </a>
+          </p>
         </div>
       </div>
     </section>
