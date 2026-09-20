@@ -38,20 +38,23 @@ npm run preview
 
 This repo pins Node 22 via:
 
-- `.nvmrc` → `22`
-- `.node-version` → `22`
+- `.nvmrc` → `22` (project root)
+- `.node-version` → `22` (project root)
 - `package.json` `engines.node` → `>=22.0.0`
 
-Cloudflare Workers Builds reads `.nvmrc` / `.node-version` automatically.
+Project root must contain `package.json`, `.nvmrc`, `.node-version`, and `wrangler.toml` together (this repo does).
 
-Optional dashboard override (only if a build still shows Node 20):
+**Required Cloudflare dashboard setting** (overrides file detection when set):
 
-1. Open the **metaalrecycling** Worker in Cloudflare
+1. Open Worker **metaalrecycling**
 2. **Settings → Build → Build variables and secrets**
-3. Add `NODE_VERSION` = `22`
-4. Trigger a new deployment
+3. Set `NODE_VERSION` = `22`
+4. If `NODE_VERSION` is currently `20` / `20.x`, change or delete it — dashboard values override `.nvmrc`
+5. Trigger a new deployment
 
-Do **not** set `.nvmrc` back to `20` — Wrangler will fail deploy.
+Without `NODE_VERSION=22` in the dashboard, Cloudflare may keep detecting `nodejs@20.20.2` even when `.nvmrc` says `22`.
+
+Do **not** set `.nvmrc` back to `20` — Wrangler 4.135+ requires Node ≥ 22.
 ## Production deploy (Cloudflare Workers)
 
 This project deploys as **one Worker** with:
