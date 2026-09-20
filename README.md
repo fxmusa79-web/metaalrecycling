@@ -8,6 +8,8 @@ Industrial metal recycling website for **Duurzaam Metaal Recycling** (Foxhol).
 
 ## Local development
 
+Requires **Node.js 22+** (Wrangler 4.135+ requires Node ≥ 22).
+
 ```bash
 npm install
 npm run dev
@@ -32,6 +34,24 @@ npm run preview
 
 (`preview` also proxies `/api` to the Worker on port 8787.)
 
+### Cloudflare Workers Builds (Node runtime)
+
+This repo pins Node 22 via:
+
+- `.nvmrc` → `22`
+- `.node-version` → `22`
+- `package.json` `engines.node` → `>=22.0.0`
+
+Cloudflare Workers Builds reads `.nvmrc` / `.node-version` automatically.
+
+Optional dashboard override (only if a build still shows Node 20):
+
+1. Open the **metaalrecycling** Worker in Cloudflare
+2. **Settings → Build → Build variables and secrets**
+3. Add `NODE_VERSION` = `22`
+4. Trigger a new deployment
+
+Do **not** set `.nvmrc` back to `20` — Wrangler will fail deploy.
 ## Production deploy (Cloudflare Workers)
 
 This project deploys as **one Worker** with:
