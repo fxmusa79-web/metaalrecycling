@@ -88,13 +88,32 @@ export function Footer() {
 
       <div class="site-footer__bottom">
         <div class="container site-footer__bottom-inner">
-          <p>© ${year} DuurzaamMetaalRecycling.nl</p>
-          <ul class="site-footer__legal">
-            <li><a href="/contact.html">Privacybeleid</a></li>
-            <li><a href="#" data-open-cookie-settings>Cookie-instellingen</a></li>
-            <li><a href="/contact.html">Algemene voorwaarden</a></li>
-            <li><a href="/contact.html">Disclaimer</a></li>
-          </ul>
+          <div class="site-footer__bottom-meta">
+            <p>© ${year} DuurzaamMetaalRecycling.nl</p>
+            <ul class="site-footer__legal">
+              <li><a href="/contact.html">Privacybeleid</a></li>
+              <li><a href="#" data-open-cookie-settings>Cookie-instellingen</a></li>
+              <li><a href="/contact.html">Algemene voorwaarden</a></li>
+              <li><a href="/contact.html">Disclaimer</a></li>
+            </ul>
+          </div>
+          <a
+            class="footer-credit"
+            href="https://tinsightsagency.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Website ontwikkeld door TINSIGHTS"
+          >
+            <img
+              class="footer-credit__img"
+              src="/images/tinsights_watermark.png"
+              alt="Built by TINSIGHTS"
+              width="2172"
+              height="724"
+              loading="lazy"
+              decoding="async"
+            />
+          </a>
         </div>
       </div>
     </footer>
