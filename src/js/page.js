@@ -1,6 +1,7 @@
 import { TopBar, Navbar } from '../components/header.js'
 import { Footer, StickyContactBar, WhatsAppFloat } from '../components/footer.js'
 import { CookieConsentMarkup, initCookieConsent } from '../components/cookie-consent.js'
+import { PaymentNoticeMarkup, initPaymentNotice } from '../components/payment-notice.js'
 import { site, applyHeaderLogoVariant } from '../config/site.js'
 import { initNavigation } from './navigation.js'
 import { initStickyBar } from './sticky-bar.js'
@@ -77,6 +78,7 @@ export function mountPage({ pageId, title, description, content }) {
     ${StickyContactBar()}
     ${WhatsAppFloat()}
     ${CookieConsentMarkup()}
+    ${PaymentNoticeMarkup()}
   `
 
   const existing = document.getElementById('local-business-schema')
@@ -110,5 +112,6 @@ export function mountPage({ pageId, title, description, content }) {
   initFaq()
   initWorkArea()
   initCookieConsent()
+  initPaymentNotice()
   initAnimations()
 }

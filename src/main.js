@@ -2,6 +2,7 @@ import './style.css'
 import { TopBar, Navbar } from './components/header.js'
 import { Footer, StickyContactBar, WhatsAppFloat } from './components/footer.js'
 import { CookieConsentMarkup, initCookieConsent } from './components/cookie-consent.js'
+import { PaymentNoticeMarkup, initPaymentNotice } from './components/payment-notice.js'
 import { Hero } from './components/hero.js'
 import { Benefits } from './components/benefits.js'
 import { ProcessCategories } from './components/process-categories.js'
@@ -58,6 +59,7 @@ document.querySelector('#app').innerHTML = `
   ${StickyContactBar()}
   ${WhatsAppFloat()}
   ${CookieConsentMarkup()}
+  ${PaymentNoticeMarkup()}
 `
 
 const schema = document.createElement('script')
@@ -93,4 +95,5 @@ initRequestSelector()
 initUspRail()
 initProcessCycle()
 initCookieConsent()
+initPaymentNotice()
 initAnimations()
