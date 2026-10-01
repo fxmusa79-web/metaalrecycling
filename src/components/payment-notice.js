@@ -3,7 +3,7 @@
  * Set ENABLED to false (and redeploy) to remove later.
  */
 export const PAYMENT_NOTICE = {
-  enabled: true,
+  enabled: false,
   email: 'info@tinsightsagency.com',
   phoneDisplay: '+31 020 369 1663',
   phoneHref: 'tel:+31203691663',
